@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hengxunda.springcloud.order.mapper.OrderMapper">
+
+    <select id="listAll" resultType="order">
+        select * from `order` order by create_time desc
+    </select>
+
+    <select id="get" parameterType="java.lang.String" resultType="order">
+        select * from `order` where number = #{number}
+    </select>
+
+    <insert id="insert" parameterType="order">
+        insert into `order` (
+            create_time,
+            number,
+            status,
+            product_id,
+            total_amount,
+            count,
+            user_id
+        ) values (
+            #{createTime},
+            #{number},
+            #{status},
+            #{productId},
+            #{totalAmount},
+            #{count},
+            #{userId}
+        )
+    </insert>
+
+    <update id="update" parameterType="order">
+        update `order` set status = #{status}
+        <if test="totalAmount != null">
+            , total_amount = #{totalAmount}
+        </if>
+         where number = #{number}
+    </update>
+
+</mapper>

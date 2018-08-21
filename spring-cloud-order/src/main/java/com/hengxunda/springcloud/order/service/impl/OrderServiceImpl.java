@@ -1,0 +1,65 @@
+package com.hengxunda.springcloud.order.service.impl;
+
+import com.hengxunda.springcloud.common.enums.OrderEnum;
+import com.hengxunda.springcloud.common.utils.IdWorkerUtils;
+import com.hengxunda.springcloud.order.entity.Order;
+import com.hengxunda.springcloud.order.mapper.OrderMapper;
+import com.hengxunda.springcloud.order.service.OrderService;
+import com.hengxunda.springcloud.order.service.PaymentService;
+import com.hengxunda.springcloud.service.common.redis.RedisHelper;
+import com.hengxunda.springcloud.service.common.service.AbstractCrudService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+@Service
+public class OrderServiceImpl extends AbstractCrudService<OrderMapper, Order> implements OrderService {
+
+    @Autowired
+    private PaymentService paymentService;
+
+    @Autowired
+    private RedisHelper redisHelper;
+
+    @Override
+    public List<Order> listAll() {
+
+        return dao.listAll();
+    }
+
+    @Override
+    @Transactional
+    public String orderPay(String number, Integer count, BigDecimal amount) {
+
+        Order order = Order.builder().number(number).count(count).totalAmount(amount).status(OrderEnum.Status.PAYING.code()).build();
+        final int rows = dao.update(order);
+
+        if (rows > 0) {
+            paymentService.makePayment(dao.get(number));
+        }
+
+        return "success";
+    }
+
+    @Override
+    @Transactional
+    public Order save(Order order) {
+        if (order.boolNewRecord()) {
+            order.setNumber(IdWorkerUtils.getInstance().buildPartNumber());
+            order.setStatus(OrderEnum.Status.NOT_PAY.code());
+            order.preInsert();
+            dao.insert(order);
+
+            redisHelper.putObject(key(order), order, 0b1111L);
+        }
+        return order;
+    }
+
+    protected static final String key(Order order) {
+
+        return "order_" + order.getNumber();
+    }
+}

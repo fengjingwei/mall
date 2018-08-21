@@ -1,0 +1,76 @@
+package com.hengxunda.springcloud.account.interceptor;
+
+import com.hengxunda.springcloud.common.annotation.Authorization;
+import com.hengxunda.springcloud.common.persistence.AjaxResponse;
+import com.hengxunda.springcloud.common.security.jwt.AccountJWT;
+import com.hengxunda.springcloud.common.security.jwt.JwtUtils;
+import com.hengxunda.springcloud.common.utils.FastJsonUtils;
+import com.hengxunda.springcloud.common.utils.StringUtils;
+import org.apache.commons.codec.CharEncoding;
+import org.springframework.http.MediaType;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
+import java.lang.reflect.Method;
+import java.util.Objects;
+
+public class AuthInterceptor extends HandlerInterceptorAdapter {
+
+    private static final String AUTH_TOKEN = "authToken";
+
+    private static final String JWT_SESSION_KEY = "JWT-SESSION-KEY";
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        request.setCharacterEncoding(CharEncoding.UTF_8);
+        response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+        response.addHeader("Access-Control-Allow-Origin", "*"); // 允许跨域的url
+        response.addHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS"); // 允许的请求方法，一般是GET,POST,PUT,DELETE,OPTIONS
+        response.addHeader("Access-Control-Allow-Headers", "X-Requested-With,Content-Type,accept,Auth-Aliw"); // 允许跨域的请求头
+        response.addHeader("Access-Control-Max-Age", "3600");
+
+        if (handler instanceof HandlerMethod) {
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            Method method = handlerMethod.getMethod();
+            final Authorization annotation = method.getAnnotation(Authorization.class);
+            if (Objects.isNull(annotation) && Objects.isNull(handlerMethod.getBeanType().getAnnotation(Authorization.class))) {
+                return true;
+            }
+
+            String authToken = request.getHeader(AUTH_TOKEN);
+            if (StringUtils.isNotBlank(authToken)) {
+                try {
+                    AccountJWT accountJWT = JwtUtils.parseJWT(authToken);
+                    if (Objects.nonNull(accountJWT)) {
+                        request.setAttribute(JWT_SESSION_KEY, accountJWT);
+                        return true;
+                    }
+                } catch (Exception e) {
+                    response.getWriter().print(FastJsonUtils.toJSONString(AjaxResponse.error("Request token timeout.")));
+                    response.getWriter().close();
+                    return false;
+                }
+            } else {
+                response.getWriter().print(FastJsonUtils.toJSONString(AjaxResponse.error("Authorization Header There is no.")));
+                response.getWriter().close();
+                return false;
+            }
+        }
+
+        return super.preHandle(request, response, handler);
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        if (Objects.isNull(ex)) {
+            return;
+        }
+        Throwable throwable = ex.getCause() == null ? ex : ex.getCause();
+        PrintWriter out = response.getWriter();
+        out.print(FastJsonUtils.toJSONString(AjaxResponse.error(throwable.getMessage())));
+        out.close();
+    }
+}

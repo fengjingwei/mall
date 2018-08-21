@@ -1,0 +1,18 @@
+server:
+  port: 8885
+  servlet:
+    context-path: /nio-service
+  address: 0.0.0.0
+
+spring:
+  application:
+    name: nio-service
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+  instance:
+    ip-address: 127.0.0.1
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}

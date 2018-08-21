@@ -1,0 +1,31 @@
+server:
+  port: 8886
+  address: 0.0.0.0
+  servlet:
+    context-path: /gateway-service
+
+spring:
+  application:
+    name: gateway-service
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+  instance:
+    ip-address: 127.0.0.1
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+zuul:
+  ignoredServices: '*'
+  routes:
+    order-service:
+      path: /order/**
+      serviceId: order-service
+    account-service:
+      path: /account/**
+      serviceId: account-service
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
