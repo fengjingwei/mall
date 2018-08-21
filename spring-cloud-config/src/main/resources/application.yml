@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: spring-cloud-config
+    name: config-service
   cloud:
     config:
       server:
@@ -13,3 +13,11 @@ spring:
           username: 951159049@qq.com
           password: More201314
 
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+  instance:
+    ip-address: 127.0.0.1
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
