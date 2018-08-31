@@ -34,7 +34,7 @@ public interface OrderEnum {
         }
 
         public static Status acquire(int code) {
-            return Arrays.stream(Status.values()).filter(v -> v.code == code).findFirst().orElse(CANCEL);
+            return Arrays.stream(values()).filter(v -> v.code == code).findFirst().orElse(CANCEL);
         }
     }
 

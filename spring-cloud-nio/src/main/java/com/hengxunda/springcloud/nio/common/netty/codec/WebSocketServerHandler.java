@@ -59,7 +59,6 @@ public final class WebSocketServerHandler extends SimpleChannelInboundHandler<Ob
         String request = ((TextWebSocketFrame) frame).text();
         log.info("{} received {}", ctx.channel(), request);
         return request;
-
     }
 
     private void handleHttpRequest(ChannelHandlerContext ctx, FullHttpRequest req) {

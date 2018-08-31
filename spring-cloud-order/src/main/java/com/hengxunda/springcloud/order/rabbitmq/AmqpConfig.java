@@ -12,13 +12,6 @@ import org.springframework.context.annotation.Bean;
 public class AmqpConfig {
 
     /**
-     * 如果有多个消费者同时订阅同一个Queue中的消息,Queue中的消息会被平摊给多个消费者
-     * 如果每个消息的处理时间不同,就有可能会导致某些消费者一直在忙,而另外一些消费者很
-     * 快就处理完手头工作并一直空闲的情况
-     *
-     */
-
-    /**
      * 消费者数量,默认10
      */
     public static final int DEFAULT_CONCURRENT = 10;

@@ -16,10 +16,8 @@ public class InventoryDTO implements Serializable {
      */
     private String productId;
 
-
     /**
      * 数量
      */
     private Integer count;
-
 }

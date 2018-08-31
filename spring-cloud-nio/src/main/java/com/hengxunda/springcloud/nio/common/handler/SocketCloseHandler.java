@@ -65,7 +65,6 @@ public class SocketCloseHandler implements Handlebars {
                 log.error("发送房间内广播离场消息失败", e);
             }
         }
-
     }
 
 }

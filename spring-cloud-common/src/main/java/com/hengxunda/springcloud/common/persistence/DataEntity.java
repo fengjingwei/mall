@@ -22,7 +22,7 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
     public void preInsert() {
         LocalDateTime now = DateUtils.getLocalDateTime();
         this.createTime = now;
-        this.updateTime = now;
+        this.updateTime = this.createTime;
     }
 
     /**

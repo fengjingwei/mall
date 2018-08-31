@@ -35,7 +35,7 @@
         <if test="totalAmount != null">
             , total_amount = #{totalAmount}
         </if>
-         where number = #{number}
+        where number = #{number}
     </update>
 
 </mapper>

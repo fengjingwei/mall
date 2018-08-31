@@ -28,5 +28,4 @@ public class KeepAliveHandler extends AbstractBaseHandler<EmptyRequest> {
     protected Object doProcess(Channel channel, BaseMessage request, EmptyRequest requestBody) {
         return null;
     }
-
 }

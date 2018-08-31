@@ -10,5 +10,4 @@ public interface PaymentService {
      * @param order
      */
     void makePayment(Order order);
-
 }

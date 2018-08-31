@@ -5,5 +5,4 @@ import io.netty.channel.Channel;
 public interface HandlerListener {
 
     void notice(Channel channel);
-
 }

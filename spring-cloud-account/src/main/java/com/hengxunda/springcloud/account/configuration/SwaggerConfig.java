@@ -19,8 +19,8 @@ import java.time.LocalDate;
 
 import static com.google.common.collect.Lists.newArrayList;
 
-@SpringBootConfiguration
 @EnableSwagger2
+@SpringBootConfiguration
 public class SwaggerConfig {
 
     private static final String VERSION = "1.0.0";

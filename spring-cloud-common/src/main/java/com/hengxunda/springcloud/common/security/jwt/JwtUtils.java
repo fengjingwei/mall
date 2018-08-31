@@ -65,7 +65,7 @@ public abstract class JwtUtils {
     }
 
     public static void main(String[] args) {
-        AccountJWT accountJWT = AccountJWT.builder().phone("13692106991").email("1163706771@qq.com").build();
+        AccountJWT accountJWT = AccountJWT.builder().phone("18588257670").email("951159049@qq.com").build();
 
         String jwt = createSimpleJWT(FastJsonUtils.toJSONString(accountJWT), 3600000L);
 

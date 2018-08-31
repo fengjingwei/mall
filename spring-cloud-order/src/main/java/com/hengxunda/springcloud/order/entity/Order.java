@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Order extends DataEntity<Order> {
 
     /**
@@ -43,5 +43,4 @@ public class Order extends DataEntity<Order> {
      * 购买人
      */
     private String userId;
-
 }

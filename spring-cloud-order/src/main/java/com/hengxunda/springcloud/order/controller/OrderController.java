@@ -9,8 +9,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -25,9 +23,6 @@ public class OrderController {
 
     @Autowired
     private OrderProducer orderProducer;
-
-    @Autowired
-    private LoadBalancerClient loadBalancerClient;
 
     @ApiOperation(value = "获取所有的订单")
     @GetMapping("listAll")
@@ -58,12 +53,4 @@ public class OrderController {
         return AjaxResponse.success();
     }
 
-    @ApiOperation(value = "测试")
-    @GetMapping("test")
-    public AjaxResponse test() {
-        ServiceInstance serviceInstance = loadBalancerClient.choose("account-service");
-
-        System.out.println("serviceInstance = " + serviceInstance.toString());
-        return AjaxResponse.success();
-    }
 }

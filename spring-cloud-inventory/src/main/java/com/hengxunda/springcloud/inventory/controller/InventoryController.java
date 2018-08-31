@@ -24,5 +24,4 @@ public class InventoryController {
     public Integer findByProductId(@RequestParam("productId") String productId) {
         return inventoryService.findByProductId(productId).getTotalInventory();
     }
-
 }

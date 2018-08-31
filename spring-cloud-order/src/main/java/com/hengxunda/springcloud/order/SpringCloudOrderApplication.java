@@ -28,21 +28,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.concurrent.CountDownLatch;
 
-@SpringBootApplication
+@EnableHystrix
 @EnableEurekaClient
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = ("com.hengxunda.springcloud.order.client"))
-@MapperScan(basePackages = "com.hengxunda.springcloud.order.mapper")
-@ComponentScan(basePackages = "com.hengxunda.springcloud", excludeFilters = {@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = RibbonConfig.class)})
+@SpringBootApplication
 @EnableHystrixDashboard
-@EnableHystrix
+@MapperScan(basePackages = "com.hengxunda.springcloud.order.mapper")
+@EnableFeignClients(basePackages = ("com.hengxunda.springcloud.order.client"))
+@ComponentScan(basePackages = "com.hengxunda.springcloud", excludeFilters = {@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = RibbonConfig.class)})
 public class SpringCloudOrderApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringCloudOrderApplication.class, args);
     }
 
-    // 开启负载均衡客户端
     @Bean
     @LoadBalanced
     public static RestTemplate restTemplate() {
@@ -82,3 +81,5 @@ public class SpringCloudOrderApplication implements WebMvcConfigurer {
         return new ExpiredMessageListener(countDownLatch);
     }
 }
+
+

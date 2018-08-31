@@ -12,5 +12,4 @@ public final class WebSocketEncoder extends MessageToMessageEncoder<String> {
     protected void encode(ChannelHandlerContext ctx, String msg, List<Object> out) {
         out.add(new TextWebSocketFrame(msg));
     }
-
 }

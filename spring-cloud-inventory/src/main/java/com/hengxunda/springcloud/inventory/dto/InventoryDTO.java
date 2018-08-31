@@ -13,8 +13,7 @@ public class InventoryDTO implements Serializable {
      * 商品id
      */
     private String productId;
-
-
+    
     /**
      * 数量
      */
