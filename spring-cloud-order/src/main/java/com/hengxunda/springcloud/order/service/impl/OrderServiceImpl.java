@@ -32,9 +32,9 @@ public class OrderServiceImpl extends AbstractCrudService<OrderMapper, Order> im
 
     @Override
     @Transactional
-    public String orderPay(String number, Integer count, BigDecimal amount) {
+    public String orderPay(String number, BigDecimal amount) {
 
-        Order order = Order.builder().number(number).count(count).totalAmount(amount).status(OrderEnum.Status.PAYING.code()).build();
+        Order order = Order.builder().number(number).totalAmount(amount).status(OrderEnum.Status.PAYING.code()).build();
         final int rows = dao.update(order);
 
         if (rows > 0) {

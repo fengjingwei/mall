@@ -27,7 +27,7 @@ public class OrderConsumer {
 
         log.info("==============执行订单支付开始==============");
 
-        orderService.orderPay(order.getNumber(), order.getCount(), order.getTotalAmount());
+        orderService.orderPay(order.getNumber(), order.getTotalAmount());
 
         log.info("==============执行订单支付完成==============");
     }

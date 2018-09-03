@@ -43,10 +43,9 @@ public class OrderController {
     @ApiOperation(value = "订单支付并进行扣除账户余额，进行库存扣减")
     @PostMapping(value = "orderPay")
     public AjaxResponse orderPay(@RequestParam(value = "number") String number,
-                                 @RequestParam(value = "count") Integer count,
                                  @RequestParam(value = "amount") BigDecimal amount) {
 
-        Order order = Order.builder().number(number).count(count).totalAmount(amount).build();
+        Order order = Order.builder().number(number).totalAmount(amount).build();
 
         orderProducer.orderPay(order);
 
