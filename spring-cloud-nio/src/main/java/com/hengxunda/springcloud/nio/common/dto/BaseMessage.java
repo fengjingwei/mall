@@ -2,12 +2,17 @@ package com.hengxunda.springcloud.nio.common.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.hengxunda.springcloud.common.utils.DateUtils;
+import com.hengxunda.springcloud.common.utils.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import org.apache.http.HttpStatus;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import static com.hengxunda.springcloud.nio.common.dto.BaseMessage.StatusCodeEnum.OK;
+import static com.hengxunda.springcloud.nio.common.dto.BaseMessage.StatusCodeEnum.SERVER_ERROR;
 
 @Data
 public class BaseMessage implements Serializable {
@@ -60,9 +65,9 @@ public class BaseMessage implements Serializable {
 
     @Getter
     @AllArgsConstructor
-    public enum StatusCodeEnum {
+    public enum StatusCodeEnum implements HttpStatus {
 
-        OK(200, "正常"), BAD_REQUEST(400, "请求异常"), SERVER_ERROR(500, "服务器错误");
+        OK(SC_OK, "正常"), BAD_REQUEST(SC_BAD_REQUEST, "请求异常"), SERVER_ERROR(SC_INTERNAL_SERVER_ERROR, "服务器错误");
 
         private final int code;
 
@@ -70,19 +75,19 @@ public class BaseMessage implements Serializable {
     }
 
     public static BaseMessage getResponseException(BaseMessage request) {
-        return makeInstance(request, StatusCodeEnum.SERVER_ERROR);
+        return makeInstance(request, SERVER_ERROR);
     }
 
     public static BaseMessage getResponseOk(BaseMessage request) {
-        return makeInstance(request, StatusCodeEnum.OK);
+        return makeInstance(request, OK);
     }
 
     public static BaseMessage getNotification() {
         BaseMessage response = new BaseMessage();
         response.setTimestamp(DateUtils.now());
-        response.setMsgId("");
+        response.setMsgId(StringUtils.EMPTY);
         response.setMsgType(2);
-        response.setStatusCode(StatusCodeEnum.OK);
+        response.setStatusCode(OK);
         return response;
     }
 

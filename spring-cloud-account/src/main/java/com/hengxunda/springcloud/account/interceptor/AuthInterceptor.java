@@ -11,9 +11,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
@@ -31,6 +31,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         response.addHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS"); // 允许的请求方法，一般是GET,POST,PUT,DELETE,OPTIONS
         response.addHeader("Access-Control-Allow-Headers", "X-Requested-With,Content-Type,accept,Auth-Aliw"); // 允许跨域的请求头
         response.addHeader("Access-Control-Max-Age", "3600");
+        ServletOutputStream out = response.getOutputStream();
 
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
@@ -49,13 +50,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                         return true;
                     }
                 } catch (Exception e) {
-                    response.getWriter().print(FastJsonUtils.toJSONString(AjaxResponse.error("Request token timeout.")));
-                    response.getWriter().close();
+                    out.print(FastJsonUtils.toJSONString(AjaxResponse.error("Request token timeout.")));
+                    out.close();
                     return false;
                 }
             } else {
-                response.getWriter().print(FastJsonUtils.toJSONString(AjaxResponse.error("Authorization Header There is no.")));
-                response.getWriter().close();
+                out.print(FastJsonUtils.toJSONString(AjaxResponse.error("Authorization Header There is no.")));
+                out.close();
                 return false;
             }
         }
@@ -69,7 +70,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             return;
         }
         Throwable throwable = ex.getCause() == null ? ex : ex.getCause();
-        PrintWriter out = response.getWriter();
+        ServletOutputStream out = response.getOutputStream();
         out.print(FastJsonUtils.toJSONString(AjaxResponse.error(throwable.getMessage())));
         out.close();
     }

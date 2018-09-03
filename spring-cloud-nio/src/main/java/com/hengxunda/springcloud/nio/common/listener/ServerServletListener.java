@@ -25,6 +25,8 @@ public class ServerServletListener implements ServletContextListener {
 
     private Channel serverChannel;
 
+    private static int inetPort = 843;
+
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         try {
@@ -42,11 +44,11 @@ public class ServerServletListener implements ServletContextListener {
                                     ch.pipeline().addLast(new PolicyHandler());
                                 }
                             });
-                    serverChannel = b.bind(843).sync().channel();
-                    log.info("开启843端口成功");
+                    serverChannel = b.bind(inetPort).sync().channel();
+                    log.info("开启{}端口成功", inetPort);
                     serverChannel.closeFuture().sync();
                 } catch (Exception e) {
-                    log.error("开启843端口失败", e);
+                    log.error("开启{}端口失败", inetPort, e);
                 } finally {
                     bossGroup.shutdownGracefully();
                 }

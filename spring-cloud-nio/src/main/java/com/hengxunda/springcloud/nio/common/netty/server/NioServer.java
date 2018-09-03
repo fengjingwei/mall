@@ -14,8 +14,9 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @NoArgsConstructor
@@ -29,7 +30,7 @@ public class NioServer {
 
     private Channel serverChannel;
 
-    private static final List<Integer> ports = Arrays.asList(9081, 110);
+    private static List<Integer> ports;
 
     public void run() {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -48,8 +49,8 @@ public class NioServer {
                         }
                     });
 
-            for (Integer integer : ports) {
-                serverChannel = b.bind(integer).sync().channel();
+            for (Integer port : ports) {
+                serverChannel = b.bind(port).sync().channel();
             }
             log.info("服务端开启,等待客户端连接...");
             log.info("Listener on port : {}", ports);
@@ -66,8 +67,8 @@ public class NioServer {
         serverChannel.close();
     }
 
-    private void initPorts() {
-
+    private static void initPorts() {
+        ports = Stream.of(9081, 110).collect(Collectors.toList());
     }
 
 }

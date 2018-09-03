@@ -33,7 +33,7 @@ public interface OrderEnum {
             return msg;
         }
 
-        public static Status acquire(int code) {
+        public static Status acquireByCode(int code) {
             return Arrays.stream(values()).filter(v -> v.code == code).findFirst().orElse(CANCEL);
         }
     }
