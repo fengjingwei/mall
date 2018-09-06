@@ -13,9 +13,9 @@ public abstract class BaiduCloud {
 
     public static final LssClient lssClient;
 
-    private static final String accessKeyId = "your accessKeyId";
+    private static final String accessKeyId = "e53a45c491584eb29e41475ea3f9d29a";
 
-    private static final String secretKey = "your secretKey";
+    private static final String secretKey = "e24a87a9c2d24e009f2b280cf70ea89f";
 
     private static final BceCredentials baiduConfig = new DefaultBceCredentials(accessKeyId, secretKey);
 

@@ -22,7 +22,6 @@ public abstract class FastJsonUtils {
         config = new SerializeConfig();
         //config.put(java.util.Date.class, new JSONLibDataFormatSerializer()); // 使用和json-lib兼容的日期输出格式
         //config.put(java.sql.Date.class, new JSONLibDataFormatSerializer()); // 使用和json-lib兼容的日期输出格式
-        //config.put(java.time.LocalDateTime.class, new JSONLibDataFormatSerializer()); // 使用和json-lib兼容的日期输出格式
     }
 
     public static <T> T parseObject(String text, Class<T> type) {
