@@ -20,7 +20,7 @@ public class AccountServiceImpl extends AbstractCrudService<AccountMapper, Accou
         final AccountDO accountDO = dao.findByUserId(accountDTO.getUserId());
         accountDO.setBalance(accountDO.getBalance().subtract(accountDTO.getAmount()));
         accountDO.setFreezeAmount(accountDO.getFreezeAmount().add(accountDTO.getAmount()));
-        accountDO.setUpdateTime(DateUtils.getLocalDateTime());
+        accountDO.setUpdateTime(DateUtils.now());
         final int update = dao.update(accountDO);
         if (update != 1) {
             throw new ServiceException("资金不足!");
