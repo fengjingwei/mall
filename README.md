@@ -1,5 +1,5 @@
 # mall
-# 采用消息队列解决高并发下单框架, 基于Java语言来开发（JDK1.8） #
+# 采用消息队列解决高并发下单案例, 基于Java语言来开发（JDK1.8） #
 
 ## Features ##
 1. 采用微服务框架spring boot，spring cloud，消息队列rabbitmq搭建解决高并发下单的案例.
