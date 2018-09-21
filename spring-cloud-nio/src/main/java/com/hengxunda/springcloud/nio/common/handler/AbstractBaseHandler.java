@@ -65,6 +65,14 @@ public abstract class AbstractBaseHandler<R> implements Handlebars {
 
     }
 
+    protected final void sendToUser(Channel channel, BaseMessage message) {
+        try {
+            channel.writeAndFlush(message);
+        } catch (Exception e) {
+
+        }
+    }
+
     protected final void sendToRoom(Channel channel, BaseMessage message) {
         RoomChannelContainer.getGroupByRoom(channel).writeAndFlush(message);
     }

@@ -16,9 +16,9 @@ public class PrivateChatRequest implements Serializable {
 
     private String content;
 
-    private String senderId;
+    private Long senderId;
 
-    private String receivedId;
+    private Long receivedId;
 
     private Date createTime;
 }

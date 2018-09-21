@@ -16,7 +16,7 @@ public class GroupChatRequest implements Serializable {
 
     private String content;
 
-    private String senderId;
+    private Long senderId;
 
     private Date createTime;
 }

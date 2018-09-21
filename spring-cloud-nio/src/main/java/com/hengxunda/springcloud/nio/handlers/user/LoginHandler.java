@@ -1,6 +1,7 @@
 package com.hengxunda.springcloud.nio.handlers.user;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.hengxunda.springcloud.common.security.jwt.AccountJWT;
 import com.hengxunda.springcloud.common.utils.DateUtils;
 import com.hengxunda.springcloud.nio.common.dto.BaseMessage;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
@@ -49,6 +51,9 @@ public class LoginHandler extends AbstractBaseHandler<LoginRequest> {
                 .build();
 
         RoomChannelContainer.addChannel(channel);
+        Map<Long, Channel> onlineMaps = Maps.newHashMap();
+        onlineMaps.put(requestBody.getUserId(), channel);
+        RoomChannelContainer.roomOnlineMaps.put(requestBody.getRoomId(), onlineMaps);
         return response;
     }
 

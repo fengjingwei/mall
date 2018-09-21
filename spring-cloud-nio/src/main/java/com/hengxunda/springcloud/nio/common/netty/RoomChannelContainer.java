@@ -16,6 +16,10 @@ import java.util.Objects;
 @Slf4j
 public class RoomChannelContainer {
 
+    // <roomId, <userId, channel>>
+    public static final Map<String, Map<Long, Channel>> roomOnlineMaps = Maps.newConcurrentMap();
+
+    // <roomId, channelGroup>
     private static final Map<String, ChannelGroup> roomGroups = Maps.newConcurrentMap();
 
     private static final ChannelGroup userGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);

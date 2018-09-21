@@ -34,10 +34,10 @@ public class JsonBaseCodec extends MessageToMessageCodec<String, BaseMessage> {
         log.info("服务端收到 : {}", msg);
         BaseMessage receivedMsg;
         try {
-            String jsonMsg = msg.substring(5);
+            String jsonMsg = StringUtils.substring(msg, 5);
             receivedMsg = FastJsonUtils.parseObject(jsonMsg, BaseMessage.class);
-            receivedMsg.setMsgType(Integer.valueOf(msg.substring(0, 1)));
-            receivedMsg.setMsgNo(Integer.valueOf(msg.substring(1, 5)));
+            receivedMsg.setMsgType(Integer.valueOf(StringUtils.substring(msg, 0, 1)));
+            receivedMsg.setMsgNo(Integer.valueOf(StringUtils.substring(msg, 1, 5)));
             out.add(receivedMsg);
         } catch (Exception e) {
             log.error("消息解析出错, receive msg : {}", msg);

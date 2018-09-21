@@ -39,7 +39,7 @@ public class GroupChatHandler extends AbstractBaseHandler<GroupChatRequest> {
     protected void sendNotification(Channel channel, GroupChatRequest requestBody, Object responseBody) {
         BaseMessage message = BaseMessage.getNotification();
         message.setMsgNo(MsgNoEnum.Chat.CHAT_P2M_BROADCAST.getCode());
-        message.setBody(new Object());// TODO
+        message.setBody(requestBody);
         super.sendToRoom(channel, message);
     }
 }

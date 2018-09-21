@@ -1,5 +1,6 @@
 package com.hengxunda.springcloud.nio.common.netty.codec;
 
+import com.hengxunda.springcloud.nio.common.netty.RoomChannelContainer;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -11,17 +12,15 @@ import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.Charsets;
 
-import java.nio.charset.Charset;
-
 @Slf4j
 @NoArgsConstructor
 public final class InitialDemuxHandler extends ChannelInboundHandlerAdapter {
-
-    private static final Charset UTF8 = Charsets.UTF_8;
 
     private volatile boolean isInited = false;
 
@@ -38,8 +37,8 @@ public final class InitialDemuxHandler extends ChannelInboundHandlerAdapter {
             if (isNormalSocketRequest(in)) {
                 pipeline.addBefore(baseName, "lengthFieldDecoder", new LengthFieldBasedFrameDecoder(409600000, 0, 4, 0, 4));
                 pipeline.addBefore(baseName, "lengthFieldEncoder", new LengthFieldPrepender(4));
-                pipeline.addBefore(baseName, "stringDecode", new StringDecoder(UTF8));
-                pipeline.addBefore(baseName, "stringEncode", new StringEncoder(UTF8));
+                pipeline.addBefore(baseName, "stringDecode", new StringDecoder(Charsets.UTF_8));
+                pipeline.addBefore(baseName, "stringEncode", new StringEncoder(Charsets.UTF_8));
                 if (pipeline.get(InitialDemuxHandler.class) != null) {
                     pipeline.remove(InitialDemuxHandler.class);
                 }
@@ -56,6 +55,17 @@ public final class InitialDemuxHandler extends ChannelInboundHandlerAdapter {
                 ctx.fireChannelRead(msg);
             }
         }
+    }
+
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
+        if (evt instanceof IdleStateEvent) {
+            IdleStateEvent event = (IdleStateEvent) evt;
+            if (event.state().equals(IdleState.READER_IDLE)) {
+                RoomChannelContainer.removeChannel(ctx.channel());
+            }
+        }
+        ctx.fireUserEventTriggered(evt);
     }
 
     private static boolean isNormalSocketRequest(ByteBuf buffer) {
