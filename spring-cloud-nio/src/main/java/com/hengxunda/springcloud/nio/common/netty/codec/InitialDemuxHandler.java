@@ -73,7 +73,8 @@ public final class InitialDemuxHandler extends ChannelInboundHandlerAdapter {
         try {
             char c5 = (char) buffer.getByte(4);
             char c6 = (char) buffer.getByte(5);
-            if (c5 == '1' && (c6 >= '0' && c6 <= '9')) {
+            boolean c7 = c6 >= '0' && c6 <= '9';
+            if (c5 == '1' && c7) {
                 result = true;
             }
         } catch (Exception e) {

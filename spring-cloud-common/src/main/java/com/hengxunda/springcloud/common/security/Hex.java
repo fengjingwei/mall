@@ -274,6 +274,7 @@ public class Hex {
      *
      * @return a string representation of the object.
      */
+    @Override
     public String toString() {
         return super.toString() + "[charsetName=" + charsetName + "]";
     }

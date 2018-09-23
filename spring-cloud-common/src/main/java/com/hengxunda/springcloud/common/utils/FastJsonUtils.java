@@ -8,9 +8,9 @@ import java.util.List;
 
 public abstract class FastJsonUtils {
 
-    private static final SerializeConfig config;
+    private static final SerializeConfig CONFIG;
 
-    private static final SerializerFeature[] features = {
+    private static final SerializerFeature[] FEATURES = {
             SerializerFeature.WriteMapNullValue, // 输出空置字段
             SerializerFeature.WriteNullListAsEmpty, // list字段如果为null，输出为[]，而不是null
             SerializerFeature.WriteNullNumberAsZero, // 数值字段如果为null，输出为0，而不是null
@@ -19,7 +19,7 @@ public abstract class FastJsonUtils {
     };
 
     static {
-        config = new SerializeConfig();
+        CONFIG = new SerializeConfig();
         //config.put(java.util.Date.class, new JSONLibDataFormatSerializer()); // 使用和json-lib兼容的日期输出格式
         //config.put(java.sql.Date.class, new JSONLibDataFormatSerializer()); // 使用和json-lib兼容的日期输出格式
     }
@@ -29,7 +29,7 @@ public abstract class FastJsonUtils {
     }
 
     public static String toJSONString(Object value) {
-        return JSON.toJSONString(value, config, features);
+        return JSON.toJSONString(value, CONFIG, FEATURES);
     }
 
     public static <T> List<T> toList(String text, Class<T> clazz) {

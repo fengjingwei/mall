@@ -14,14 +14,24 @@ import java.util.UUID;
 
 public abstract class JwtUtils {
 
-    // 密钥
-    private static final String lexicalXSDBase64Binary = "neoamyAYwuHCo2IFAgd1oRpSP0nzL1BF5t6ItqpKViM";
+    /**
+     * 密钥
+     */
+    private static final String LEXICAL_XSD_BASE_64_BINARY = "neoamyAYwuHCo2IFAgd1oRpSP0nzL1BF5t6ItqpKViM";
 
     public static String createSimpleJWT(String subject, long ttlMillis) {
         return createJWT(UUID.randomUUID().toString(), "192837465", subject, ttlMillis);
     }
 
-    // Sample method to construct a JWT
+    /**
+     * Sample method to construct a JWT
+     *
+     * @param id
+     * @param issuer
+     * @param subject
+     * @param ttlMillis
+     * @return
+     */
     public static String createJWT(String id, String issuer, String subject, long ttlMillis) {
 
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -29,7 +39,7 @@ public abstract class JwtUtils {
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
 
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(lexicalXSDBase64Binary);
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(LEXICAL_XSD_BASE_64_BINARY);
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         // Let's set the JWT Claims
@@ -48,11 +58,16 @@ public abstract class JwtUtils {
         return builder.compact();
     }
 
-    // Sample method to validate and read the JWT
+    /**
+     * Sample method to validate and read the JWT
+     *
+     * @param jwt
+     * @return
+     */
     public static AccountJWT parseJWT(String jwt) {
         // This line will throw an exception if it is not a signed JWS (as expected)
         Claims claims = Jwts.parser()
-                .setSigningKey(DatatypeConverter.parseBase64Binary(lexicalXSDBase64Binary))
+                .setSigningKey(DatatypeConverter.parseBase64Binary(LEXICAL_XSD_BASE_64_BINARY))
                 .parseClaimsJws(jwt)
                 .getBody();
 

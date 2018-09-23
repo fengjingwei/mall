@@ -53,7 +53,7 @@ public class LoginHandler extends AbstractBaseHandler<LoginRequest> {
         RoomChannelContainer.addChannel(channel);
         Map<Long, Channel> onlineMaps = Maps.newHashMap();
         onlineMaps.put(requestBody.getUserId(), channel);
-        RoomChannelContainer.roomOnlineMaps.put(requestBody.getRoomId(), onlineMaps);
+        RoomChannelContainer.ROOM_ONLINE_MAPS.put(requestBody.getRoomId(), onlineMaps);
         return response;
     }
 

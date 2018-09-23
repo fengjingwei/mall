@@ -6,13 +6,13 @@ import java.util.Map;
 
 public abstract class MapperHandler {
 
-    private static final Map<Integer, Handlebars> msgNoHandlers = Maps.newHashMap();
+    private static final Map<Integer, Handlebars> MSG_NO_HANDLERS = Maps.newHashMap();
 
     public static void addHandler(Handlebars handler) {
-        msgNoHandlers.put(handler.msgNo(), handler);
+        MSG_NO_HANDLERS.put(handler.msgNo(), handler);
     }
 
     public static Handlebars getHandler(int msgNo) {
-        return msgNoHandlers.get(msgNo);
+        return MSG_NO_HANDLERS.get(msgNo);
     }
 }

@@ -4,7 +4,7 @@ import java.security.Provider;
 
 @SuppressWarnings("serial")
 public class BouncyCastleProvider extends Provider {
-    private static final String info = "BouncyCastle Security Provider v1.23";
+    private static final String INFO = "BouncyCastle Security Provider v1.23";
     public static final String PROVIDER_NAME = "BC";
 
     /**
@@ -13,7 +13,7 @@ public class BouncyCastleProvider extends Provider {
      * <code>Security.addProvider()</code> mechanism.
      */
     public BouncyCastleProvider() {
-        super(PROVIDER_NAME, 1.23, info);
+        super(PROVIDER_NAME, 1.23, INFO);
         //
         // KeyStore
         //

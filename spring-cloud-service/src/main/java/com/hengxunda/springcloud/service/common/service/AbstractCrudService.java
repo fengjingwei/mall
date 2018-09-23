@@ -78,6 +78,7 @@ public abstract class AbstractCrudService<D extends CrudDao<T>, T extends BaseEn
      * @param pageSize
      * @return
      */
+    @Override
     public PageInfo<T> findPage(T entity, int pageNo, int pageSize) {
         PageHelper.startPage(pageNo, pageSize);
         List<T> list = dao.findList(entity);

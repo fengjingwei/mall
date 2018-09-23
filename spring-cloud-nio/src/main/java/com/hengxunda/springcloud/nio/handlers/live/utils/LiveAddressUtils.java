@@ -19,19 +19,19 @@ public abstract class LiveAddressUtils {
 
     private static BaiduCloudService baiduCloudService = SpringContextUtils.getBean(BaiduCloudService.class);
 
-    private static final Map<String, LVBChannel> roomIdAddress = Maps.newHashMap();
+    private static final Map<String, LVBChannel> ROOMID_ADDRESS = Maps.newHashMap();
 
     private static boolean isInited = false;
 
     public static void put(String roomId, LVBChannel address) {
-        roomIdAddress.put(roomId, address);
+        ROOMID_ADDRESS.put(roomId, address);
     }
 
     public static LVBChannel get(String roomId) {
-        if (Objects.isNull(roomIdAddress.get(roomId))) {
+        if (Objects.isNull(ROOMID_ADDRESS.get(roomId))) {
             initSession();
         }
-        return roomIdAddress.get(roomId);
+        return ROOMID_ADDRESS.get(roomId);
     }
 
     private static void initSession() {

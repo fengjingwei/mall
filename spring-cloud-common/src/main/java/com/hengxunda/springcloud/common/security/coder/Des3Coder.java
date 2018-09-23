@@ -12,12 +12,21 @@ import java.util.regex.Pattern;
  * 3DES加密工具类
  */
 public class Des3Coder {
-    // 密钥24
-    private final static String secretKey = "2017755#&neo158144$w@#10";
-    // 向量
-    private final static String iv = "01238567";
-    // 加解密统一使用的编码方式
-    private final static String encoding = "utf-8";
+
+    /**
+     * 密钥24
+     */
+    private final static String SECRET_KEY = "2017755#&neo158144$w@#10";
+
+    /**
+     * 向量
+     */
+    private final static String IV = "01238567";
+
+    /**
+     * 加解密统一使用的编码方式
+     */
+    private final static String ENCODING = "utf-8";
 
     /**
      * 3DES加密
@@ -28,14 +37,14 @@ public class Des3Coder {
      */
     public static String encode(String plainText) throws Exception {
         Key deskey;
-        DESedeKeySpec spec = new DESedeKeySpec(secretKey.getBytes());
+        DESedeKeySpec spec = new DESedeKeySpec(SECRET_KEY.getBytes());
         SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("desede");
         deskey = keyfactory.generateSecret(spec);
 
         Cipher cipher = Cipher.getInstance("desede/CBC/PKCS5Padding");
-        IvParameterSpec ips = new IvParameterSpec(iv.getBytes());
+        IvParameterSpec ips = new IvParameterSpec(IV.getBytes());
         cipher.init(Cipher.ENCRYPT_MODE, deskey, ips);
-        byte[] encryptData = cipher.doFinal(plainText.getBytes(encoding));
+        byte[] encryptData = cipher.doFinal(plainText.getBytes(ENCODING));
         return Base64.encode(encryptData);
     }
 
@@ -48,16 +57,16 @@ public class Des3Coder {
      */
     public static String decode(String encryptText) throws Exception {
         Key deskey;
-        DESedeKeySpec spec = new DESedeKeySpec(secretKey.getBytes());
+        DESedeKeySpec spec = new DESedeKeySpec(SECRET_KEY.getBytes());
         SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("desede");
         deskey = keyfactory.generateSecret(spec);
         Cipher cipher = Cipher.getInstance("desede/CBC/PKCS5Padding");
-        IvParameterSpec ips = new IvParameterSpec(iv.getBytes());
+        IvParameterSpec ips = new IvParameterSpec(IV.getBytes());
         cipher.init(Cipher.DECRYPT_MODE, deskey, ips);
 
         byte[] decryptData = cipher.doFinal(Base64.decode(encryptText));
 
-        return new String(decryptData, encoding);
+        return new String(decryptData, ENCODING);
     }
 
     public static void main(String[] args) {

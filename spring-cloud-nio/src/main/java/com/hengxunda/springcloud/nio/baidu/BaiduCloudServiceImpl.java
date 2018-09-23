@@ -15,7 +15,7 @@ public class BaiduCloudServiceImpl implements BaiduCloudService {
 
     @PostConstruct
     public void postConstruct() {
-        client = BaiduCloud.lssClient;
+        client = BaiduCloud.LSS_CLIENT;
     }
 
     @Override

@@ -72,11 +72,13 @@ public class JsonBaseCodec extends MessageToMessageCodec<String, BaseMessage> {
 
     private void initResponse(BaseMessage response) {
         response.setMsgType(RESPONSE);
-        if (response.getStatusCode() == null)
+        if (response.getStatusCode() == null) {
             response.setStatusCode(BaseMessage.StatusCodeEnum.OK);
+        }
 
         Object body = response.getBody();
-        if (body == null || (body instanceof String && StringUtils.isBlank((String) body))) {
+        boolean flag = body instanceof String && StringUtils.isBlank((String) body);
+        if (body == null || flag) {
             response.setBody(PLACEHOLDER_OBJ);
         }
     }

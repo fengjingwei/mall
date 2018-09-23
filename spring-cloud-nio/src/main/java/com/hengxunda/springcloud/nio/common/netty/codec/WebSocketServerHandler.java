@@ -17,7 +17,7 @@ public final class WebSocketServerHandler extends SimpleChannelInboundHandler<Ob
 
     private WebSocketServerHandshaker handshaker;
 
-    private static final String webSocketURL = "ws://127.0.0.1:9081/";
+    private static final String WEBSOCKET_URL = "ws://127.0.0.1:9081/";
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
@@ -67,7 +67,7 @@ public final class WebSocketServerHandler extends SimpleChannelInboundHandler<Ob
             return;
         }
 
-        WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(webSocketURL, null, false);
+        WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(WEBSOCKET_URL, null, false);
         handshaker = wsFactory.newHandshaker(req);
         if (handshaker == null) {
             WebSocketServerHandshakerFactory.sendUnsupportedVersionResponse(ctx.channel());

@@ -8,9 +8,9 @@ import java.util.Date;
 
 public abstract class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 
-    public static final String yyyymmdd = "yyyy-MM-dd";
-    public static final String hhmmss = "HH:mm:ss";
-    public static final String yyyymmddhhmmss = yyyymmdd + " " + hhmmss;
+    public static final String YYYY_MM_DD = "yyyy-MM-dd";
+    public static final String HH_MM_SS = "HH:mm:ss";
+    public static final String YYYY_MM_DDHHMMSS = YYYY_MM_DD + " " + HH_MM_SS;
 
     public static LocalDateTime getLocalDateTime() {
         return LocalDateTime.now();
@@ -25,7 +25,7 @@ public abstract class DateUtils extends org.apache.commons.lang3.time.DateUtils 
     }
 
     public static LocalDateTime parse(String localDateTime) {
-        return LocalDateTime.parse(localDateTime, DateTimeFormatter.ofPattern(yyyymmddhhmmss));
+        return LocalDateTime.parse(localDateTime, DateTimeFormatter.ofPattern(YYYY_MM_DDHHMMSS));
     }
 
     public static String getDateTime(String pattern) {
@@ -33,15 +33,15 @@ public abstract class DateUtils extends org.apache.commons.lang3.time.DateUtils 
     }
 
     public static String getDateTime() {
-        return format(yyyymmddhhmmss);
+        return format(YYYY_MM_DDHHMMSS);
     }
 
     public static String getDate() {
-        return format(yyyymmdd);
+        return format(YYYY_MM_DD);
     }
 
     public static String getTime() {
-        return format(hhmmss);
+        return format(HH_MM_SS);
     }
 
     private static String format(String pattern) {
@@ -69,10 +69,5 @@ public abstract class DateUtils extends org.apache.commons.lang3.time.DateUtils 
 
         System.out.println("args = " + parse("2018-07-14 14:11:27"));
         System.out.println("args = " + isLeapYear(LocalDate.now()));
-
-        LocalDate localDate = getLocalDate().parse("2018-08-08").plusDays(5);
-        System.out.println("args = " + localDate);
-
-        System.out.println("args = " + localDate.isAfter(getLocalDate()));
     }
 }

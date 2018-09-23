@@ -15,6 +15,7 @@ public interface AccountMapper extends CrudDao<AccountDO> {
      * @param accountDO 实体类
      * @return rows
      */
+    @Override
     @Update("update account set balance = #{balance}," +
             " freeze_amount = #{freezeAmount}, update_time = #{updateTime}" +
             " where user_id = #{userId} and balance > 0")

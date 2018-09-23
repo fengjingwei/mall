@@ -1,7 +1,6 @@
 package com.hengxunda.springcloud.common.utils;
 
 import org.apache.commons.lang.CharEncoding;
-import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
@@ -14,6 +13,10 @@ import java.util.regex.Pattern;
 public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
 
     public static final char SEPARATOR = '_';
+
+    private static Pattern REPLACE_NULL_PATTERN = Pattern.compile("//r|//n|//u3000");
+
+    private static Pattern NULL_PATTERN = Pattern.compile("^(//s)*$");
 
     /**
      * 转换为字节数组
@@ -90,37 +93,6 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
             return "";
         }
         return html.replaceAll("<([a-z]+?)\\s+?.*?>", "<$1>");
-    }
-
-
-    /**
-     * 缩略字符串（不区分中英文字符）
-     *
-     * @param str    目标字符串
-     * @param length 截取长度
-     * @return
-     */
-    public static String abbr(String str, int length) {
-        if (str == null) {
-            return "";
-        }
-        try {
-            StringBuilder sb = new StringBuilder();
-            int currentLength = 0;
-            for (char c : replaceHtml(StringEscapeUtils.unescapeHtml4(str)).toCharArray()) {
-                currentLength += String.valueOf(c).getBytes("GBK").length;
-                if (currentLength <= length - 3) {
-                    sb.append(c);
-                } else {
-                    sb.append("...");
-                    break;
-                }
-            }
-            return sb.toString();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return "";
     }
 
     /**
@@ -261,15 +233,13 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
         } else if ("java.lang.String".equals(pInput.getClass().getName())) {
             // 判断传入的参数的String类型的
             // 替换各种空格
-            String tmpInput = Pattern.compile("//r|//n|//u3000")
-                    .matcher((String) pInput).replaceAll("");
+            String tmpInput = REPLACE_NULL_PATTERN.matcher((String) pInput).replaceAll("");
             // 匹配空
-            return Pattern.compile("^(//s)*$")
-                    .matcher(tmpInput).matches();
+            return NULL_PATTERN.matcher(tmpInput).matches();
         } else {
             // 方法类
-            Method method = null;
-            String newInput = "";
+            Method method;
+            String newInput;
             try {
                 // 访问传入参数的size方法
                 method = pInput.getClass().getMethod("size");

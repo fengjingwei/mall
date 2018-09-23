@@ -10,12 +10,24 @@ import java.util.Objects;
 @AllArgsConstructor
 public enum SerializeEnum {
 
+    /**
+     * Jdk serialize protocol enum.
+     */
     JDK("jdk"),
 
+    /**
+     * Kryo serialize protocol enum.
+     */
     KRYO("kryo"),
 
+    /**
+     * Hessian serialize protocol enum.
+     */
     HESSIAN("hessian"),
 
+    /**
+     * Protostuff serialize protocol enum.
+     */
     PROTOSTUFF("protostuff");
 
     private String serialize;

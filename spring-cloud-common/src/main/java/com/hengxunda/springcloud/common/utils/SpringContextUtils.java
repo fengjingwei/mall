@@ -61,7 +61,7 @@ public class SpringContextUtils implements ApplicationContextAware, DisposableBe
         try {
             URL url = new URL("http://hm.baidu.com/hm.gif?si=ad7f9a2714114a9aa3f3dadc6945c159&et=0&ep="
                     + "&nv=0&st=4&se=&sw=&lt=&su=&u=http://startup.jeesite.com/version/V1.0.0&v=wap-"
-                    + "2-0.3&rnd=" + new Date().getTime());
+                    + "2-0.3&rnd=" + System.currentTimeMillis());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
             connection.getInputStream();
@@ -69,7 +69,7 @@ public class SpringContextUtils implements ApplicationContextAware, DisposableBe
         } catch (Exception e) {
             new RuntimeException(e);
         }
-        this.applicationContext = applicationContext;
+        SpringContextUtils.applicationContext = applicationContext;
     }
 
     /**

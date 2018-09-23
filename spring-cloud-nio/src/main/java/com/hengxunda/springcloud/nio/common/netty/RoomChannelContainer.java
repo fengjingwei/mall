@@ -17,14 +17,14 @@ import java.util.Objects;
 public class RoomChannelContainer {
 
     // <roomId, <userId, channel>>
-    public static final Map<String, Map<Long, Channel>> roomOnlineMaps = Maps.newConcurrentMap();
+    public static final Map<String, Map<Long, Channel>> ROOM_ONLINE_MAPS = Maps.newConcurrentMap();
 
     // <roomId, channelGroup>
-    private static final Map<String, ChannelGroup> roomGroups = Maps.newConcurrentMap();
+    private static final Map<String, ChannelGroup> ROOM_GROUPS = Maps.newConcurrentMap();
 
-    private static final ChannelGroup userGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+    private static final ChannelGroup USER_GROUP = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
-    private static final ChannelGroup visitorGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+    private static final ChannelGroup VISITOR_GROUP = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
     public static void addChannel(Channel channel) {
         String roomId = LoginHandler.UserUtils.getRoomId(channel);
@@ -33,17 +33,17 @@ public class RoomChannelContainer {
             group.add(channel);
         }
         if (isLogin(channel)) {
-            userGroup.add(channel);
+            USER_GROUP.add(channel);
         } else {
-            visitorGroup.add(channel);
+            VISITOR_GROUP.add(channel);
         }
     }
 
     private static ChannelGroup getGroup(String key) {
-        ChannelGroup group = roomGroups.get(key);
+        ChannelGroup group = ROOM_GROUPS.get(key);
         if (Objects.isNull(group)) {
             group = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-            roomGroups.put(key, group);
+            ROOM_GROUPS.put(key, group);
         }
         return group;
     }
@@ -51,31 +51,31 @@ public class RoomChannelContainer {
     public static void removeChannel(Channel channel) {
         String roomId = LoginHandler.UserUtils.getRoomId(channel);
         if (Objects.nonNull(roomId)) {
-            ChannelGroup group = roomGroups.get(roomId);
+            ChannelGroup group = ROOM_GROUPS.get(roomId);
             if (Objects.nonNull(group)) {
                 group.remove(channel);
             }
         }
 
         if (isLogin(channel)) {
-            userGroup.remove(channel);
+            USER_GROUP.remove(channel);
         } else {
-            visitorGroup.remove(channel);
+            VISITOR_GROUP.remove(channel);
         }
     }
 
     public static List<Channel> getAllChannels(boolean isLogin) {
-        ChannelGroup group = isLogin ? userGroup : visitorGroup;
+        ChannelGroup group = isLogin ? USER_GROUP : VISITOR_GROUP;
         return newList(group);
     }
 
     public static List<Channel> getAllChannels(Channel channel) {
-        ChannelGroup group = isLogin(channel) ? userGroup : visitorGroup;
+        ChannelGroup group = isLogin(channel) ? USER_GROUP : VISITOR_GROUP;
         return newList(group);
     }
 
     public static ChannelGroup getGroupByRoom(String roomId) {
-        return roomGroups.get(roomId);
+        return ROOM_GROUPS.get(roomId);
     }
 
     public static ChannelGroup getGroupByRoom(Channel channel) {
@@ -83,7 +83,7 @@ public class RoomChannelContainer {
     }
 
     public static List<Channel> getChannelsInRoom(String roomId) {
-        return newList(roomGroups.get(roomId));
+        return newList(ROOM_GROUPS.get(roomId));
     }
 
     public static List<Channel> getChannelsInRoom(Channel channel) {

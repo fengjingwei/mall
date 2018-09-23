@@ -16,6 +16,7 @@ public interface OrderMapper extends CrudDao<Order> {
      * @param order 订单对象
      * @return rows
      */
+    @Override
     int insert(Order order);
 
     /**
@@ -24,6 +25,7 @@ public interface OrderMapper extends CrudDao<Order> {
      * @param order 订单对象
      * @return rows
      */
+    @Override
     int update(Order order);
 
     /**
