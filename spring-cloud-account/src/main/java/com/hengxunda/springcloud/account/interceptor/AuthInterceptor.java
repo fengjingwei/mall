@@ -27,9 +27,12 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         request.setCharacterEncoding(CharEncoding.UTF_8);
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-        response.addHeader("Access-Control-Allow-Origin", "*"); // 允许跨域的url
-        response.addHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS"); // 允许的请求方法，一般是GET,POST,PUT,DELETE,OPTIONS
-        response.addHeader("Access-Control-Allow-Headers", "X-Requested-With,Content-Type,accept,Auth-Aliw"); // 允许跨域的请求头
+        // 允许跨域的url
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        // 允许的请求方法，一般是GET,POST,PUT,DELETE,OPTIONS
+        response.addHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+        // 允许跨域的请求头
+        response.addHeader("Access-Control-Allow-Headers", "X-Requested-With,Content-Type,accept,Auth-Aliw");
         response.addHeader("Access-Control-Max-Age", "3600");
         ServletOutputStream out = response.getOutputStream();
 

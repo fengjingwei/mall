@@ -7,7 +7,7 @@ import java.io.StringWriter;
 public abstract class ExceptionUtils {
 
     /**
-     * 将CheckedException转换为UncheckedException.
+     * 将CheckedException转换为UncheckedException
      *
      * @param e
      * @return
@@ -21,7 +21,7 @@ public abstract class ExceptionUtils {
     }
 
     /**
-     * 将ErrorStack转化为String.
+     * 将ErrorStack转化为String
      *
      * @param e
      * @return
@@ -36,7 +36,7 @@ public abstract class ExceptionUtils {
     }
 
     /**
-     * 判断异常是否由某些底层的异常引起.
+     * 判断异常是否由某些底层的异常引起
      *
      * @param ex
      * @param causeExceptionClasses

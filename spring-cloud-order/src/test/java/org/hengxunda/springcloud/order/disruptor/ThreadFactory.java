@@ -6,7 +6,7 @@ public class ThreadFactory implements java.util.concurrent.ThreadFactory {
 
     private static final AtomicLong THREAD_NUMBER = new AtomicLong(1);
 
-    private static final ThreadGroup THREAD_GROUP = new ThreadGroup("hmilyTransaction");
+    private static final ThreadGroup THREAD_GROUP = new ThreadGroup("log");
 
     private static volatile boolean daemon;
 

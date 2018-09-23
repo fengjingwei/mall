@@ -24,5 +24,10 @@ public interface ObjectSerializer {
      */
     <T> T deSerialize(byte[] param, Class<T> clazz) throws ServiceException;
 
+    /**
+     * scheme
+     *
+     * @return
+     */
     String getScheme();
 }

@@ -8,6 +8,11 @@ import java.util.List;
 
 public interface OrderService extends BaseService<Order> {
 
+    /**
+     * 查询所有订单
+     *
+     * @return
+     */
     List<Order> listAll();
 
     /**

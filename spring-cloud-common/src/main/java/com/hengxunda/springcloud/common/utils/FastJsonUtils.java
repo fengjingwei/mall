@@ -11,17 +11,24 @@ public abstract class FastJsonUtils {
     private static final SerializeConfig CONFIG;
 
     private static final SerializerFeature[] FEATURES = {
-            SerializerFeature.WriteMapNullValue, // 输出空置字段
-            SerializerFeature.WriteNullListAsEmpty, // list字段如果为null，输出为[]，而不是null
-            SerializerFeature.WriteNullNumberAsZero, // 数值字段如果为null，输出为0，而不是null
-            SerializerFeature.WriteNullBooleanAsFalse, // Boolean字段如果为null，输出为false，而不是null
-            SerializerFeature.WriteNullStringAsEmpty // 字符类型字段如果为null，输出为""，而不是null
+            // 输出空置字段
+            SerializerFeature.WriteMapNullValue,
+            // list字段如果为null，输出为[]，而不是null
+            SerializerFeature.WriteNullListAsEmpty,
+            // 数值字段如果为null，输出为0，而不是null
+            SerializerFeature.WriteNullNumberAsZero,
+            // Boolean字段如果为null，输出为false，而不是null
+            SerializerFeature.WriteNullBooleanAsFalse,
+            // 字符类型字段如果为null，输出为""，而不是null
+            SerializerFeature.WriteNullStringAsEmpty
     };
 
     static {
         CONFIG = new SerializeConfig();
-        //config.put(java.util.Date.class, new JSONLibDataFormatSerializer()); // 使用和json-lib兼容的日期输出格式
-        //config.put(java.sql.Date.class, new JSONLibDataFormatSerializer()); // 使用和json-lib兼容的日期输出格式
+        // 使用和json-lib兼容的日期输出格式
+        // CONFIG.put(java.util.Date.class, new JSONLibDataFormatSerializer());
+        // 使用和json-lib兼容的日期输出格式
+        // CONFIG.put(java.sql.Date.class, new JSONLibDataFormatSerializer());
     }
 
     public static <T> T parseObject(String text, Class<T> type) {

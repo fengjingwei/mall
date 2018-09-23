@@ -8,12 +8,25 @@ import java.util.Date;
 @Data
 public abstract class DataEntity<T> extends BaseEntity<T> {
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 创建者
+     */
+    private Long createBy;
 
-    private Long createBy; // 创建者
-    private Date createTime; // 创建时间
-    private Long updateBy; // 更新者
-    private Date updateTime; // 更新时间
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 更新者
+     */
+    private Long updateBy;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
 
     /**
      * 插入之前执行方法，需要手动调用

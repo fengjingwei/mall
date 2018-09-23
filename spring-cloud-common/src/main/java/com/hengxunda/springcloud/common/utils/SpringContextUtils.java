@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Date;
 
 @Slf4j
 @Component

@@ -1,5 +1,6 @@
 package com.hengxunda.springcloud.nio.common.listener;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.hengxunda.springcloud.nio.common.netty.codec.PolicyHandler;
 import com.hengxunda.springcloud.nio.common.netty.server.NioServer;
 import io.netty.bootstrap.ServerBootstrap;
@@ -18,6 +19,7 @@ import org.springframework.boot.SpringBootConfiguration;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.util.concurrent.*;
 
 @Slf4j
 @SpringBootConfiguration
@@ -27,10 +29,15 @@ public class ServerServletListener implements ServletContextListener {
 
     private static int inetPort = 843;
 
+    private static final int MAX_THREAD = Runtime.getRuntime().availableProcessors() << 1;
+
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         try {
-            new Thread(() -> {
+            ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("mall-nio-pool-%d").build();
+            ExecutorService pool = new ThreadPoolExecutor(MAX_THREAD, MAX_THREAD, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+
+            pool.execute(() -> {
                 EventLoopGroup bossGroup = new NioEventLoopGroup();
                 try {
                     ServerBootstrap b = new ServerBootstrap();
@@ -52,9 +59,11 @@ public class ServerServletListener implements ServletContextListener {
                 } finally {
                     bossGroup.shutdownGracefully();
                 }
-            }).start();
+            });
 
-            new Thread(() -> NioServer.getInstance().run()).start();
+            pool.execute(() -> NioServer.getInstance().run());
+
+            pool.shutdown();
             log.info("start nio server success");
         } catch (Exception e) {
             log.error("start nio server failure", e);

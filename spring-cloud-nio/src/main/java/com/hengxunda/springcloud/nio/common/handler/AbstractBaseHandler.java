@@ -30,7 +30,7 @@ public abstract class AbstractBaseHandler<R> implements Handlebars {
         Object responseBody;
         R requestBody = null;
         Channel channel = ctx.channel();
-        if (isNeedCheckAuth() && (!hasLoggedOn(channel))) {
+        if (isNeedCheckAuth() && notLoggedIn(channel)) {
             channel.close();
             log.error("非登录状态下不能访问此消息接口");
             return;
@@ -47,7 +47,7 @@ public abstract class AbstractBaseHandler<R> implements Handlebars {
                 channel.writeAndFlush(responseOk);
             }
         } catch (Exception e) {
-            log.error("处理消息失败!, request : {}", request);
+            log.error("处理消息失败! request : {}", request);
             log.error("详细异常信息如下", e);
             if (isNeedResponse()) {
                 BaseMessage responseException = BaseMessage.getResponseException(request);
@@ -81,8 +81,8 @@ public abstract class AbstractBaseHandler<R> implements Handlebars {
         RoomChannelContainer.getGroupByRoom(channel).writeAndFlush(message, new RoomChannelMatcher(channel));
     }
 
-    private boolean hasLoggedOn(Channel channel) {
-        return Objects.nonNull(LoginHandler.UserUtils.getUser(channel));
+    private boolean notLoggedIn(Channel channel) {
+        return Objects.isNull(LoginHandler.UserUtils.getUser(channel));
     }
 
     protected boolean isNeedResponse() {
