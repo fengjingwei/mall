@@ -58,7 +58,7 @@ public class SocketCloseHandler implements Handlebars {
             }
             BaseMessage message = BaseMessage.getNotification();
             message.setMsgNo(MsgNoEnum.User.USER_LEAVE_BROADCAST.getCode());
-            message.setBody(new Object());// TODO
+            message.setBody(new Object());
             try {
                 RoomChannelContainer.getGroupByRoom(channel).writeAndFlush(message);
             } catch (ServiceException e) {

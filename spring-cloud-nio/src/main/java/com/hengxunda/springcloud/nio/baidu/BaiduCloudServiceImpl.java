@@ -21,9 +21,13 @@ public class BaiduCloudServiceImpl implements BaiduCloudService {
     @Override
     public CreateStreamResponse createPushStream(String yourPlayDomain, String yourApp, String yourStream) {
         CreateStreamRequest request = new CreateStreamRequest();
-        request.withPlayDomain(yourPlayDomain) // yourPlayDomain是用户提前创建的播放域名
-                .withApp(yourApp) // yourApp是用户自定义的app名称
-                .withPublish(new CreateStreamRequest.PublishInfo().withPushStream(yourStream)); // yourStream是用户自定义的Stream名称
+        request
+                // yourPlayDomain是用户提前创建的播放域名
+                .withPlayDomain(yourPlayDomain)
+                // yourApp是用户自定义的app名称
+                .withApp(yourApp)
+                // yourStream是用户自定义的Stream名称
+                .withPublish(new CreateStreamRequest.PublishInfo().withPushStream(yourStream));
 
         return client.createStream(request);
     }
@@ -31,7 +35,9 @@ public class BaiduCloudServiceImpl implements BaiduCloudService {
     @Override
     public ListStreamResponse listStream(String yourPlayDomain, String status) {
         ListStreamRequest request = new ListStreamRequest();
-        request.withPlayDomain(yourPlayDomain).withStatus(status); // status表示Stream的状态,有效值有READY、ONGOING、PAUSED
+        request.withPlayDomain(yourPlayDomain)
+                // status表示Stream的状态,有效值有READY、ONGOING、PAUSED
+                .withStatus(status);
         return client.listStream(request);
     }
 

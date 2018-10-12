@@ -13,5 +13,8 @@ import java.io.Serializable;
 @Builder
 public class LoginResponse implements Serializable {
 
-    private Long userId;// 用户id
+    /**
+     * 用户id
+     */
+    private Long userId;
 }

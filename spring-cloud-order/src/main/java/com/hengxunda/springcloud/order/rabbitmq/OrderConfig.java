@@ -16,7 +16,8 @@ public class OrderConfig {
 
     @Bean
     public Queue orderPayQueue() {
-        return new Queue(ORDER_PAY_QUEUE_NAME, true);// 队列持久化
+        // 队列持久化
+        return new Queue(ORDER_PAY_QUEUE_NAME, true);
     }
 
     /**

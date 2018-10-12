@@ -12,21 +12,21 @@
 
     <insert id="insert" parameterType="order">
         insert into `order` (
-            create_time,
-            number,
-            status,
-            product_id,
-            total_amount,
-            count,
-            user_id
+        create_time,
+        number,
+        status,
+        product_id,
+        total_amount,
+        count,
+        user_id
         ) values (
-            #{createTime},
-            #{number},
-            #{status},
-            #{productId},
-            #{totalAmount},
-            #{count},
-            #{userId}
+        #{createTime},
+        #{number},
+        #{status},
+        #{productId},
+        #{totalAmount},
+        #{count},
+        #{userId}
         )
     </insert>
 

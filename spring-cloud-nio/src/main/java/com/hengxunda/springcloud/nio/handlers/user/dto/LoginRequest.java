@@ -11,15 +11,30 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class LoginRequest implements Serializable {
 
-    private Integer loginType;// 登录类型
+    /**
+     * 登录类型
+     */
+    private Integer loginType;
 
-    private Long userId;// 用户id
+    /**
+     * 用户id
+     */
+    private Long userId;
 
-    private String roomId;// 房间id
+    /**
+     * 房间id
+     */
+    private String roomId;
 
-    private Integer mode;// 房间模式
+    /**
+     * 房间模式
+     */
+    private Integer mode;
 
-    private String ak;// 用户密钥
+    /**
+     * 用户密钥
+     */
+    private String ak;
 
     private String nonce;
 

@@ -23,9 +23,7 @@ public class RedisCacheConfiguration {
         return (target, method, params) -> {
             StringBuilder builder = new StringBuilder();
             builder.append(target.getClass().getName()).append(method.getName());
-            Arrays.asList(params).forEach(param -> {
-                builder.append(param.toString());
-            });
+            Arrays.asList(params).forEach(param -> builder.append(param.toString()));
             return builder.toString();
         };
     }
@@ -37,7 +35,7 @@ public class RedisCacheConfiguration {
         mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
         jackson2JsonRedisSerializer.setObjectMapper(mapper);
-        //使用Jackson库将对象序列化为JSON字符串。
+        // 使用Jackson库将对象序列化为JSON字符串
         StringRedisTemplate template = new StringRedisTemplate(factory);
         template.setValueSerializer(jackson2JsonRedisSerializer);
         template.afterPropertiesSet();

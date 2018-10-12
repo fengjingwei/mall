@@ -24,8 +24,8 @@ public abstract class AbstractCrudService<D extends CrudDao<T>, T extends BaseEn
      * @param entity
      * @return
      */
-    @Transactional
     @Override
+    @Transactional
     public T save(T entity) {
         if (entity.boolNewRecord()) {
             entity.preInsert();
@@ -64,8 +64,8 @@ public abstract class AbstractCrudService<D extends CrudDao<T>, T extends BaseEn
      *
      * @param entity
      */
-    @Transactional
     @Override
+    @Transactional
     public void delete(T entity) {
         dao.delete(entity);
     }
