@@ -113,7 +113,7 @@ public class LiveStartHandler extends AbstractBaseHandler<LiveStartRequest> impl
     @Override
     public void afterPropertiesSet() {
         if (Objects.nonNull(loginHandler)) {
-            loginHandler.addHanlderListener(this);
+            loginHandler.addHandlerListener(this);
         }
     }
 }

@@ -42,34 +42,34 @@ public class RedisHelper implements CacheManager {
         redisTemplate.delete(key);
     }
 
-    public final boolean hset(String key, String hashKey, Object value) {
+    public final boolean hSet(String key, String hashKey, Object value) {
         redisTemplate.opsForHash().put(key, hashKey, value);
         return true;
     }
 
-    public final boolean hset(String key, String hashKey, Object value, long expireSeconds) {
-        return hset(key, hashKey, value) && expire(key, expireSeconds);
+    public final boolean hSet(String key, String hashKey, Object value, long expireSeconds) {
+        return hSet(key, hashKey, value) && expire(key, expireSeconds);
     }
 
-    public final Object hget(String key, String value) {
+    public final Object hGet(String key, String value) {
         return redisTemplate.opsForHash().get(key, value);
     }
 
-    public final boolean hmset(String key, Map<Object, Object> value) {
+    public final boolean hmSet(String key, Map<Object, Object> value) {
         redisTemplate.opsForHash().putAll(key, value);
         return true;
     }
 
-    public final void hmset(String key, Map<Object, Object> value, long expireSeconds) {
+    public final void hmSet(String key, Map<Object, Object> value, long expireSeconds) {
         redisTemplate.opsForHash().putAll(key, value);
         expire(key, expireSeconds);
     }
 
-    public final Map<Object, Object> hmget(String key) {
+    public final Map<Object, Object> hmGet(String key) {
         return redisTemplate.opsForHash().entries(key);
     }
 
-    public final void hdel(String key, Object... values) {
+    public final void hDel(String key, Object... values) {
         redisTemplate.opsForHash().delete(key, values);
     }
 
@@ -77,11 +77,11 @@ public class RedisHelper implements CacheManager {
         return redisTemplate.opsForHash().hasKey(key, value);
     }
 
-    public final double hincr(String key, String value, double by) {
+    public final double hIncr(String key, String value, double by) {
         return redisTemplate.opsForHash().increment(key, value, by);
     }
 
-    public final double hdecr(String key, String value, double by) {
+    public final double hDecr(String key, String value, double by) {
         return redisTemplate.opsForHash().increment(key, value, -by);
     }
 
@@ -152,7 +152,7 @@ public class RedisHelper implements CacheManager {
     }
 
     @Override
-    public boolean setnx(String key, String value) {
+    public boolean setNX(String key, String value) {
         Object object = null;
         try {
             object = redisTemplate.execute((RedisCallback<Object>) connection -> {
@@ -162,7 +162,7 @@ public class RedisHelper implements CacheManager {
                 return success;
             });
         } catch (Exception e) {
-            log.error("setnx redis error, key : {}", key);
+            log.error("setNX redis error, key : {}", key);
         }
         return object != null ? (Boolean) object : false;
     }

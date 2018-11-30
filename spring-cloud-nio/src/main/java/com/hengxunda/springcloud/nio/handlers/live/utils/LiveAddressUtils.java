@@ -21,7 +21,7 @@ public abstract class LiveAddressUtils {
 
     private static final Map<String, LVBChannel> ROOMID_ADDRESS = Maps.newHashMap();
 
-    private static boolean isInited = false;
+    private static boolean isIncited = false;
 
     public static void put(String roomId, LVBChannel address) {
         ROOMID_ADDRESS.put(roomId, address);
@@ -36,7 +36,7 @@ public abstract class LiveAddressUtils {
 
     private static void initSession() {
 
-        if (!isInited) {
+        if (!isIncited) {
             ListStreamResponse listResponseReady = baiduCloudService.listStream("play.ofweek.com", "READY");
             ListStreamResponse listResponseOngoing = baiduCloudService.listStream("play.ofweek.com", "ONGOING");
             List<LiveStream> streams = Collections3Utils.union(listResponseReady.getStreams(), listResponseOngoing.getStreams());
@@ -50,7 +50,7 @@ public abstract class LiveAddressUtils {
                 }
 
             });
-            isInited = true;
+            isIncited = true;
         }
 
     }

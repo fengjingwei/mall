@@ -10,7 +10,7 @@ public abstract class DateUtils extends org.apache.commons.lang3.time.DateUtils 
 
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
     public static final String HH_MM_SS = "HH:mm:ss";
-    public static final String YYYY_MM_DDHHMMSS = YYYY_MM_DD + " " + HH_MM_SS;
+    public static final String YYYY_MM_DD_HH_MM_SS = YYYY_MM_DD + " " + HH_MM_SS;
 
     public static LocalDateTime getLocalDateTime() {
         return LocalDateTime.now();
@@ -25,7 +25,7 @@ public abstract class DateUtils extends org.apache.commons.lang3.time.DateUtils 
     }
 
     public static LocalDateTime parse(String localDateTime) {
-        return LocalDateTime.parse(localDateTime, DateTimeFormatter.ofPattern(YYYY_MM_DDHHMMSS));
+        return LocalDateTime.parse(localDateTime, DateTimeFormatter.ofPattern(YYYY_MM_DD_HH_MM_SS));
     }
 
     public static String getDateTime(String pattern) {
@@ -33,7 +33,7 @@ public abstract class DateUtils extends org.apache.commons.lang3.time.DateUtils 
     }
 
     public static String getDateTime() {
-        return format(YYYY_MM_DDHHMMSS);
+        return format(YYYY_MM_DD_HH_MM_SS);
     }
 
     public static String getDate() {

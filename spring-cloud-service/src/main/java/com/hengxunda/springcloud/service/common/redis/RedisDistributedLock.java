@@ -14,12 +14,12 @@ public class RedisDistributedLock {
     /**
      * 锁持有超时时间,防止线程在入锁以后,无限的执行等待
      */
-    private int expireMsecs = 60 * 1000;
+    private int expireMs = 60 * 1000;
 
     /**
      * 锁等待超时时间，防止线程饥饿
      */
-    private int timeoutMsecs = 10 * 1000;
+    private int timeoutMs = 10 * 1000;
 
     private volatile boolean locked = false;
 
@@ -28,14 +28,14 @@ public class RedisDistributedLock {
         this.lockKey = lockKey + "_lock";
     }
 
-    public RedisDistributedLock(RedisHelper redisHelper, String lockKey, int timeoutMsecs) {
+    public RedisDistributedLock(RedisHelper redisHelper, String lockKey, int timeoutMs) {
         this(redisHelper, lockKey);
-        this.timeoutMsecs = timeoutMsecs;
+        this.timeoutMs = timeoutMs;
     }
 
-    public RedisDistributedLock(RedisHelper redisHelper, String lockKey, int timeoutMsecs, int expireMsecs) {
-        this(redisHelper, lockKey, timeoutMsecs);
-        this.expireMsecs = expireMsecs;
+    public RedisDistributedLock(RedisHelper redisHelper, String lockKey, int timeoutMs, int expireMs) {
+        this(redisHelper, lockKey, timeoutMs);
+        this.expireMs = expireMs;
     }
 
     public String getLockKey() {
@@ -52,9 +52,9 @@ public class RedisDistributedLock {
         return obj != null ? obj.toString() : null;
     }
 
-    private boolean setnx(final String key, final String value) {
+    private boolean setNX(final String key, final String value) {
 
-        return redisHelper.setnx(key, value);
+        return redisHelper.setNX(key, value);
     }
 
     private String getSet(final String key, final String value) {
@@ -64,22 +64,22 @@ public class RedisDistributedLock {
 
     /**
      * 获得lock.
-     * 实现思路: 主要是使用了redis的setnx命令,缓存了锁.
+     * 实现思路: 主要是使用了redis的setNX命令,缓存了锁.
      * reids缓存的key是锁的key,所有的共享,value是锁的到期时间(注意:这里把过期时间放在value了,没有时间上设置其超时时间)
      * 执行过程:
-     * 1.通过setnx尝试设置某个key的值,成功(当前没有这个锁)则返回,成功获得锁
+     * 1.通过setNX尝试设置某个key的值,成功(当前没有这个锁)则返回,成功获得锁
      * 2.锁已经存在则获取锁的到期时间,和当前时间比较,超时的话,则设置新的值
      *
      * @return true if lock is acquired, false acquire timeouted
      * @throws InterruptedException in case of thread interruption
      */
     public synchronized boolean lock() throws InterruptedException {
-        int timeout = timeoutMsecs;
+        int timeout = timeoutMs;
         while (timeout >= 0) {
-            long expires = System.currentTimeMillis() + expireMsecs + 1;
+            long expires = System.currentTimeMillis() + expireMs + 1;
             // 锁到期时间
             String expiresStr = String.valueOf(expires);
-            if (this.setnx(lockKey, expiresStr)) {
+            if (this.setNX(lockKey, expiresStr)) {
                 // lock acquired
                 locked = true;
                 return true;

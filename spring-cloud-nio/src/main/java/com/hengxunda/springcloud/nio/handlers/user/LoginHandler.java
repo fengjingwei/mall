@@ -57,7 +57,7 @@ public class LoginHandler extends AbstractBaseHandler<LoginRequest> {
         return response;
     }
 
-    public void addHanlderListener(HandlerListener listener) {
+    public void addHandlerListener(HandlerListener listener) {
         handlerListeners.add(listener);
     }
 
@@ -73,9 +73,7 @@ public class LoginHandler extends AbstractBaseHandler<LoginRequest> {
 
         sendEnterRoomNotification(channel);
 
-        handlerListeners.forEach(listener -> {
-            listener.notice(channel);
-        });
+        handlerListeners.forEach(listener -> listener.notice(channel));
     }
 
     private void sendEnterRoomNotification(Channel channel) {

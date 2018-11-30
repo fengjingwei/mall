@@ -6,5 +6,5 @@ public interface CacheManager {
 
     Object getSet(final String key, final String value);
 
-    boolean setnx(final String key, final String value);
+    boolean setNX(final String key, final String value);
 }
