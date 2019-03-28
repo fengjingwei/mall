@@ -52,7 +52,5 @@ public class BlockingQueueTest {
                 }
             }
         }).start();
-
-
     }
 }

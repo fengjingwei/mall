@@ -186,11 +186,11 @@
         </plugins>
     </build>-->
 
-    <repositories>
+    <!--<repositories>
         <repository>
             <id>local-repos</id>
             <name>local Repository</name>
-            <!--https://repo.spring.io/libs-release-->
+            &lt;!&ndash;https://repo.spring.io/libs-release&ndash;&gt;
             <url>http://127.0.0.1:8081/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
@@ -215,6 +215,6 @@
             <url>http://127.0.0.1:8081/nexus/content/repositories/snapshots/</url>
         </snapshotRepository>
 
-    </distributionManagement>
+    </distributionManagement>-->
 
 </project>

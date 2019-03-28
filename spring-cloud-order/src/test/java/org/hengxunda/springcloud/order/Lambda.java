@@ -20,7 +20,7 @@ public class Lambda {
         noArguments.run();
 
         BinaryOperator<Long> addExplicit = (Long x, Long y) -> x + y;
-        System.out.println(addExplicit.apply(6l, 8l));
+        System.out.println(addExplicit.apply(6L, 8L));
 
         Predicate<Integer> atLeast5 = (x -> x > 5);
         System.out.println(atLeast5.test(3));
@@ -45,34 +45,29 @@ public class Lambda {
         }).count();
 
         List<String> collected = Stream.of("a", "b", "c").collect(Collectors.toList());
-        System.out.println(collected.stream().count());
-        collected.stream().forEach(System.out::println);
+        System.out.println(collected.size());
+        collected.forEach(System.out::println);
 
-        List<String> list = Stream.of("hello", "to", "java").map(string -> string.toUpperCase())
+        List<String> list = Stream.of("hello", "to", "java").map(String::toUpperCase)
                 .collect(Collectors.toList());
         System.out.println(list);
 
         Optional<String> name = Stream.of(artists).map(artist -> artist.get(0).getName()).findFirst();
-        if (name.isPresent()) {
-            System.out.println(name.get());
-        }
+        name.ifPresent(System.out::println);
 
         List<Integer> together = Stream.of(Arrays.asList(1, 2), Arrays.asList(3, 4))
-                .flatMap(numbers -> numbers.stream()).collect(Collectors.toList());
-        System.out.println(together.stream().count());
+                .flatMap(Collection::stream).collect(Collectors.toList());
+        System.out.println(together.size());
 
         List<Track> tracks = Arrays.asList(new Track("Bakai", 524), new Track("Violets for Your Furs", 378),
                 new Track("Time Was", 451));
-        Track shortestTrack = tracks.stream().max(Comparator.comparing(track -> track.getCount())).get();
+        Track shortestTrack = tracks.stream().max(Comparator.comparing(Track::getCount)).get();
         System.out.println(shortestTrack.getName());
 
         FunctionInterface addFunction = (x, y) -> x + y;
         System.err.println(addFunction.operate(12, 56));
 
-        Runnable runnable = () -> {
-            System.out.println(Thread.currentThread().getName());
-        };
-        new Thread(runnable).start();
+        new Thread(() -> System.out.println(Thread.currentThread().getName())).start();
 
         List<Integer> numbers = Lists.newArrayList();
         for (int i = 0; i < 5; i++) {
@@ -86,7 +81,7 @@ public class Lambda {
 
         languages.parallelStream().filter(e -> e != null && e.length() > 3).forEach(System.out::println);
 
-        languages = languages.stream().filter(e -> e != null).map(e -> e.toUpperCase() + "-language")
+        languages = languages.stream().filter(Objects::nonNull).map(e -> e.toUpperCase() + "-language")
                 .collect(Collectors.toList());
         System.out.println(languages);
 
@@ -103,23 +98,17 @@ public class Lambda {
 
         System.out.println(addUp(Stream.of(56, 11, 3)));
 
-        new String("aBCde").chars().filter(ch -> Character.isLowerCase(ch)).forEach(System.out::println);
-        delete(Stream.of(1, 2, 58, 23).collect(Collectors.toList()), 58);
+        "aBCde".chars().filter(Character::isLowerCase).forEach(System.out::println);
 
-        String[] strs = {"java8", "is", "easy", "to", "use", "to", "is"};
+        String[] strArr = {"java8", "is", "easy", "to", "use", "to", "is"};
 
-        List<String> distinctStrs = Arrays.stream(strs)
+        List<String> distinctStr = Arrays.stream(strArr)
                 .map(str -> str.split(","))
                 .flatMap(Arrays::stream)
                 .distinct()
                 .collect(Collectors.toList());
 
-        distinctStrs.forEach(System.out::println);
-
-    }
-
-    private static void delete(List<Integer> list, Integer filter) {
-        list.parallelStream().filter(item -> !item.equals(filter)).forEach(System.out::println);
+        distinctStr.forEach(System.out::println);
     }
 
     private static int addUp(Stream<Integer> numbers) {

@@ -20,9 +20,9 @@ import java.util.concurrent.atomic.AtomicLong;
 @Slf4j
 public class DisruptorManager {
 
-    private static final int ringBufferSize = 1024;
+    private static final int RING_BUFFER_SIZE = 1024;
 
-    private static final int maxThread = Runtime.getRuntime().availableProcessors() << 1;
+    private static final int MAX_THREAD = Runtime.getRuntime().availableProcessors() << 1;
 
     private static Executor executor;
 
@@ -34,13 +34,13 @@ public class DisruptorManager {
 
     private static AtomicInteger index = new AtomicInteger(1);
 
-    public static void start(EventHandler<DataEvent> eventHandler) {
+    static void start(EventHandler<DataEvent> eventHandler) {
 
-        disruptor = new Disruptor<>(new DataEventFactory(), ringBufferSize, r -> {
+        disruptor = new Disruptor<>(new DataEventFactory(), RING_BUFFER_SIZE, r -> {
             return new Thread(null, r, "disruptor-thread-" + index.getAndIncrement());
         }, ProducerType.MULTI, new BlockingWaitStrategy());
 
-        executor = new ThreadPoolExecutor(maxThread, maxThread, 0, TimeUnit.MILLISECONDS,
+        executor = new ThreadPoolExecutor(MAX_THREAD, MAX_THREAD, 0, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(),
                 ThreadFactory.create("log-disruptor", false),
                 new ThreadPoolExecutor.AbortPolicy());
@@ -59,7 +59,7 @@ public class DisruptorManager {
         }, new Date(), 30 * 1000);
     }
 
-    public static void publishEvent(final long message) {
+    static void publishEvent(final long message) {
         executor.execute(() -> {
             if (data.get() == Long.MAX_VALUE) {
                 data.set(0L);
