@@ -1,7 +1,7 @@
 package com.hengxunda.springcloud.order.service.impl;
 
 import com.hengxunda.springcloud.common.enums.OrderEnum;
-import com.hengxunda.springcloud.common.utils.IdWorkerUtils;
+import com.hengxunda.springcloud.common.utils.SnowFlakeUtils;
 import com.hengxunda.springcloud.order.entity.Order;
 import com.hengxunda.springcloud.order.mapper.OrderMapper;
 import com.hengxunda.springcloud.order.service.OrderService;
@@ -48,7 +48,7 @@ public class OrderServiceImpl extends AbstractCrudService<OrderMapper, Order> im
     @Transactional
     public Order save(Order order) {
         if (order.boolNewRecord()) {
-            order.setNumber(IdWorkerUtils.getInstance().buildPartNumber());
+            order.setNumber(SnowFlakeUtils.getInstance().getId());
             order.setStatus(OrderEnum.Status.NOT_PAY.code());
             order.preInsert();
             dao.insert(order);
@@ -58,7 +58,7 @@ public class OrderServiceImpl extends AbstractCrudService<OrderMapper, Order> im
         return order;
     }
 
-    protected static final String key(Order order) {
+    private static String key(Order order) {
 
         return "order_" + order.getNumber();
     }

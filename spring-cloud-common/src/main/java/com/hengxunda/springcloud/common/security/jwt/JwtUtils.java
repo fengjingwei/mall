@@ -71,8 +71,7 @@ public abstract class JwtUtils {
                 .parseClaimsJws(jwt)
                 .getBody();
 
-        AccountJWT accountJWT = FastJsonUtils.parseObject(claims.getSubject(), AccountJWT.class);
-        return accountJWT;
+        return FastJsonUtils.parseObject(claims.getSubject(), AccountJWT.class);
     }
 
     private Date generateExpirationDate(long expiration) {

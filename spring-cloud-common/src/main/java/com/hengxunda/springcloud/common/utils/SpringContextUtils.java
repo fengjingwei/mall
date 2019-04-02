@@ -66,7 +66,7 @@ public class SpringContextUtils implements ApplicationContextAware, DisposableBe
             connection.getInputStream();
             connection.disconnect();
         } catch (Exception e) {
-            new RuntimeException(e);
+            throw new RuntimeException(e);
         }
         SpringContextUtils.applicationContext = applicationContext;
     }
@@ -84,6 +84,6 @@ public class SpringContextUtils implements ApplicationContextAware, DisposableBe
      * 检查ApplicationContext不为空.
      */
     private static void assertContextInjected() {
-        Validate.validState(applicationContext != null, "applicaitonContext属性未注入, 请在applicationContext.xml中定义SpringContextHolder.");
+        Validate.validState(applicationContext != null, "applicationContext属性未注入, 请在applicationContext.xml中定义SpringContextHolder.");
     }
 }

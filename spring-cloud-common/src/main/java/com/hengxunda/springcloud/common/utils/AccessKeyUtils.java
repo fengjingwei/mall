@@ -1,20 +1,15 @@
 package com.hengxunda.springcloud.common.utils;
 
 import com.hengxunda.springcloud.common.security.coder.Digests;
-import org.apache.commons.codec.CharEncoding;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 public abstract class AccessKeyUtils {
 
     public static String encode(String text, String nonce, String token) {
-        byte[] bytes = null;
-        try {
-            bytes = Digests.sha1(text.getBytes(CharEncoding.UTF_8), token.getBytes());
-            bytes = Digests.sha1(bytes, nonce.getBytes(CharEncoding.UTF_8));
-        } catch (UnsupportedEncodingException e) {
-
-        }
+        byte[] bytes;
+        bytes = Digests.sha1(text.getBytes(StandardCharsets.UTF_8), token.getBytes());
+        bytes = Digests.sha1(bytes, nonce.getBytes(StandardCharsets.UTF_8));
         return StringUtils.toHex(bytes);
     }
 

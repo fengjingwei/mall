@@ -115,9 +115,7 @@ public class RoomChannelContainer {
     private static List<Channel> newList(ChannelGroup group) {
         List<Channel> channels = Lists.newArrayList();
         if (Objects.nonNull(group)) {
-            group.iterator().forEachRemaining(channel -> {
-                channels.add(channel);
-            });
+            group.iterator().forEachRemaining(channels::add);
         }
         return channels;
     }

@@ -2,9 +2,9 @@ package com.hengxunda.springcloud.common.utils;
 
 import java.util.UUID;
 
-public final class IdWorkerUtils {
+public final class SnowFlakeUtils {
 
-    private static final IdWorkerUtils ID_WORKER_UTILS = new IdWorkerUtils();
+    private static final SnowFlakeUtils ID_WORKER_UTILS = new SnowFlakeUtils();
 
     private final long twepoch = 1288834974657L;
 
@@ -34,15 +34,15 @@ public final class IdWorkerUtils {
 
     private long lastTimestamp = -1L;
 
-    public static IdWorkerUtils getInstance() {
+    public static SnowFlakeUtils getInstance() {
         return ID_WORKER_UTILS;
     }
 
-    private IdWorkerUtils() {
+    private SnowFlakeUtils() {
 
     }
 
-    private IdWorkerUtils(final long workerId, final long datacenterId) {
+    private SnowFlakeUtils(final long workerId, final long datacenterId) {
         if (workerId > maxWorkerId || workerId < 0) {
             throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
         }
@@ -84,11 +84,11 @@ public final class IdWorkerUtils {
         return System.currentTimeMillis();
     }
 
-    public String buildPartNumber() {
+    public String getId() {
         return String.valueOf(ID_WORKER_UTILS.nextId());
     }
 
-    public String createUUID() {
+    public String getUUID() {
         return String.valueOf(UUID.randomUUID().hashCode() & 0x7fffffff);
     }
 }

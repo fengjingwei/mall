@@ -51,10 +51,7 @@ public abstract class DateUtils extends org.apache.commons.lang3.time.DateUtils 
     }
 
     public static boolean isLeapYear(LocalDate localDate) {
-        if (localDate.isLeapYear()) {
-            return true;
-        }
-        return false;
+        return localDate.isLeapYear();
     }
 
     public static Date now() {

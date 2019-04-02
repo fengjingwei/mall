@@ -27,18 +27,14 @@ public abstract class RestTemplateUtils {
 
     private static int maxConnectPerRoute = maxTotalConnect >> 2;
 
-    private static int connectTimeout = 2000;
-
-    private static int readTimeout = 3000;
-
     private static ClientHttpRequestFactory createFactory() {
         HttpClient httpClient = HttpClientBuilder.create()
                 .setMaxConnTotal(maxTotalConnect)
                 .setMaxConnPerRoute(maxConnectPerRoute)
                 .build();
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
-        factory.setConnectTimeout(connectTimeout);
-        factory.setReadTimeout(readTimeout);
+        factory.setConnectTimeout(2000);
+        factory.setReadTimeout(3000);
         return factory;
     }
 

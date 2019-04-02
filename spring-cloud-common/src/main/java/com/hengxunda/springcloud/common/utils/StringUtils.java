@@ -1,10 +1,8 @@
 package com.hengxunda.springcloud.common.utils;
 
-import org.apache.commons.lang.CharEncoding;
-
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -26,11 +24,7 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static byte[] getBytes(String str) {
         if (str != null) {
-            try {
-                return str.getBytes(CharEncoding.UTF_8);
-            } catch (UnsupportedEncodingException e) {
-                return null;
-            }
+            return str.getBytes(StandardCharsets.UTF_8);
         } else {
             return null;
         }
@@ -43,11 +37,7 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return
      */
     public static String toString(byte[] bytes) {
-        try {
-            return new String(bytes, CharEncoding.UTF_8);
-        } catch (UnsupportedEncodingException e) {
-            return EMPTY;
-        }
+        return new String(bytes, StandardCharsets.UTF_8);
     }
 
     /**
@@ -78,8 +68,7 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
         String regEx = "<.+?>";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(html);
-        String s = m.replaceAll("");
-        return s;
+        return m.replaceAll("");
     }
 
     /**
@@ -191,9 +180,9 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
         StringBuilder result = new StringBuilder();
         StringBuilder val = new StringBuilder();
         String[] vals = split(objectString, ".");
-        for (int i = 0; i < vals.length; i++) {
-            val.append("." + vals[i]);
-            result.append("!" + (val.substring(1)) + "?'':");
+        for (String val1 : vals) {
+            val.append(".").append(val1);
+            result.append("!").append(val.substring(1)).append("?'':");
         }
         result.append(val.substring(1));
         return result.toString();
@@ -247,7 +236,7 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
                 // 转换为String类型
                 newInput = String.valueOf(method.invoke(pInput));
                 // size为0的场合
-                return Integer.parseInt(newInput) == 0 ? true : false;
+                return Integer.parseInt(newInput) == 0;
             } catch (Exception e) {
                 // 访问失败
                 try {
@@ -257,13 +246,13 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
                     // 转换为String类型
                     newInput = String.valueOf(method.invoke(pInput));
                     // getItemCount为0的场合
-                    return Integer.parseInt(newInput) == 0 ? true : false;
+                    return Integer.parseInt(newInput) == 0;
                 } catch (Exception ex) {
                     // 访问失败
                     try {
                         // 判断传入参数的长度
                         // 长度为0的场合
-                        return Array.getLength(pInput) == 0 ? true : false;
+                        return Array.getLength(pInput) == 0;
                     } catch (Exception exx) {
                         // 访问失败
                         try {
@@ -272,7 +261,7 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
                             // 转换String类型
                             newInput = String.valueOf(method.invoke(pInput));
                             // 转换hasNext的值
-                            return Boolean.valueOf(newInput) == false ? true : false;
+                            return !Boolean.valueOf(newInput);
                         } catch (Exception exxx) {
                             // 以上场合不满足
                             return false;
