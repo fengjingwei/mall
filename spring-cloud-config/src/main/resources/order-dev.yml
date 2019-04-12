@@ -72,8 +72,8 @@ management:
 
 #启用feign的hystrix
 feign:
- hystrix:
-  enabled: true
+  hystrix:
+    enabled: true
 
 #Hystrix超时时间改为5秒
 hystrix:

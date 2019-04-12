@@ -8,6 +8,17 @@ public class ReentrantLock implements Runnable {
 
     public static int i = 0;
 
+    public static void main(String[] args) throws InterruptedException {
+        ReentrantLock reentrantLock = new ReentrantLock();
+        Thread thread1 = new Thread(reentrantLock);
+        Thread thread2 = new Thread(reentrantLock);
+        thread1.start();
+        thread2.start();
+        thread1.join();
+        thread2.join();
+        System.out.println("i = " + i);
+    }
+
     @Override
     public void run() {
         for (int index = 1000; index > 0; index--) {
@@ -18,16 +29,5 @@ public class ReentrantLock implements Runnable {
                 lock.unlock();
             }
         }
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        ReentrantLock reentrantLock = new ReentrantLock();
-        Thread thread1 = new Thread(reentrantLock);
-        Thread thread2 = new Thread(reentrantLock);
-        thread1.start();
-        thread2.start();
-        thread1.join();
-        thread2.join();
-        System.out.println("i = " + i);
     }
 }

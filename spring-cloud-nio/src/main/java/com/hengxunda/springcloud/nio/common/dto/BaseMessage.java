@@ -38,6 +38,33 @@ public class BaseMessage implements Serializable {
     @JSONField(ordinal = 2)
     private Object body;
 
+    public static BaseMessage getResponseException(BaseMessage request) {
+        return makeInstance(request, SERVER_ERROR);
+    }
+
+    public static BaseMessage getResponseOk(BaseMessage request) {
+        return makeInstance(request, OK);
+    }
+
+    public static BaseMessage getNotification() {
+        BaseMessage response = new BaseMessage();
+        response.setTimestamp(DateUtils.now());
+        response.setMsgId(StringUtils.EMPTY);
+        response.setMsgType(2);
+        response.setStatusCode(OK);
+        return response;
+    }
+
+    private static BaseMessage makeInstance(BaseMessage request, StatusCodeEnum code) {
+        BaseMessage response = new BaseMessage();
+        response.setTimestamp(DateUtils.now());
+        response.setMsgId(request.getMsgId());
+        response.setMsgNo(request.getMsgNo());
+        response.setMsgType(2);
+        response.setStatusCode(code);
+        return response;
+    }
+
     @JSONField(name = "status", ordinal = 4)
     public int getStatus() {
         return statusCode.getCode();
@@ -72,33 +99,6 @@ public class BaseMessage implements Serializable {
         private final int code;
 
         private final String msg;
-    }
-
-    public static BaseMessage getResponseException(BaseMessage request) {
-        return makeInstance(request, SERVER_ERROR);
-    }
-
-    public static BaseMessage getResponseOk(BaseMessage request) {
-        return makeInstance(request, OK);
-    }
-
-    public static BaseMessage getNotification() {
-        BaseMessage response = new BaseMessage();
-        response.setTimestamp(DateUtils.now());
-        response.setMsgId(StringUtils.EMPTY);
-        response.setMsgType(2);
-        response.setStatusCode(OK);
-        return response;
-    }
-
-    private static BaseMessage makeInstance(BaseMessage request, StatusCodeEnum code) {
-        BaseMessage response = new BaseMessage();
-        response.setTimestamp(DateUtils.now());
-        response.setMsgId(request.getMsgId());
-        response.setMsgNo(request.getMsgNo());
-        response.setMsgType(2);
-        response.setStatusCode(code);
-        return response;
     }
 
 }

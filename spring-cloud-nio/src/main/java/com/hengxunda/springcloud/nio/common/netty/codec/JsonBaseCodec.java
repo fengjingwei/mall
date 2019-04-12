@@ -13,7 +13,10 @@ import java.util.List;
 @Slf4j
 public class JsonBaseCodec extends MessageToMessageCodec<String, BaseMessage> {
 
-    private static final Object PLACEHOLDER_OBJ = new Object();// 占位对象
+    /**
+     * 占位对象
+     */
+    private static final Object PLACEHOLDER_OBJ = new Object();
 
     private static final int MSG_TYPE_LENGTH = 1;
 

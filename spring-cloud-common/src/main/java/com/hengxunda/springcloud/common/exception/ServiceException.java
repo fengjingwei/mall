@@ -6,11 +6,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ServiceException extends BaseException {
 
-    @Override
-    protected ErrorCodeEnum code() {
-        return null;
-    }
-
     public ServiceException(String message) {
         super(message);
     }
@@ -21,5 +16,10 @@ public class ServiceException extends BaseException {
 
     public ServiceException(String message, Throwable cause) {
         super(message, cause);
+    }
+
+    @Override
+    protected ErrorCodeEnum code() {
+        return null;
     }
 }

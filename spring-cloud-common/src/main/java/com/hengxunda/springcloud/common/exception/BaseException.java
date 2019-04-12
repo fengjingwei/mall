@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public abstract class BaseException extends RuntimeException {
 
-    protected abstract ErrorCodeEnum code();
-
     public BaseException(String message) {
         super(message);
     }
@@ -19,5 +17,7 @@ public abstract class BaseException extends RuntimeException {
     public BaseException(String message, Throwable cause) {
         super(message, cause);
     }
+
+    protected abstract ErrorCodeEnum code();
 
 }

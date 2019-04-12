@@ -25,7 +25,7 @@ public abstract class HmacCoder extends SecurityCoder {
         // 还原密钥
         SecretKey secretKey = new SecretKeySpec(key, "HmacMD5");
         // 实例化Mac "SslMacMD5"
-        Mac mac = Mac.getInstance("SslMacMD5");// secretKey.getAlgorithm());
+        Mac mac = Mac.getInstance("SslMacMD5");
         // 初始化Mac
         mac.init(secretKey);
         // 执行消息摘要
@@ -45,7 +45,7 @@ public abstract class HmacCoder extends SecurityCoder {
         // 还原密钥
         SecretKey secretKey = new SecretKeySpec(key, "HMacTiger");
         // 实例化Mac SslMacMD5
-        Mac mac = Mac.getInstance("SslMacMD5");// secretKey.getAlgorithm());
+        Mac mac = Mac.getInstance("SslMacMD5");
         // 初始化Mac
         mac.init(secretKey);
         // 执行消息摘要

@@ -2,7 +2,6 @@ package com.hengxunda.springcloud.gateway.fallback;
 
 import com.hengxunda.springcloud.common.persistence.AjaxResponse;
 import com.hengxunda.springcloud.common.utils.FastJsonUtils;
-import org.apache.commons.codec.CharEncoding;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,8 +9,8 @@ import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 @Component(value = "accountFallback")
 public class AccountFallback implements BaseFallback {
@@ -33,9 +32,9 @@ public class AccountFallback implements BaseFallback {
             }
 
             @Override
-            public InputStream getBody() throws IOException {
+            public InputStream getBody() {
 
-                return new ByteArrayInputStream(FastJsonUtils.toJSONString(AjaxResponse.error("网络异常,请稍后")).getBytes(CharEncoding.UTF_8));
+                return new ByteArrayInputStream(FastJsonUtils.toJSONString(AjaxResponse.error("网络异常,请稍后")).getBytes(StandardCharsets.UTF_8));
             }
 
             @Override

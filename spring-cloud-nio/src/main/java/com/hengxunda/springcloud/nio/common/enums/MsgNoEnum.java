@@ -26,7 +26,8 @@ public interface MsgNoEnum {
 
         USER_ENTER_BROADCAST(1100, "广播用户进入房间消息"),
 
-        USER_LEAVE_BROADCAST(1101, "广播用户离开房间消息"),;
+        USER_LEAVE_BROADCAST(1101, "广播用户离开房间消息"),
+        ;
 
         private Integer code;
 
@@ -54,7 +55,8 @@ public interface MsgNoEnum {
 
         CHAT_P2P(310, "私聊消息"),
 
-        CHAT_P2P_BROADCAST(1310, "广播私聊消息"),;
+        CHAT_P2P_BROADCAST(1310, "广播私聊消息"),
+        ;
 
         private Integer code;
 
@@ -75,7 +77,8 @@ public interface MsgNoEnum {
 
         LIVE_ADDRESS(402, "直播推流地址消息"),
 
-        LIVE_GET_STREAM(403, "获取某个直播流信息消息"),;
+        LIVE_GET_STREAM(403, "获取某个直播流信息消息"),
+        ;
 
         private Integer code;
 

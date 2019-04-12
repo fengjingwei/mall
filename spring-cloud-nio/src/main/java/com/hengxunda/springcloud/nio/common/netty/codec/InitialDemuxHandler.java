@@ -24,6 +24,21 @@ public final class InitialDemuxHandler extends ChannelInboundHandlerAdapter {
 
     private volatile boolean isInited = false;
 
+    private static boolean isNormalSocketRequest(ByteBuf buffer) {
+        boolean result = false;
+        try {
+            char c5 = (char) buffer.getByte(4);
+            char c6 = (char) buffer.getByte(5);
+            boolean c7 = c6 >= '0' && c6 <= '9';
+            if (c5 == '1' && c7) {
+                result = true;
+            }
+        } catch (Exception ignored) {
+
+        }
+        return result;
+    }
+
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         if (msg instanceof ByteBuf) {
@@ -66,21 +81,6 @@ public final class InitialDemuxHandler extends ChannelInboundHandlerAdapter {
             }
         }
         ctx.fireUserEventTriggered(evt);
-    }
-
-    private static boolean isNormalSocketRequest(ByteBuf buffer) {
-        boolean result = false;
-        try {
-            char c5 = (char) buffer.getByte(4);
-            char c6 = (char) buffer.getByte(5);
-            boolean c7 = c6 >= '0' && c6 <= '9';
-            if (c5 == '1' && c7) {
-                result = true;
-            }
-        } catch (Exception e) {
-
-        }
-        return result;
     }
 
 }

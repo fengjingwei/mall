@@ -25,11 +25,9 @@ import java.util.concurrent.*;
 @SpringBootConfiguration
 public class ServerServletListener implements ServletContextListener {
 
-    private Channel serverChannel;
-
-    private static int inetPort = 843;
-
     private static final int MAX_THREAD = Runtime.getRuntime().availableProcessors() << 1;
+    private static int inetPort = 843;
+    private Channel serverChannel;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {

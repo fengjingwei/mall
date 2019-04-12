@@ -15,9 +15,27 @@ import org.apache.http.HttpStatus;
 @Slf4j
 public final class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
 
+    private static final String WEBSOCKET_URL = "ws://127.0.0.1:9081/";
     private WebSocketServerHandshaker handshaker;
 
-    private static final String WEBSOCKET_URL = "ws://127.0.0.1:9081/";
+    private static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, DefaultFullHttpResponse res) {
+        // 返回应答给客户端
+        if (res.status().code() != HttpStatus.SC_OK) {
+            ByteBuf buf = Unpooled.copiedBuffer(res.status().toString(), CharsetUtil.UTF_8);
+            res.content().writeBytes(buf);
+            buf.release();
+        }
+
+        // 如果是非Keep-Alive,关闭连接
+        ChannelFuture f = ctx.channel().writeAndFlush(res);
+        if (!isKeepAlive(req) || res.status().code() != HttpStatus.SC_OK) {
+            f.addListener(ChannelFutureListener.CLOSE);
+        }
+    }
+
+    private static boolean isKeepAlive(FullHttpRequest request) {
+        return true;
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
@@ -78,25 +96,6 @@ public final class WebSocketServerHandler extends SimpleChannelInboundHandler<Ob
                 p.remove(InitialDemuxHandler.class);
             }
         }
-    }
-
-    private static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, DefaultFullHttpResponse res) {
-        // 返回应答给客户端
-        if (res.status().code() != HttpStatus.SC_OK) {
-            ByteBuf buf = Unpooled.copiedBuffer(res.status().toString(), CharsetUtil.UTF_8);
-            res.content().writeBytes(buf);
-            buf.release();
-        }
-
-        // 如果是非Keep-Alive,关闭连接
-        ChannelFuture f = ctx.channel().writeAndFlush(res);
-        if (!isKeepAlive(req) || res.status().code() != HttpStatus.SC_OK) {
-            f.addListener(ChannelFutureListener.CLOSE);
-        }
-    }
-
-    private static boolean isKeepAlive(FullHttpRequest request) {
-        return true;
     }
 
     @Override

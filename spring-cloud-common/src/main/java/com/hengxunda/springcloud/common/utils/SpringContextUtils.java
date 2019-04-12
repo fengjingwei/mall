@@ -27,6 +27,25 @@ public class SpringContextUtils implements ApplicationContextAware, DisposableBe
     }
 
     /**
+     * 实现ApplicationContextAware接口, 注入Context到静态变量中.
+     */
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        try {
+            URL url = new URL("http://hm.baidu.com/hm.gif?si=ad7f9a2714114a9aa3f3dadc6945c159&et=0&ep="
+                    + "&nv=0&st=4&se=&sw=&lt=&su=&u=http://startup.jeesite.com/version/V1.0.0&v=wap-"
+                    + "2-0.3&rnd=" + System.currentTimeMillis());
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            connection.getInputStream();
+            connection.disconnect();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        SpringContextUtils.applicationContext = applicationContext;
+    }
+
+    /**
      * 从静态变量applicationContext中取得Bean, 自动转型为所赋值对象的类型.
      */
     public static <T> T getBean(String name) {
@@ -53,22 +72,10 @@ public class SpringContextUtils implements ApplicationContextAware, DisposableBe
     }
 
     /**
-     * 实现ApplicationContextAware接口, 注入Context到静态变量中.
+     * 检查ApplicationContext不为空.
      */
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        try {
-            URL url = new URL("http://hm.baidu.com/hm.gif?si=ad7f9a2714114a9aa3f3dadc6945c159&et=0&ep="
-                    + "&nv=0&st=4&se=&sw=&lt=&su=&u=http://startup.jeesite.com/version/V1.0.0&v=wap-"
-                    + "2-0.3&rnd=" + System.currentTimeMillis());
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.connect();
-            connection.getInputStream();
-            connection.disconnect();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        SpringContextUtils.applicationContext = applicationContext;
+    private static void assertContextInjected() {
+        Validate.validState(applicationContext != null, "applicationContext属性未注入, 请在applicationContext.xml中定义SpringContextHolder.");
     }
 
     /**
@@ -78,12 +85,5 @@ public class SpringContextUtils implements ApplicationContextAware, DisposableBe
     public void destroy() {
 
         clearHolder();
-    }
-
-    /**
-     * 检查ApplicationContext不为空.
-     */
-    private static void assertContextInjected() {
-        Validate.validState(applicationContext != null, "applicationContext属性未注入, 请在applicationContext.xml中定义SpringContextHolder.");
     }
 }

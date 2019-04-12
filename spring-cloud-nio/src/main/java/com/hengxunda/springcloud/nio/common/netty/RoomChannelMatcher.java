@@ -11,6 +11,6 @@ public class RoomChannelMatcher implements ChannelMatcher {
 
     @Override
     public boolean matches(Channel channel) {
-        return excludeChannel == channel ? false : true;
+        return excludeChannel != channel;
     }
 }

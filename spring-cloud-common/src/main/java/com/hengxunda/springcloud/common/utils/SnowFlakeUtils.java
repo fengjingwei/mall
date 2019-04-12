@@ -34,10 +34,6 @@ public final class SnowFlakeUtils {
 
     private long lastTimestamp = -1L;
 
-    public static SnowFlakeUtils getInstance() {
-        return ID_WORKER_UTILS;
-    }
-
     private SnowFlakeUtils() {
 
     }
@@ -51,6 +47,10 @@ public final class SnowFlakeUtils {
         }
         this.workerId = workerId;
         this.datacenterId = datacenterId;
+    }
+
+    public static SnowFlakeUtils getInstance() {
+        return ID_WORKER_UTILS;
     }
 
     private synchronized long nextId() {

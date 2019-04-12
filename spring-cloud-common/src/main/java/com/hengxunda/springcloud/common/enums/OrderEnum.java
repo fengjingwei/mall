@@ -25,16 +25,16 @@ public interface OrderEnum {
 
         private final String msg;
 
+        public static Status acquireByCode(int code) {
+            return Arrays.stream(values()).filter(v -> v.code == code).findFirst().orElse(CANCEL);
+        }
+
         public int code() {
             return code;
         }
 
         public String msg() {
             return msg;
-        }
-
-        public static Status acquireByCode(int code) {
-            return Arrays.stream(values()).filter(v -> v.code == code).findFirst().orElse(CANCEL);
         }
     }
 

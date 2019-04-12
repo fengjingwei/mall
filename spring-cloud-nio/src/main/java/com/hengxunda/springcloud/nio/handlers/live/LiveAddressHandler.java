@@ -21,10 +21,9 @@ import java.util.Objects;
 @Component
 public class LiveAddressHandler extends AbstractBaseHandler<EmptyRequest> {
 
+    public static final String LIVE_NAME_PREFIX = "ofweekLiveRoom_";
     @Autowired
     private BaiduCloudService baiduCloudService;
-
-    public static final String LIVE_NAME_PREFIX = "ofweekLiveRoom_";
 
     @Override
     protected Class<EmptyRequest> getRequestBodyClass() {

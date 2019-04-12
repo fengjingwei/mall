@@ -24,6 +24,11 @@ public class OrderServiceImpl extends AbstractCrudService<OrderMapper, Order> im
     @Autowired
     private RedisHelper redisHelper;
 
+    private static String key(Order order) {
+
+        return "order_" + order.getNumber();
+    }
+
     @Override
     public List<Order> listAll() {
 
@@ -56,10 +61,5 @@ public class OrderServiceImpl extends AbstractCrudService<OrderMapper, Order> im
             redisHelper.putObject(key(order), order, 0b1111L);
         }
         return order;
-    }
-
-    private static String key(Order order) {
-
-        return "order_" + order.getNumber();
     }
 }

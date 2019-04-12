@@ -23,14 +23,16 @@ import java.util.stream.Stream;
 public class NioServer {
 
     private static final NioServer INSTANCE = new NioServer();
+    private static List<Integer> ports;
+    private Channel serverChannel;
 
-    public static final NioServer getInstance() {
+    public static NioServer getInstance() {
         return INSTANCE;
     }
 
-    private Channel serverChannel;
-
-    private static List<Integer> ports;
+    private static void initPorts() {
+        ports = Stream.of(9081, 110).collect(Collectors.toList());
+    }
 
     public void run() {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -65,10 +67,6 @@ public class NioServer {
 
     public void shutdown() {
         serverChannel.close();
-    }
-
-    private static void initPorts() {
-        ports = Stream.of(9081, 110).collect(Collectors.toList());
     }
 
 }

@@ -36,14 +36,14 @@ public class Des3Coder {
      * @throws Exception
      */
     public static String encode(String plainText) throws Exception {
-        Key deskey;
+        Key desKey;
         DESedeKeySpec spec = new DESedeKeySpec(SECRET_KEY.getBytes());
-        SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("desede");
-        deskey = keyfactory.generateSecret(spec);
+        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("desede");
+        desKey = keyFactory.generateSecret(spec);
 
         Cipher cipher = Cipher.getInstance("desede/CBC/PKCS5Padding");
         IvParameterSpec ips = new IvParameterSpec(IV.getBytes());
-        cipher.init(Cipher.ENCRYPT_MODE, deskey, ips);
+        cipher.init(Cipher.ENCRYPT_MODE, desKey, ips);
         byte[] encryptData = cipher.doFinal(plainText.getBytes(ENCODING));
         return Base64.encode(encryptData);
     }
@@ -56,13 +56,13 @@ public class Des3Coder {
      * @throws Exception
      */
     public static String decode(String encryptText) throws Exception {
-        Key deskey;
+        Key desKey;
         DESedeKeySpec spec = new DESedeKeySpec(SECRET_KEY.getBytes());
-        SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("desede");
-        deskey = keyfactory.generateSecret(spec);
+        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("desede");
+        desKey = keyFactory.generateSecret(spec);
         Cipher cipher = Cipher.getInstance("desede/CBC/PKCS5Padding");
         IvParameterSpec ips = new IvParameterSpec(IV.getBytes());
-        cipher.init(Cipher.DECRYPT_MODE, deskey, ips);
+        cipher.init(Cipher.DECRYPT_MODE, desKey, ips);
 
         byte[] decryptData = cipher.doFinal(Base64.decode(encryptText));
 
@@ -88,8 +88,6 @@ public class Des3Coder {
 
             boolean flag = matcher.matches();
             System.out.println(flag);
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }

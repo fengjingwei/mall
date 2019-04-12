@@ -174,9 +174,8 @@ public abstract class RSACoder extends SecurityCoder {
      *
      * @param keyMap
      * @return
-     * @throws Exception
      */
-    public static byte[] getPrivateKey(Map<String, Object> keyMap) throws Exception {
+    public static byte[] getPrivateKey(Map<String, Object> keyMap) {
         Key key = (Key) keyMap.get(PRIVATE_KEY);
         return key.getEncoded();
     }
@@ -186,9 +185,8 @@ public abstract class RSACoder extends SecurityCoder {
      *
      * @param keyMap
      * @return
-     * @throws Exception
      */
-    public static byte[] getPublicKey(Map<String, Object> keyMap) throws Exception {
+    public static byte[] getPublicKey(Map<String, Object> keyMap) {
         Key key = (Key) keyMap.get(PUBLIC_KEY);
         return key.getEncoded();
     }

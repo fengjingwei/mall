@@ -21,6 +21,10 @@ public class NettyServer {
         this.port = port;
     }
 
+    public static void main(String[] args) {
+        new NettyServer(9080).start();
+    }
+
     private void start() {
         EventLoopGroup boosGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -44,9 +48,5 @@ public class NettyServer {
             boosGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
-    }
-
-    public static void main(String[] args) {
-        new NettyServer(9080).start();
     }
 }

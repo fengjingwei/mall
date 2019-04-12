@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -141,7 +142,7 @@ public class RedisHelper implements CacheManager {
         try {
             object = redisTemplate.execute((RedisCallback<Object>) connection -> {
                 StringRedisSerializer serializer = new StringRedisSerializer();
-                byte[] ret = connection.getSet(serializer.serialize(key), serializer.serialize(value));
+                byte[] ret = connection.getSet(Objects.requireNonNull(serializer.serialize(key)), Objects.requireNonNull(serializer.serialize(value)));
                 connection.close();
                 return serializer.deserialize(ret);
             });
@@ -157,7 +158,7 @@ public class RedisHelper implements CacheManager {
         try {
             object = redisTemplate.execute((RedisCallback<Object>) connection -> {
                 StringRedisSerializer serializer = new StringRedisSerializer();
-                Boolean success = connection.setNX(serializer.serialize(key), serializer.serialize(value));
+                Boolean success = connection.setNX(Objects.requireNonNull(serializer.serialize(key)), Objects.requireNonNull(serializer.serialize(value)));
                 connection.close();
                 return success;
             });
@@ -173,7 +174,7 @@ public class RedisHelper implements CacheManager {
         try {
             object = redisTemplate.execute((RedisCallback<Object>) connection -> {
                 StringRedisSerializer serializer = new StringRedisSerializer();
-                byte[] data = connection.get(serializer.serialize(key));
+                byte[] data = connection.get(Objects.requireNonNull(serializer.serialize(key)));
                 connection.close();
                 if (data == null) {
                     return null;

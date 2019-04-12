@@ -10,6 +10,9 @@ import java.security.MessageDigest;
  */
 public abstract class MDCoder extends SecurityCoder {
 
+    private static final char[] HEXDIGITS = {'0', '1', '2', '3', '4', '5',
+            '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+
     /**
      * MD2加密
      *
@@ -52,10 +55,6 @@ public abstract class MDCoder extends SecurityCoder {
         return md.digest(data);
     }
 
-
-    private static final char[] HEXDIGITS = {'0', '1', '2', '3', '4', '5',
-            '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-
     /**
      * MD5加密
      *
@@ -70,8 +69,7 @@ public abstract class MDCoder extends SecurityCoder {
             int j = md.length;
             char[] str = new char[j * 2];
             int k = 0;
-            for (int i = 0; i < j; i++) {
-                byte byte0 = md[i];
+            for (byte byte0 : md) {
                 str[k++] = HEXDIGITS[byte0 >>> 4 & 0xf];
                 str[k++] = HEXDIGITS[byte0 & 0xf];
             }
@@ -87,8 +85,7 @@ public abstract class MDCoder extends SecurityCoder {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             BASE64Encoder base64en = new BASE64Encoder();
             //加密后的字符串
-            String newstr = base64en.encode(md5.digest(str.getBytes("utf-8")));
-            return newstr;
+            return base64en.encode(md5.digest(str.getBytes("utf-8")));
         } catch (Exception e) {
             return "";
         }

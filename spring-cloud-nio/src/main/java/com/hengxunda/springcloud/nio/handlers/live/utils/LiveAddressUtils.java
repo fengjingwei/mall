@@ -17,10 +17,8 @@ import java.util.Objects;
 
 public abstract class LiveAddressUtils {
 
-    private static BaiduCloudService baiduCloudService = SpringContextUtils.getBean(BaiduCloudService.class);
-
     private static final Map<String, LVBChannel> ROOMID_ADDRESS = Maps.newHashMap();
-
+    private static BaiduCloudService baiduCloudService = SpringContextUtils.getBean(BaiduCloudService.class);
     private static boolean isIncited = false;
 
     public static void put(String roomId, LVBChannel address) {

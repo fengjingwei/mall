@@ -33,7 +33,6 @@ public abstract class DESCoder extends SecurityCoder {
      * @throws InvalidKeyException
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
-     * @throws Exception
      */
     private static Key toKey(byte[] key) throws InvalidKeyException, NoSuchAlgorithmException, InvalidKeySpecException {
         // 实例化DES密钥材料
@@ -41,8 +40,7 @@ public abstract class DESCoder extends SecurityCoder {
         // 实例化秘密密钥工厂
         SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(KEY_ALGORITHM);
         // 生成秘密密钥
-        SecretKey secretKey = keyFactory.generateSecret(dks);
-        return secretKey;
+        return keyFactory.generateSecret(dks);
     }
 
     /**
@@ -57,7 +55,6 @@ public abstract class DESCoder extends SecurityCoder {
      * @throws NoSuchPaddingException
      * @throws BadPaddingException
      * @throws IllegalBlockSizeException
-     * @throws Exception
      */
     public static byte[] decrypt(byte[] data, byte[] key) throws InvalidKeyException, NoSuchAlgorithmException,
             InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
@@ -83,7 +80,6 @@ public abstract class DESCoder extends SecurityCoder {
      * @throws BadPaddingException
      * @throws IllegalBlockSizeException
      * @throws InvalidKeySpecException
-     * @throws Exception
      */
     public static byte[] encrypt(byte[] data, byte[] key) throws NoSuchAlgorithmException, NoSuchPaddingException,
             InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidKeySpecException {
@@ -104,7 +100,6 @@ public abstract class DESCoder extends SecurityCoder {
      *
      * @return byte[] 二进制密钥
      * @throws NoSuchAlgorithmException
-     * @throws Exception
      */
     public static byte[] initKey() throws NoSuchAlgorithmException {
         /*

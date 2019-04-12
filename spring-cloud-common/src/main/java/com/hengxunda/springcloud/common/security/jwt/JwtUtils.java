@@ -44,10 +44,14 @@ public abstract class JwtUtils {
 
         // Let's set the JWT Claims
         JwtBuilder builder = Jwts.builder()
-                .setId(id)// JWT的唯一标识
-                .setIssuedAt(now)// 时间戳,JWT的签发时间
-                .setSubject(subject)// JWT的主体,即它的所有人
-                .setIssuer(issuer)// JWT的签发主体
+                // JWT的唯一标识
+                .setId(id)
+                // 时间戳,JWT的签发时间
+                .setIssuedAt(now)
+                // JWT的主体,即它的所有人
+                .setSubject(subject)
+                // JWT的签发主体
+                .setIssuer(issuer)
                 .signWith(signatureAlgorithm, signingKey);
 
         if (ttlMillis >= 0) {
@@ -74,10 +78,6 @@ public abstract class JwtUtils {
         return FastJsonUtils.parseObject(claims.getSubject(), AccountJWT.class);
     }
 
-    private Date generateExpirationDate(long expiration) {
-        return new Date(System.currentTimeMillis() + expiration * 1000);
-    }
-
     public static void main(String[] args) {
         AccountJWT accountJWT = AccountJWT.builder().phone("18588257670").email("951159049@qq.com").build();
 
@@ -88,5 +88,9 @@ public abstract class JwtUtils {
         accountJWT = parseJWT(jwt);
 
         System.out.println("accountJWT = " + accountJWT.getPhone());
+    }
+
+    private Date generateExpirationDate(long expiration) {
+        return new Date(System.currentTimeMillis() + expiration * 1000);
     }
 }
