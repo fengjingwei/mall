@@ -1,4 +1,4 @@
-package org.hengxunda.springcloud.order;
+package org.hengxunda.springcloud.order.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.Unpooled;
@@ -17,6 +17,8 @@ public class NettyServer {
 
     private int port;
 
+    private Channel serverChannel;
+
     private NettyServer(final int port) {
         this.port = port;
     }
@@ -26,13 +28,17 @@ public class NettyServer {
     }
 
     private void start() {
-        EventLoopGroup boosGroup = new NioEventLoopGroup();
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
+        EventLoopGroup workGroup = new NioEventLoopGroup();
         try {
-            ServerBootstrap sbs = new ServerBootstrap().group(boosGroup, workerGroup)
+            ServerBootstrap b = new ServerBootstrap()
+                    .group(bossGroup, workGroup)
                     .channel(NioServerSocketChannel.class)
                     .localAddress(new InetSocketAddress(port))
+                    .option(ChannelOption.TCP_NODELAY, true)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
+
+                        @Override
                         protected void initChannel(SocketChannel ch) {
                             final ChannelPipeline pipeline = ch.pipeline();
                             pipeline.addLast(new DelimiterBasedFrameDecoder(8192, Unpooled.copiedBuffer("$_".getBytes())));
@@ -40,13 +46,19 @@ public class NettyServer {
                             pipeline.addLast(new StringDecoder(StandardCharsets.UTF_8));
                             pipeline.addLast(new NettyServerHandler());
                         }
-                    }).option(ChannelOption.SO_BACKLOG, 1024).childOption(ChannelOption.SO_KEEPALIVE, true);
+                    });
 
-            ChannelFuture future = sbs.bind(port).sync();
-            future.channel().closeFuture().sync();
+            serverChannel = b.bind(port).sync().channel();
+            serverChannel.closeFuture().sync();
         } catch (Exception e) {
-            boosGroup.shutdownGracefully();
-            workerGroup.shutdownGracefully();
+            bossGroup.shutdownGracefully();
+            workGroup.shutdownGracefully();
+        }
+    }
+
+    public void shutdown() {
+        if (serverChannel != null) {
+            serverChannel.close();
         }
     }
 }

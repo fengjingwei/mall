@@ -1,4 +1,4 @@
-package org.hengxunda.springcloud.order;
+package org.hengxunda.springcloud.order.netty;
 
 import com.hengxunda.springcloud.common.utils.SnowFlakeUtils;
 import io.netty.channel.ChannelHandlerContext;

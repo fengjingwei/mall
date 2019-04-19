@@ -18,5 +18,5 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      default-zone: http://localhost:8761/eureka/
+      default-zone: http://localhost:8761/
     eureka-service-url-poll-interval-seconds: 60

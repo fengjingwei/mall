@@ -4,9 +4,9 @@ import java.util.concurrent.locks.Lock;
 
 public class ReentrantLock implements Runnable {
 
-    private static final Lock lock = new java.util.concurrent.locks.ReentrantLock();
+    private static final Lock LOCK = new java.util.concurrent.locks.ReentrantLock();
 
-    public static int i = 0;
+    private static int anInt = 0;
 
     public static void main(String[] args) throws InterruptedException {
         ReentrantLock reentrantLock = new ReentrantLock();
@@ -16,17 +16,17 @@ public class ReentrantLock implements Runnable {
         thread2.start();
         thread1.join();
         thread2.join();
-        System.out.println("i = " + i);
+        System.out.println("anInt = " + anInt);
     }
 
     @Override
     public void run() {
         for (int index = 1000; index > 0; index--) {
-            lock.lock();
+            LOCK.lock();
             try {
-                i++;
+                anInt++;
             } finally {
-                lock.unlock();
+                LOCK.unlock();
             }
         }
     }

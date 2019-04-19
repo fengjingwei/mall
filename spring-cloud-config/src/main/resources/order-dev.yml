@@ -7,8 +7,8 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.0.21:3306/mall_order?useUnicode=true&characterEncoding=utf8&useSSL=false
-    username: block
+    url: jdbc:mysql://192.168.1.139:3306/mall_order?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
     password: 123456
     dbcp2:
       initial-size: 20
@@ -41,8 +41,9 @@ spring:
 
   redis:
     database: 0
-    host: 192.168.0.6
+    host: 192.168.1.151
     port: 6379
+    password: o^mt9#nIvv7u%`
     jedis:
       pool:
         max-active: 8
@@ -59,7 +60,7 @@ mybatis:
 eureka:
   client:
     service-url:
-      default-zone: http://localhost:8761/eureka/
+      default-zone: http://localhost:8761/
   instance:
     ip-address: 127.0.0.1
     prefer-ip-address: true
