@@ -10,14 +10,14 @@ import org.springframework.context.annotation.Bean;
 @SpringBootConfiguration
 public class OrderConfig {
 
-    public static final String ORDER_PAY_QUEUE_NAME = "order.pay.queue";
+    public static final String ORDER_PAY_QUEUE = "order.pay.queue";
+    public static final String ORDER_PAY_EXCHANGE = "order.pay.exchange";
     public static final String ORDER_PAY_ROUTING_KEY = "order.pay.routingKey";
-    public static final String ORDER_PAY_EXCHANGE_NAME = "order.pay.exchange";
 
     @Bean
     public Queue orderPayQueue() {
         // 队列持久化
-        return new Queue(ORDER_PAY_QUEUE_NAME, true);
+        return new Queue(ORDER_PAY_QUEUE, true);
     }
 
     /**
@@ -26,8 +26,8 @@ public class OrderConfig {
      * @return
      */
     @Bean
-    public DirectExchange directExchange() {
-        return new DirectExchange(ORDER_PAY_EXCHANGE_NAME, true, false);
+    public DirectExchange orderPayDirectExchange() {
+        return new DirectExchange(ORDER_PAY_EXCHANGE, true, false);
     }
 
     /**
@@ -37,7 +37,7 @@ public class OrderConfig {
      */
     /*@Bean
     public TopicExchange topicExchange() {
-        return new TopicExchange(ORDER_PAY_EXCHANGE_NAME, true, false);
+        return new TopicExchange(ORDER_PAY_EXCHANGE, true, false);
     }*/
 
     /**
@@ -50,10 +50,10 @@ public class OrderConfig {
      */
     /*@Bean
     public FanoutExchange fanoutExchange() {
-        return new FanoutExchange(ORDER_PAY_EXCHANGE_NAME, true, false);
+        return new FanoutExchange(ORDER_PAY_EXCHANGE, true, false);
     }*/
     @Bean
     public Binding binding() {
-        return BindingBuilder.bind(orderPayQueue()).to(directExchange()).with(ORDER_PAY_ROUTING_KEY);
+        return BindingBuilder.bind(orderPayQueue()).to(orderPayDirectExchange()).with(ORDER_PAY_ROUTING_KEY);
     }
 }

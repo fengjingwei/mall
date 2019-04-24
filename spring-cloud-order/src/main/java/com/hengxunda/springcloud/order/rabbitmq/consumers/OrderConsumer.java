@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@RabbitListener(queues = OrderConfig.ORDER_PAY_QUEUE_NAME, containerFactory = "containerFactory")
+@RabbitListener(queues = OrderConfig.ORDER_PAY_QUEUE, containerFactory = "rabbitListenerContainerFactory")
 public class OrderConsumer {
 
-    //bindings = {@QueueBinding(value = @Queue(value = OrderConfig.ORDER_PAY_QUEUE_NAME), exchange = @Exchange(value = OrderConfig.ORDER_PAY_EXCHANGE_NAME))}
+    //bindings = {@QueueBinding(value = @Queue(value = OrderConfig.ORDER_PAY_QUEUE), exchange = @Exchange(value = OrderConfig.ORDER_PAY_EXCHANGE))}
 
     @Autowired
     private OrderService orderService;

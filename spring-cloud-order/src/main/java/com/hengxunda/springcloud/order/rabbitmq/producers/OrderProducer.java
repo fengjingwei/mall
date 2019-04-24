@@ -14,6 +14,6 @@ public class OrderProducer {
 
     public void orderPay(Order order) {
 
-        amqpTemplate.convertAndSend(OrderConfig.ORDER_PAY_EXCHANGE_NAME, OrderConfig.ORDER_PAY_ROUTING_KEY, order);
+        amqpTemplate.convertAndSend(OrderConfig.ORDER_PAY_EXCHANGE, OrderConfig.ORDER_PAY_ROUTING_KEY, order);
     }
 }

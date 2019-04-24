@@ -25,14 +25,11 @@ spring:
     name: order-service
 
   rabbitmq:
-    host: 192.168.0.4
+    host: 192.168.1.237
     port: 5672
-    username: root
-    password: 123456
-    listener:
-      simple:
-        concurrency: 10
-        max-concurrency: 100
+    username: admin
+    password: KjVuBVWoa7u56G1X
+    virtual-host: /
 
   cloud:
     bus:
