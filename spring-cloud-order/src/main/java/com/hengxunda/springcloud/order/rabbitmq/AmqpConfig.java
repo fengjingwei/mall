@@ -1,5 +1,6 @@
 package com.hengxunda.springcloud.order.rabbitmq;
 
+import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -26,6 +27,8 @@ public class AmqpConfig {
         containerFactory.setPrefetchCount(DEFAULT_PREFETCH_COUNT);
         containerFactory.setConcurrentConsumers(DEFAULT_CONCURRENT);
         containerFactory.setMaxConcurrentConsumers(DEFAULT_MAX_CONCURRENT);
+        containerFactory.setDefaultRequeueRejected(false);
+        containerFactory.setAcknowledgeMode(AcknowledgeMode.MANUAL);
         containerFactory.setMessageConverter(new Jackson2JsonMessageConverter());
         configurer.configure(containerFactory, connectionFactory);
         return containerFactory;

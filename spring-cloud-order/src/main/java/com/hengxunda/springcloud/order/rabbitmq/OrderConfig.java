@@ -1,5 +1,6 @@
 package com.hengxunda.springcloud.order.rabbitmq;
 
+import com.google.common.collect.Maps;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
@@ -7,53 +8,54 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Map;
+
 @SpringBootConfiguration
 public class OrderConfig {
 
     public static final String ORDER_PAY_QUEUE = "order.pay.queue";
     public static final String ORDER_PAY_EXCHANGE = "order.pay.exchange";
-    public static final String ORDER_PAY_ROUTING_KEY = "order.pay.routingKey";
+    public static final String ORDER_PAY_ROUTING_KEY = "order.pay.routing.key";
+
+    public static final String ORDER_PAY_DELAY_QUEUE = "order.pay.delay.queue";
+    public static final String ORDER_PAY_DEAD_LETTER_EXCHANGE = "order.pay.delay.letter.exchange";
+    public static final String ORDER_PAY_DELAY_ROUTING_KEY = "order.pay.delay.routing.key";
 
     @Bean
     public Queue orderPayQueue() {
-        // 队列持久化
         return new Queue(ORDER_PAY_QUEUE, true);
     }
 
-    /**
-     * 如果生产者的routing key和Binding中的routing key一致,此交换机就将消息发到对应的队列中,完全匹配、单播的模式
-     *
-     * @return
-     */
     @Bean
     public DirectExchange orderPayDirectExchange() {
         return new DirectExchange(ORDER_PAY_EXCHANGE, true, false);
     }
 
-    /**
-     * 将routing key和某个模式进行匹配,需要队列binding到一个模式上
-     *
-     * @return
-     */
-    /*@Bean
-    public TopicExchange topicExchange() {
-        return new TopicExchange(ORDER_PAY_EXCHANGE, true, false);
-    }*/
+    @Bean
+    public Binding orderPayBinding(Queue orderPayQueue, DirectExchange orderPayDirectExchange) {
+        return BindingBuilder.bind(orderPayQueue).to(orderPayDirectExchange).with(ORDER_PAY_ROUTING_KEY);
+    }
 
     /**
-     * 广播模式:
-     * Fanout Exchange不需要处理RouteKey,只需要简单的将队列绑定到exchange上,
-     * 这样发送到exchange的消息都会被转发到与该交换机绑定的所有队列上,
-     * 所以,Fanout Exchange转发消息是最快的
+     * 创建延时队列
      *
      * @return
      */
-    /*@Bean
-    public FanoutExchange fanoutExchange() {
-        return new FanoutExchange(ORDER_PAY_EXCHANGE, true, false);
-    }*/
     @Bean
-    public Binding binding() {
-        return BindingBuilder.bind(orderPayQueue()).to(orderPayDirectExchange()).with(ORDER_PAY_ROUTING_KEY);
+    public Queue orderPayDelayQueue() {
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("x-dead-letter-exchange", ORDER_PAY_QUEUE);
+        params.put("x-dead-letter-routing-key", ORDER_PAY_ROUTING_KEY);
+        return new Queue(ORDER_PAY_DELAY_QUEUE, true, false, false, params);
+    }
+
+    @Bean
+    public DirectExchange orderPayDeadLetterExchange() {
+        return new DirectExchange(ORDER_PAY_DEAD_LETTER_EXCHANGE, true, false);
+    }
+
+    @Bean
+    public Binding orderPayDelayBinding(Queue orderPayDelayQueue, DirectExchange orderPayDeadLetterExchange) {
+        return BindingBuilder.bind(orderPayDelayQueue).to(orderPayDeadLetterExchange).with(ORDER_PAY_DELAY_ROUTING_KEY);
     }
 }
