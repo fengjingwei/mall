@@ -37,17 +37,15 @@ public class PaymentServiceImpl implements PaymentService {
     @Autowired
     private RedisHelper redisHelper;
 
-    private int timeoutMs = 10000, expireMs = 20000;
-
     @Override
     @Transactional
     public void makePayment(Order order) {
-        final BigDecimal accountInfo = accountClient.findByUserId(order.getUserId());
-        if (accountInfo.compareTo(order.getTotalAmount()) <= 0) {
+        final BigDecimal accountInfo = accountRibbon.findByUserId(order.getUserId());
+        if (accountInfo.compareTo(order.getTotalAmount()) < 0) {
             throw new ServiceException("余额不足!");
         }
 
-        final Integer inventoryInfo = inventoryClient.findByProductId(order.getProductId());
+        final Integer inventoryInfo = inventoryRibbon.findByProductId(order.getProductId());
         if (inventoryInfo < order.getCount()) {
             throw new ServiceException("库存不足!");
         }
@@ -55,16 +53,18 @@ public class PaymentServiceImpl implements PaymentService {
         // 扣除用户余额
         AccountDTO accountDTO = AccountDTO.builder().amount(order.getTotalAmount()).userId(order.getUserId()).build();
         log.info("{}", "===========执行spring cloud扣减资金==========");
-        accountClient.payment(accountDTO);
+        accountRibbon.payment(accountDTO);
 
         // 进入扣减库存
         InventoryDTO inventoryDTO = InventoryDTO.builder().count(order.getCount()).productId(order.getProductId()).build();
         log.info("{}", "===========执行spring cloud扣减库存==========");
+        final int timeoutMs = 10000;
+        final int expireMs = 20000;
         RedisDistributedLock lock = new RedisDistributedLock(redisHelper, "order_pay", timeoutMs, expireMs);
         try {
             if (lock.lock()) {
                 log.info("lock key : {}", lock.getLockKey());
-                inventoryClient.decrease(inventoryDTO);
+                inventoryRibbon.decrease(inventoryDTO);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

@@ -30,6 +30,7 @@ public class OrderConsumer {
             orderService.orderPay(order.getNumber(), order.getTotalAmount());
         } catch (Exception e) {
             e.printStackTrace();
+            // 进行失败业务处理
         } finally {
             channel.basicAck(deliveryTag, false);
         }

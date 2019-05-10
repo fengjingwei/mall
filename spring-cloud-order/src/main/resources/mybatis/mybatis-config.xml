@@ -19,7 +19,7 @@
     </settings>
 
     <typeAliases>
-        <typeAlias type="com.hengxunda.springcloud.order.entity.Order" alias="order"/>
+        <typeAlias type="com.hengxunda.springcloud.order.entity.Order" alias="Order"/>
     </typeAliases>
 
 </configuration>
