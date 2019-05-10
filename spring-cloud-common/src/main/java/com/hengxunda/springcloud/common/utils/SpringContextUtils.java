@@ -83,7 +83,6 @@ public class SpringContextUtils implements ApplicationContextAware, DisposableBe
      */
     @Override
     public void destroy() {
-
         clearHolder();
     }
 }

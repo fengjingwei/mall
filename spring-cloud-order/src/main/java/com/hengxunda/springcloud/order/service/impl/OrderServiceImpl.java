@@ -25,27 +25,22 @@ public class OrderServiceImpl extends AbstractCrudService<OrderMapper, Order> im
     private RedisHelper redisHelper;
 
     private static String key(Order order) {
-
         return "order_" + order.getNumber();
     }
 
     @Override
     public List<Order> listAll() {
-
         return dao.listAll();
     }
 
     @Override
     @Transactional
     public String orderPay(String number, BigDecimal amount) {
-
         Order order = Order.builder().number(number).totalAmount(amount).status(OrderEnum.Status.PAYING.code()).build();
         final int rows = dao.update(order);
-
         if (rows > 0) {
             paymentService.makePayment(dao.get(number));
         }
-
         return "success";
     }
 

@@ -37,14 +37,11 @@ public class PaymentServiceImpl implements PaymentService {
     @Autowired
     private RedisHelper redisHelper;
 
-    private int timeoutMsecs = 10000;
-
-    private int expireMsecs = 20000;
+    private int timeoutMs = 10000, expireMs = 20000;
 
     @Override
     @Transactional
     public void makePayment(Order order) {
-
         final BigDecimal accountInfo = accountClient.findByUserId(order.getUserId());
         if (accountInfo.compareTo(order.getTotalAmount()) <= 0) {
             throw new ServiceException("余额不足!");
@@ -57,16 +54,13 @@ public class PaymentServiceImpl implements PaymentService {
 
         // 扣除用户余额
         AccountDTO accountDTO = AccountDTO.builder().amount(order.getTotalAmount()).userId(order.getUserId()).build();
-
         log.info("{}", "===========执行spring cloud扣减资金==========");
         accountClient.payment(accountDTO);
 
         // 进入扣减库存
         InventoryDTO inventoryDTO = InventoryDTO.builder().count(order.getCount()).productId(order.getProductId()).build();
-
         log.info("{}", "===========执行spring cloud扣减库存==========");
-
-        RedisDistributedLock lock = new RedisDistributedLock(redisHelper, "order_pay", timeoutMsecs, expireMsecs);
+        RedisDistributedLock lock = new RedisDistributedLock(redisHelper, "order_pay", timeoutMs, expireMs);
         try {
             if (lock.lock()) {
                 log.info("lock key : {}", lock.getLockKey());

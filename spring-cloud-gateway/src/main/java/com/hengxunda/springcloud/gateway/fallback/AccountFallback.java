@@ -24,6 +24,7 @@ public class AccountFallback implements BaseFallback {
     public ClientHttpResponse fallbackResponse(String route, Throwable cause) {
 
         return new ClientHttpResponse() {
+
             @Override
             public HttpHeaders getHeaders() {
                 HttpHeaders httpHeaders = new HttpHeaders();

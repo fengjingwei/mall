@@ -24,13 +24,14 @@ public class OrderConsumer {
     private OrderService orderService;
 
     @RabbitHandler
-    public void process(@Payload Order order, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag, Channel channel) {
+    public void process(@Payload Order order, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag, Channel channel) throws IOException {
         log.info("order = {}", order);
         try {
             orderService.orderPay(order.getNumber(), order.getTotalAmount());
-            channel.basicAck(deliveryTag, false);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            channel.basicAck(deliveryTag, false);
         }
     }
 }

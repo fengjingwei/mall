@@ -25,8 +25,9 @@ public class ExpiredMessageListener extends MessageListenerAdapter {
     }
 
     private static String getOrderNumber(String message) {
-        if (StringUtils.isNoneBlank(message) && message.contains("order_")) {
-            message = StringUtils.substringAfter(message, "order_");
+        final String keyPrefix = "order_";
+        if (StringUtils.isNoneBlank(message) && message.contains(keyPrefix)) {
+            message = StringUtils.substringAfter(message, keyPrefix);
         }
         return message;
     }

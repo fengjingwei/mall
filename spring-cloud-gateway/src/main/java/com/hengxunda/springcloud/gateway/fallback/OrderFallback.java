@@ -2,7 +2,6 @@ package com.hengxunda.springcloud.gateway.fallback;
 
 import com.hengxunda.springcloud.common.persistence.AjaxResponse;
 import com.hengxunda.springcloud.common.utils.FastJsonUtils;
-import org.apache.commons.codec.CharEncoding;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 @Component(value = "orderFallback")
 public class OrderFallback implements BaseFallback {
@@ -25,6 +25,7 @@ public class OrderFallback implements BaseFallback {
     public ClientHttpResponse fallbackResponse(String route, Throwable cause) {
 
         return new ClientHttpResponse() {
+
             @Override
             public HttpHeaders getHeaders() {
                 HttpHeaders httpHeaders = new HttpHeaders();
@@ -34,7 +35,7 @@ public class OrderFallback implements BaseFallback {
 
             @Override
             public InputStream getBody() throws IOException {
-                return new ByteArrayInputStream(FastJsonUtils.toJSONString(AjaxResponse.error("网络异常,请稍后")).getBytes(CharEncoding.UTF_8));
+                return new ByteArrayInputStream(FastJsonUtils.toJSONString(AjaxResponse.error("网络异常,请稍后")).getBytes(StandardCharsets.UTF_8));
             }
 
             @Override

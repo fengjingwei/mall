@@ -22,7 +22,7 @@ public class FeignConfig {
     }
 
     @Bean
-    public Logger.Level feignlog() {
+    public Logger.Level feignLog() {
         return Logger.Level.FULL;
     }
 
@@ -32,7 +32,7 @@ public class FeignConfig {
     }
 
     /**
-     * 使用Feign自己的注解,使用springmvc的注解就会报错
+     * 使用Feign自己的注解,使用spring mvc的注解就会报错
      *
      * @return
      */

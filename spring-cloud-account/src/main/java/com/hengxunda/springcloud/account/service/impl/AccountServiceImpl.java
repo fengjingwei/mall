@@ -16,7 +16,6 @@ public class AccountServiceImpl extends AbstractCrudService<AccountMapper, Accou
     @Override
     @Transactional
     public boolean payment(AccountDTO accountDTO) {
-
         final AccountDO accountDO = dao.findByUserId(accountDTO.getUserId());
         accountDO.setBalance(accountDO.getBalance().subtract(accountDTO.getAmount()));
         accountDO.setFreezeAmount(accountDO.getFreezeAmount().add(accountDTO.getAmount()));

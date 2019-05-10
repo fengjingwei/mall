@@ -11,17 +11,13 @@ public class InventoryHystrix implements InventoryClient {
 
     @Override
     public Boolean decrease(InventoryDTO inventoryDTO) {
-
         log.info("feign decrease error... {}", inventoryDTO);
-
         return false;
     }
 
     @Override
     public Integer findByProductId(String productId) {
-
         log.info("feign findByProductId error... {}", productId);
-
         return null;
     }
 }

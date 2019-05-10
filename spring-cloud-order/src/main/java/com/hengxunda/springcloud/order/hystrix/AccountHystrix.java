@@ -13,17 +13,13 @@ public class AccountHystrix implements AccountClient {
 
     @Override
     public Boolean payment(AccountDTO accountDO) {
-
         log.info("feign payment error... {}", accountDO);
-
         return false;
     }
 
     @Override
     public BigDecimal findByUserId(String userId) {
-
         log.info("feign findByUserId error... {}", userId);
-
         return null;
     }
 }

@@ -27,7 +27,6 @@ public class OrderController {
     @ApiOperation(value = "获取所有的订单")
     @GetMapping("listAll")
     public AjaxResponse listAll() {
-
         return AjaxResponse.success(orderService.listAll());
     }
 
@@ -36,19 +35,14 @@ public class OrderController {
     @ApiImplicitParam(name = "order", value = "订单请求对象", required = true, paramType = "body", dataType = "Order")
     @PostMapping("create")
     public AjaxResponse create(@RequestBody Order order) {
-
         return AjaxResponse.success(orderService.save(order));
     }
 
     @ApiOperation(value = "订单支付并进行扣除账户余额，进行库存扣减")
     @PostMapping(value = "orderPay")
-    public AjaxResponse orderPay(@RequestParam(value = "number") String number,
-                                 @RequestParam(value = "amount") BigDecimal amount) {
-
+    public AjaxResponse orderPay(@RequestParam(value = "number") String number, @RequestParam(value = "amount") BigDecimal amount) {
         Order order = Order.builder().number(number).totalAmount(amount).build();
-
         orderProducer.orderPay(order);
-
         return AjaxResponse.success();
     }
 

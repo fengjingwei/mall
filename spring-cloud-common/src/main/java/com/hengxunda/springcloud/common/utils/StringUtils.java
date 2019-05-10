@@ -272,7 +272,6 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
     }
 
     public static void main(String[] args) {
-
         System.out.println("args = " + toCamelCase("hello_world"));
     }
 }

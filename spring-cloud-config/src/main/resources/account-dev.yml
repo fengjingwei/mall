@@ -44,7 +44,7 @@ mybatis:
 eureka:
   client:
     service-url:
-      default-zone: http://localhost:8761/
+      default-zone: http://localhost:8761/eureka/
   instance:
     ip-address: 127.0.0.1
     prefer-ip-address: true

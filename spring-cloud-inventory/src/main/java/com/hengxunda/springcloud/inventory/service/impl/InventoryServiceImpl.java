@@ -15,7 +15,6 @@ public class InventoryServiceImpl extends AbstractCrudService<InventoryMapper, I
     @Override
     @Transactional
     public Boolean decrease(InventoryDTO inventoryDTO) {
-
         final InventoryDO entity = dao.findByProductId(inventoryDTO.getProductId());
         entity.setTotalInventory(entity.getTotalInventory() - inventoryDTO.getCount());
         entity.setLockInventory(entity.getLockInventory() + inventoryDTO.getCount());

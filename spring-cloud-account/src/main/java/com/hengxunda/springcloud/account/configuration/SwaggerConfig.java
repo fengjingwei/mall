@@ -25,7 +25,7 @@ public class SwaggerConfig {
 
     private static final String VERSION = "1.0.0";
 
-    ApiInfo apiInfo() {
+    private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Swagger API")
                 .description("Spring Cloud Account Model")

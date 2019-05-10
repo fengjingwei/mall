@@ -24,14 +24,11 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public AccountJWT login(final String account, final String password) {
-
         log.info("account = [{}], password = [{}]", account, password);
-
         if (this.account.equals(account) && this.password.equals(password)) {
             AccountJWT accountJWT = AccountJWT.builder().account(account).password(password).build();
             String jwtToken = JwtUtils.createSimpleJWT(FastJsonUtils.toJSONString(accountJWT), timeout);
             accountJWT.setAuthToken(jwtToken);
-
             return accountJWT;
         }
         throw new ServiceException("用户名或密码错误");
