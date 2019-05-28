@@ -12,7 +12,6 @@
     <artifactId>spring-cloud-gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-
     <name>spring-cloud-gateway</name>
     <description>Gateway project for Spring Boot</description>
 
@@ -23,7 +22,6 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>com.hengxunda</groupId>
             <artifactId>spring-cloud-service</artifactId>
@@ -61,7 +59,6 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-
     </dependencies>
 
     <dependencyManagement>

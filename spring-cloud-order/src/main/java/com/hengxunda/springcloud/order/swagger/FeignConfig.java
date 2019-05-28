@@ -1,6 +1,7 @@
 package com.hengxunda.springcloud.order.swagger;
 
 import feign.*;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
@@ -16,7 +17,7 @@ public class FeignConfig {
      * @return
      */
     @Bean
-    @Scope("prototype")
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public Feign.Builder feignBuilder() {
         return Feign.builder();
     }

@@ -8,13 +8,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+import org.springframework.lang.NonNull;
 
 import java.util.concurrent.CountDownLatch;
 
 @Slf4j
 public class ExpiredMessageListener extends MessageListenerAdapter {
 
-    private CountDownLatch countDownLatch;
+    private final CountDownLatch countDownLatch;
 
     @Autowired
     private OrderMapper orderMapper;
@@ -33,12 +34,10 @@ public class ExpiredMessageListener extends MessageListenerAdapter {
     }
 
     @Override
-    public void onMessage(Message message, byte[] pattern) {
+    public void onMessage(@NonNull Message message, byte[] pattern) {
         log.info("ExpiredMessageListener -> onMessage -> < {} > key expire.", message);
-
         Order order = Order.builder().number(getOrderNumber(message.toString())).status(OrderEnum.Status.CANCEL.code()).build();
         orderMapper.update(order);
-
         countDownLatch.countDown();
     }
 }

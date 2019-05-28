@@ -9,7 +9,6 @@ import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
@@ -34,7 +33,7 @@ public class OrderFallback implements BaseFallback {
             }
 
             @Override
-            public InputStream getBody() throws IOException {
+            public InputStream getBody() {
                 return new ByteArrayInputStream(FastJsonUtils.toJSONString(AjaxResponse.error("网络异常,请稍后")).getBytes(StandardCharsets.UTF_8));
             }
 

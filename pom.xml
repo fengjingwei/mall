@@ -7,7 +7,6 @@
     <artifactId>mall</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-
     <name>mall</name>
     <description>Mall project for Spring Boot</description>
 
@@ -173,7 +172,6 @@
                 <artifactId>springfox-bean-validators</artifactId>
                 <version>${springfox.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -202,7 +200,6 @@
     </repositories>
 
     <distributionManagement>
-
         <repository>
             <id>releases</id>
             <name>Popocloud Release Repository</name>
@@ -214,7 +211,6 @@
             <name>Popocloud Snapshot Repository</name>
             <url>http://127.0.0.1:8081/nexus/content/repositories/snapshots/</url>
         </snapshotRepository>
-
     </distributionManagement>-->
 
 </project>

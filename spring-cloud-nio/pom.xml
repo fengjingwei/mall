@@ -12,7 +12,6 @@
     <artifactId>spring-cloud-nio</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-
     <name>spring-cloud-nio</name>
     <description>Nio project for Spring Boot</description>
 
@@ -24,7 +23,6 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>com.hengxunda</groupId>
             <artifactId>spring-cloud-service</artifactId>
@@ -80,7 +78,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
     </dependencies>
 
     <dependencyManagement>

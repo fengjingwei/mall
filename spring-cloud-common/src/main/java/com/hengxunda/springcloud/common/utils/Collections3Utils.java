@@ -73,7 +73,7 @@ public abstract class Collections3Utils {
      * @return
      */
     public static <T> List<T> union(final Collection<T> a, final Collection<T> b) {
-        List<T> result = new ArrayList<T>(a);
+        List<T> result = new ArrayList<>(a);
         result.addAll(b);
         return result;
     }
@@ -87,7 +87,7 @@ public abstract class Collections3Utils {
      * @return
      */
     public static <T> List<T> subtract(final Collection<T> a, final Collection<T> b) {
-        List<T> list = new ArrayList<T>(a);
+        List<T> list = new ArrayList<>(a);
         for (T element : b) {
             list.remove(element);
         }
@@ -104,7 +104,7 @@ public abstract class Collections3Utils {
      * @return
      */
     public static <T> List<T> intersection(Collection<T> a, Collection<T> b) {
-        List<T> list = new ArrayList<T>();
+        List<T> list = new ArrayList<>();
 
         for (T element : a) {
             if (b.contains(element)) {

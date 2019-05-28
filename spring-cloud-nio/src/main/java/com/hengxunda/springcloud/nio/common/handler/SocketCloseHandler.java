@@ -50,7 +50,6 @@ public class SocketCloseHandler implements Handlebars {
     }
 
     private void sendRoomNotification(Channel channel) {
-
         AccountJWT accountJWT = LoginHandler.UserUtils.getUser(channel);
         if (Objects.nonNull(accountJWT)) {
             if (RoomChannelContainer.isOtherChannelInRoom(channel)) {

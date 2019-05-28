@@ -12,7 +12,6 @@
     <artifactId>spring-cloud-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-
     <name>spring-cloud-common</name>
     <description>Common project for Spring Boot</description>
 
@@ -23,7 +22,6 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
@@ -99,7 +97,6 @@
             <artifactId>kryo-shaded</artifactId>
             <version>4.0.2</version>
         </dependency>
-
     </dependencies>
 
 </project>
