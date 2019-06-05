@@ -82,8 +82,3 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 5000
-
-account-service:
-  ribbon:
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.AvailabilityFilteringRule
-    NFLoadBalancePingClassName: com.netflix.loadbalancer.PingUrl

@@ -29,7 +29,7 @@ public class AccountController {
     }
 
     //@Authorization
-    @RequestMapping(value = "findByUserId")
+    @RequestMapping("findByUserId")
     public BigDecimal findByUserId(@RequestParam("userId") String userId) {
         log.info("userId = {}", userId);
         return accountService.findByUserId(userId).getBalance();

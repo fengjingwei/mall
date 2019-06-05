@@ -64,7 +64,7 @@ public class AccessFilter extends ZuulFilter {
             context.set("isSuccess", true);
         } else {
             context.setSendZuulResponse(false);
-            context.setResponseStatusCode(HttpStatus.SC_OK);
+            context.setResponseStatusCode(HttpStatus.SC_UNAUTHORIZED);
             context.setResponseBody(FastJsonUtils.toJSONString(AjaxResponse.error(HttpStatus.SC_UNAUTHORIZED, "Authorization Header There is no.")));
             context.set("isSuccess", false);
         }

@@ -1,8 +1,6 @@
 package com.hengxunda.springcloud.order;
 
-import com.hengxunda.springcloud.common.utils.RestTemplateUtils;
 import com.hengxunda.springcloud.order.listener.ExpiredMessageListener;
-import com.hengxunda.springcloud.order.swagger.RibbonConfig;
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +14,6 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
@@ -35,7 +32,7 @@ import java.util.concurrent.CountDownLatch;
 @EnableHystrixDashboard
 @MapperScan(basePackages = "com.hengxunda.springcloud.order.mapper")
 @EnableFeignClients(basePackages = ("com.hengxunda.springcloud.order.client"))
-@ComponentScan(basePackages = "com.hengxunda.springcloud", excludeFilters = {@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = RibbonConfig.class)})
+@ComponentScan(basePackages = "com.hengxunda.springcloud")
 public class SpringCloudOrderApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {
@@ -44,8 +41,8 @@ public class SpringCloudOrderApplication implements WebMvcConfigurer {
 
     @Bean
     @LoadBalanced
-    public static RestTemplate restTemplate() {
-        return RestTemplateUtils.restTemplate();
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 
     @Bean

@@ -13,11 +13,8 @@ public class ServiceInstance {
     private LoadBalancerClient loadBalancerClient;
 
     public String choose(String serviceId) {
-
         org.springframework.cloud.client.ServiceInstance serviceInstance = loadBalancerClient.choose(serviceId);
-
         log.info("{}:{}:{}", serviceInstance.getServiceId(), serviceInstance.getHost(), serviceInstance.getPort());
-
         return serviceInstance.getUri().toString() + "/" + serviceInstance.getServiceId();
     }
 }
