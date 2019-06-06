@@ -6,7 +6,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
@@ -27,12 +26,11 @@ import java.util.concurrent.CountDownLatch;
 
 @EnableHystrix
 @EnableEurekaClient
-@EnableDiscoveryClient
 @SpringBootApplication
 @EnableHystrixDashboard
+@ComponentScan(basePackages = "com.hengxunda.springcloud")
 @MapperScan(basePackages = "com.hengxunda.springcloud.order.mapper")
 @EnableFeignClients(basePackages = ("com.hengxunda.springcloud.order.client"))
-@ComponentScan(basePackages = "com.hengxunda.springcloud")
 public class SpringCloudOrderApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {

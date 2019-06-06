@@ -16,6 +16,8 @@ spring:
           search-locations: classpath:/dev/
   profiles:
     active: native
+  zipkin:
+    base-url: http://localhost:9412
 
 eureka:
   client:

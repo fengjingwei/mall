@@ -7,6 +7,8 @@ server:
 spring:
   application:
     name: gateway-service
+  zipkin:
+    base-url: http://localhost:9412
 
 eureka:
   client:

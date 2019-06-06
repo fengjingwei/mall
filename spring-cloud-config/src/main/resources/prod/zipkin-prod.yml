@@ -1,14 +1,12 @@
 server:
-  port: 9885
+  port: 9413
   address: 0.0.0.0
   servlet:
-    context-path: /nio-service
+    context-path: /
 
 spring:
   application:
-    name: nio-service
-  zipkin:
-    base-url: http://localhost:9412
+    name: zipkin-service
 
 eureka:
   client:
@@ -18,3 +16,11 @@ eureka:
     ip-address: 127.0.0.1
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+management:
+  metrics:
+    web:
+      server:
+        auto-time-requests: false
+
+

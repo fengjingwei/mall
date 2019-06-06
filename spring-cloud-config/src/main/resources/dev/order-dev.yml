@@ -23,6 +23,8 @@ spring:
       pool-prepared-statements: true
   application:
     name: order-service
+  zipkin:
+    base-url: http://localhost:9412
 
   rabbitmq:
     addresses: 192.168.1.237:5672,192.168.1.239:5672,192.168.1.240:5672

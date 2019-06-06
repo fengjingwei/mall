@@ -23,6 +23,8 @@ spring:
       pool-prepared-statements: true
   application:
     name: account-service
+  zipkin:
+    base-url: http://localhost:9412
 
   redis:
     database: 0

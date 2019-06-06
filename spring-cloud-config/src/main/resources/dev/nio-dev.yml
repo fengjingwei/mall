@@ -7,6 +7,8 @@ server:
 spring:
   application:
     name: nio-service
+  zipkin:
+    base-url: http://localhost:9412
 
 eureka:
   client:
