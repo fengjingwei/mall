@@ -9,7 +9,7 @@ spring:
       server:
         #git:
         #  uri: https://github.com/fengjingwei/mall.git
-        #  search-paths: spring-cloud-config/src/main/resources
+        #  search-paths: spring-cloud-config/src/main/resources/
         #  username: 951159049@qq.com
         #  password: More201314
         native:

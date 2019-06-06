@@ -1,0 +1,59 @@
+server:
+  port: 9882
+  address: 0.0.0.0
+  servlet:
+    context-path: /account-service
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.1.139:3306/mall_account?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    dbcp2:
+      initial-size: 20
+      min-idle: 20
+      max-wait-millis: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 30000
+      validation-query: select 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+  application:
+    name: account-service
+
+  redis:
+    database: 0
+    host: 192.168.1.248
+    port: 6379
+    password: o^mt9#nIvv7u%`
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+    timeout: 60000ms
+
+mybatis:
+  type-aliases-package: com.hengxunda.springcloud.account.entity
+  config-location: classpath:mybatis/mybatis-config.xml
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+  instance:
+    ip-address: 127.0.0.1
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+p:
+  account: admin
+  password: 123456
+
+#失效时间为365天
+jwt:
+  timeout: 31536000000

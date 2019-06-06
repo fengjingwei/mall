@@ -1,0 +1,84 @@
+server:
+  port: 9884
+  address: 0.0.0.0
+  servlet:
+    context-path: /order-service
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.1.139:3306/mall_order?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    dbcp2:
+      initial-size: 20
+      min-idle: 20
+      max-wait-millis: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 30000
+      validation-query: select 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+  application:
+    name: order-service
+
+  rabbitmq:
+    addresses: 192.168.1.237:5672,192.168.1.239:5672,192.168.1.240:5672
+    username: admin
+    password: KjVuBVWoa7u56G1X
+    virtual-host: /
+    publisher-confirms: true
+    publisher-returns: true
+
+  cloud:
+    bus:
+      trace:
+        enabled: true
+
+  redis:
+    database: 0
+    host: 192.168.1.248
+    port: 6379
+    password: o^mt9#nIvv7u%`
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+    timeout: 60000ms
+
+mybatis:
+  type-aliases-package: com.hengxunda.springcloud.order.entity
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+  instance:
+    ip-address: 127.0.0.1
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+management:
+  endpoint:
+    bus-refresh:
+      enabled: false
+
+#启用feign的hystrix
+feign:
+  hystrix:
+    enabled: true
+
+#Hystrix超时时间改为5秒
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000

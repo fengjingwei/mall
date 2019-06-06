@@ -1,7 +1,7 @@
 spring:
   cloud:
     config:
-      profile: dev
+      profile: prod
       label: master
       uri: http://localhost:8000/
-      name: order
+      name: account

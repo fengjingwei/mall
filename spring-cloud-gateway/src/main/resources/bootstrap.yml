@@ -1,8 +1,7 @@
 spring:
-  application:
-    name: gateway
   cloud:
     config:
       profile: dev
       label: master
       uri: http://localhost:8000/
+      name: gateway
