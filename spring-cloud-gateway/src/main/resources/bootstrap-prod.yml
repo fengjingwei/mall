@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      profile: prod
+      label: master
+      uri: http://localhost:8000/
+      name: gateway
