@@ -8,14 +8,14 @@ spring:
   application:
     name: gateway-service
   zipkin:
-    base-url: http://localhost:9412
+    base-url: http://192.168.1.135:9412
 
 eureka:
   client:
     service-url:
-      default-zone: http://localhost:8761/eureka/
+      default-zone: http://192.168.1.135:8761/eureka/
   instance:
-    ip-address: 127.0.0.1
+    ip-address: 192.168.1.135
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
 

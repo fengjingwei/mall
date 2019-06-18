@@ -1,0 +1,25 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/fengjingwei/mall
+          search-paths: spring-cloud-config/src/main/resources/**
+          username: 951159049@qq.com
+          password: More201314
+  zipkin:
+    base-url: http://192.168.1.135:9412
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://192.168.1.135:8761/eureka/
+  instance:
+    ip-address: 127.0.0.1
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}

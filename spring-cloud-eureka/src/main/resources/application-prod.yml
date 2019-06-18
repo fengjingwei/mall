@@ -1,0 +1,24 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka-server
+  zipkin:
+    base-url: http://192.168.1.135:9412
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 2
+    lease-expiration-duration-in-seconds: 6
+    prefer-ip-address: true
+  server:
+    peer-eureka-nodes-update-interval-ms: 60000
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 5000
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      default-zone: http://192.168.1.135:8761/eureka/
+    eureka-service-url-poll-interval-seconds: 60

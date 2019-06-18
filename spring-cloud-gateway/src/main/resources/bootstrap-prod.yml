@@ -3,5 +3,5 @@ spring:
     config:
       profile: prod
       label: master
-      uri: http://localhost:8000/
+      uri: http://192.168.1.135:8000/
       name: gateway
