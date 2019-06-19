@@ -24,7 +24,7 @@ spring:
   application:
     name: inventory-service
   zipkin:
-    base-url: http://192.168.1.135:9412
+    base-url: http://192.168.1.135:9413
 
 mybatis:
   type-aliases-package: com.hengxunda.springcloud.inventory.entity

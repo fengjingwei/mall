@@ -13,7 +13,7 @@ spring:
           username: 951159049@qq.com
           password: More201314
   zipkin:
-    base-url: http://192.168.1.135:9412
+    base-url: http://192.168.1.135:9413
 
 eureka:
   client:

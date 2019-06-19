@@ -24,7 +24,7 @@ spring:
   application:
     name: account-service
   zipkin:
-    base-url: http://192.168.1.135:9412
+    base-url: http://192.168.1.135:9413
 
   redis:
     database: 0

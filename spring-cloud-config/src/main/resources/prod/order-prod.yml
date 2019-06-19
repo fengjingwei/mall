@@ -24,7 +24,7 @@ spring:
   application:
     name: order-service
   zipkin:
-    base-url: http://192.168.1.135:9412
+    base-url: http://192.168.1.135:9413
 
   rabbitmq:
     addresses: 192.168.1.237:5672,192.168.1.239:5672,192.168.1.240:5672
