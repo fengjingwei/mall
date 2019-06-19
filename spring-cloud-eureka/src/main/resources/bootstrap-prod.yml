@@ -20,5 +20,5 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      default-zone: http://192.168.1.135:8761/eureka/
+      default-zone: http://192.168.1.135:8761/eureka/,http://192.168.1.135:8861/eureka/,http://192.168.1.135:8961/eureka/
     eureka-service-url-poll-interval-seconds: 60
