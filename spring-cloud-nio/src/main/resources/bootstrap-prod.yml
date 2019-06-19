@@ -3,5 +3,5 @@ spring:
     config:
       profile: prod
       label: master
-      uri: http://192.168.1.135:8000/
+      uri: http://192.168.1.135:9000/
       name: nio
