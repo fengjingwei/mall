@@ -9,6 +9,7 @@ spring:
 
 eureka:
   instance:
+    hostname: host
     lease-renewal-interval-in-seconds: 2
     lease-expiration-duration-in-seconds: 6
     prefer-ip-address: true
