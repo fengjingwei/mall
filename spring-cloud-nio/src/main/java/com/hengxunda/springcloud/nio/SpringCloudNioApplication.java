@@ -1,6 +1,6 @@
 package com.hengxunda.springcloud.nio;
 
-import com.hengxunda.springcloud.common.utils.SpringContextUtils;
+import com.hengxunda.springcloud.common.utils.SpringContextHolder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -11,7 +11,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Import;
 
 @EnableEurekaClient
-@Import(SpringContextUtils.class)
+@Import(SpringContextHolder.class)
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class SpringCloudNioApplication extends SpringBootServletInitializer {
 

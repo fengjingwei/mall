@@ -32,6 +32,7 @@
         <module>spring-cloud-eureka</module>
         <module>spring-cloud-gateway</module>
         <module>spring-cloud-inventory</module>
+        <module>spring-cloud-nacos-config</module>
         <module>spring-cloud-nio</module>
         <module>spring-cloud-order</module>
         <module>spring-cloud-service</module>
@@ -43,6 +44,12 @@
             <dependency>
                 <groupId>com.hengxunda</groupId>
                 <artifactId>spring-cloud-account</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.hengxunda</groupId>
+                <artifactId>spring-cloud-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -72,6 +79,12 @@
 
             <dependency>
                 <groupId>com.hengxunda</groupId>
+                <artifactId>spring-cloud-nacos-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.hengxunda</groupId>
                 <artifactId>spring-cloud-nio</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -90,7 +103,7 @@
 
             <dependency>
                 <groupId>com.hengxunda</groupId>
-                <artifactId>spring-cloud-common</artifactId>
+                <artifactId>spring-cloud-zipkin</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
