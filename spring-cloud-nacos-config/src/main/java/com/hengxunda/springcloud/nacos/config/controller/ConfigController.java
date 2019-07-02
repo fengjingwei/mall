@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RefreshScope
 public class ConfigController {
 
-    @Value("${address:}")
+    @Value("${address}")
     private String address;
 
     @GetMapping(value = "/get")
