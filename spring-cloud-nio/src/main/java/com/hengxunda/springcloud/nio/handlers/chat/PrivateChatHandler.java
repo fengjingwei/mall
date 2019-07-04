@@ -21,14 +21,11 @@ public class PrivateChatHandler extends AbstractBaseHandler<PrivateChatRequest> 
 
     @Override
     protected Object doProcess(Channel channel, BaseMessage request, PrivateChatRequest requestBody) {
-
-        PrivateChatResponse response = PrivateChatResponse.builder()
+        return PrivateChatResponse.builder()
                 .roomId(requestBody.getRoomId())
                 .content(requestBody.getContent())
                 .createTime(requestBody.getCreateTime())
                 .build();
-
-        return response;
     }
 
     @Override
@@ -43,6 +40,5 @@ public class PrivateChatHandler extends AbstractBaseHandler<PrivateChatRequest> 
         message.setBody(requestBody);
         channel = RoomChannelContainer.ROOM_ONLINE_MAPS.get(requestBody.getRoomId()).get(requestBody.getReceivedId());
         super.sendToUser(channel, message);
-
     }
 }

@@ -33,7 +33,6 @@ public abstract class LiveAddressUtils {
     }
 
     private static void initSession() {
-
         if (!isIncited) {
             ListStreamResponse listResponseReady = baiduCloudService.listStream("play.ofweek.com", "READY");
             ListStreamResponse listResponseOngoing = baiduCloudService.listStream("play.ofweek.com", "ONGOING");
@@ -50,7 +49,6 @@ public abstract class LiveAddressUtils {
             });
             isIncited = true;
         }
-
     }
 
     private static LVBChannel newLVBChannel(GetStreamResponse streamResponse) {

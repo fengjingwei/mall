@@ -21,10 +21,8 @@ public class RoomInfoHandler extends AbstractBaseHandler<EmptyRequest> {
 
     @Override
     protected Object doProcess(Channel channel, BaseMessage request, EmptyRequest requestBody) {
-
         String roomId = LoginHandler.UserUtils.getRoomId(channel);
         log.info("roomId : {}", roomId);
-
         return new RoomInfoResponse(roomId);
     }
 

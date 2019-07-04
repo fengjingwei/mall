@@ -32,7 +32,6 @@ public class LiveAddressHandler extends AbstractBaseHandler<EmptyRequest> {
 
     @Override
     protected Object doProcess(Channel channel, BaseMessage request, EmptyRequest requestBody) {
-
         String roomId = LoginHandler.UserUtils.getRoomId(channel);
         LVBChannel liveInfo = LiveAddressUtils.get(roomId);
         if (Objects.isNull(liveInfo)) {

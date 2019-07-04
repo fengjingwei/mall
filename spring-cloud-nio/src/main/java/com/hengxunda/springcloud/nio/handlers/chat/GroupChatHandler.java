@@ -20,14 +20,11 @@ public class GroupChatHandler extends AbstractBaseHandler<GroupChatRequest> {
 
     @Override
     protected Object doProcess(Channel channel, BaseMessage request, GroupChatRequest requestBody) {
-
-        GroupChatResponse response = GroupChatResponse.builder()
+        return GroupChatResponse.builder()
                 .roomId(requestBody.getRoomId())
                 .content(requestBody.getContent())
                 .createTime(requestBody.getCreateTime())
                 .build();
-
-        return response;
     }
 
     @Override

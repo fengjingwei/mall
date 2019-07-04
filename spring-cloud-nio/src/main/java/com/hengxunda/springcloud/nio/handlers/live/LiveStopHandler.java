@@ -23,7 +23,6 @@ public class LiveStopHandler extends AbstractBaseHandler<EmptyRequest> {
 
     @Override
     protected Object doProcess(Channel channel, BaseMessage request, EmptyRequest requestBody) {
-
         return null;
     }
 

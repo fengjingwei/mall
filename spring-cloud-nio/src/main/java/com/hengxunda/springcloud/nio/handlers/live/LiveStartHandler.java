@@ -33,7 +33,6 @@ public class LiveStartHandler extends AbstractBaseHandler<LiveStartRequest> impl
 
     @Override
     protected Object doProcess(Channel channel, BaseMessage request, LiveStartRequest requestBody) {
-
         LiveStartResponse response = new LiveStartResponse();
         String roomId = LoginHandler.UserUtils.getRoomId(channel);
         if (LiveUtils.isPlaying(roomId)) {
@@ -58,7 +57,6 @@ public class LiveStartHandler extends AbstractBaseHandler<LiveStartRequest> impl
                 LiveUtils.put(stream);
             }
         }
-
         return response;
     }
 
@@ -83,10 +81,8 @@ public class LiveStartHandler extends AbstractBaseHandler<LiveStartRequest> impl
                 BaseMessage message = BaseMessage.getNotification();
                 message.setMsgNo(MsgNoEnum.Live.LIVE_START_BROADCAST.getCode());
                 message.setBody(broadcast);
-
                 super.sendToRoomExcludeSelf(channel, message);
             }
-
         }
     }
 
@@ -106,7 +102,6 @@ public class LiveStartHandler extends AbstractBaseHandler<LiveStartRequest> impl
             message.setMsgNo(MsgNoEnum.Live.LIVE_START_BROADCAST.getCode());
             message.setBody(broadcast);
             channel.writeAndFlush(message);
-
         }
     }
 

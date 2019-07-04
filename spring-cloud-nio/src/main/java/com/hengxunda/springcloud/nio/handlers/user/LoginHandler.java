@@ -70,14 +70,11 @@ public class LoginHandler extends AbstractBaseHandler<LoginRequest> {
 
     @Override
     protected void sendNotification(Channel channel, LoginRequest request, Object responseBody) {
-
         sendEnterRoomNotification(channel);
-
         handlerListeners.forEach(listener -> listener.notice(channel));
     }
 
     private void sendEnterRoomNotification(Channel channel) {
-
         AccountJWT accountJWT = UserUtils.getUser(channel);
         if (RoomChannelContainer.isOtherChannelInRoom(channel)) {
             log.error("该用户已经有其它端在线,不发送进入房间通知, userId : {}", accountJWT.getId());
