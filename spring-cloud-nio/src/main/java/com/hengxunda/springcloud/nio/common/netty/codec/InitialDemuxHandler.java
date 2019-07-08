@@ -12,7 +12,6 @@ import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.stream.ChunkedWriteHandler;
-import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,7 +63,7 @@ public final class InitialDemuxHandler extends ChannelInboundHandlerAdapter {
                     pipeline.addBefore(baseName, "aggregator", new HttpObjectAggregator(65536));
                     pipeline.addBefore(baseName, "http-chunked", new ChunkedWriteHandler());
                     pipeline.addBefore(baseName, "webSocketServerHandler", new WebSocketServerHandler());
-                    pipeline.addBefore(baseName, "WebSocketEncoder", new WebSocketEncoder());
+                    pipeline.addBefore(baseName, "webSocketEncoder", new WebSocketEncoder());
                 }
                 isInited = true;
                 ctx.fireChannelRead(msg);
@@ -76,8 +75,16 @@ public final class InitialDemuxHandler extends ChannelInboundHandlerAdapter {
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
         if (evt instanceof IdleStateEvent) {
             IdleStateEvent event = (IdleStateEvent) evt;
-            if (event.state().equals(IdleState.READER_IDLE)) {
-                RoomChannelContainer.removeChannel(ctx.channel());
+            switch (event.state()) {
+                case READER_IDLE:
+                    RoomChannelContainer.removeChannel(ctx.channel());
+                    break;
+                case WRITER_IDLE:
+                    break;
+                case ALL_IDLE:
+                    break;
+                default:
+                    break;
             }
         }
         ctx.fireUserEventTriggered(evt);

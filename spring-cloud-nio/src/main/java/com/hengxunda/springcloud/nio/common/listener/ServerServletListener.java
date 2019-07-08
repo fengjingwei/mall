@@ -14,6 +14,9 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
+import io.netty.util.NettyRuntime;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringBootConfiguration;
 
@@ -25,7 +28,7 @@ import java.util.concurrent.*;
 @SpringBootConfiguration
 public class ServerServletListener implements ServletContextListener {
 
-    private static final int MAX_THREAD = Runtime.getRuntime().availableProcessors() << 1;
+    private static final int MAX_THREAD = NettyRuntime.availableProcessors() << 1;
     private static int inetPort = 843;
     private Channel serverChannel;
 
@@ -39,7 +42,10 @@ public class ServerServletListener implements ServletContextListener {
                 EventLoopGroup bossGroup = new NioEventLoopGroup();
                 try {
                     ServerBootstrap b = new ServerBootstrap();
-                    b.group(bossGroup).channel(NioServerSocketChannel.class).option(ChannelOption.SO_REUSEADDR, true)
+                    b.group(bossGroup)
+                            .channel(NioServerSocketChannel.class)
+                            .handler(new LoggingHandler(LogLevel.INFO))
+                            .option(ChannelOption.SO_REUSEADDR, true)
                             .childHandler(new ChannelInitializer<SocketChannel>() {
                                 @Override
                                 protected void initChannel(SocketChannel ch) {

@@ -15,7 +15,6 @@ import org.apache.http.HttpStatus;
 @Slf4j
 public final class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
 
-    private static final String WEBSOCKET_URL = "ws://127.0.0.1:9081/";
     private WebSocketServerHandshaker handshaker;
 
     private static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, DefaultFullHttpResponse res) {
@@ -85,7 +84,7 @@ public final class WebSocketServerHandler extends SimpleChannelInboundHandler<Ob
             return;
         }
 
-        WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(WEBSOCKET_URL, null, false);
+        WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory("", null, false);
         handshaker = wsFactory.newHandshaker(req);
         if (handshaker == null) {
             WebSocketServerHandshakerFactory.sendUnsupportedVersionResponse(ctx.channel());

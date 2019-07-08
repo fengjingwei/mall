@@ -1,5 +1,6 @@
 package com.hengxunda.springcloud.nio.common.netty.server;
 
+import com.google.common.base.Joiner;
 import com.hengxunda.springcloud.nio.common.netty.codec.DispatchHandler;
 import com.hengxunda.springcloud.nio.common.netty.codec.InitialDemuxHandler;
 import com.hengxunda.springcloud.nio.common.netty.codec.JsonBaseCodec;
@@ -11,6 +12,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +34,7 @@ public class NioServer {
     }
 
     private static void initPorts() {
-        ports = Stream.of(9081, 110).collect(Collectors.toList());
+        ports = Stream.of(9080, 9081).collect(Collectors.toList());
     }
 
     public void run() {
@@ -40,7 +43,10 @@ public class NioServer {
         try {
             initPorts();
             ServerBootstrap b = new ServerBootstrap();
-            b.group(bossGroup, workGroup).channel(NioServerSocketChannel.class).option(ChannelOption.SO_REUSEADDR, true)
+            b.group(bossGroup, workGroup)
+                    .channel(NioServerSocketChannel.class)
+                    .handler(new LoggingHandler(LogLevel.INFO))
+                    .option(ChannelOption.SO_REUSEADDR, true)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
 
                         @Override
@@ -54,11 +60,11 @@ public class NioServer {
             for (Integer port : ports) {
                 serverChannel = b.bind(port).sync().channel();
             }
+            log.info("开启{}端口成功", Joiner.on(",").join(ports));
             log.info("服务端开启,等待客户端连接...");
-            log.info("Listener on port : {}", ports);
             serverChannel.closeFuture().sync();
         } catch (Exception e) {
-            log.error("nio消息服务启动失败", e);
+            log.error("开启{}端口失败", e);
         } finally {
             workGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
