@@ -18,7 +18,7 @@ import java.util.Objects;
 @SpringBootConfiguration
 public class SocketCloseHandler implements Handlebars {
 
-    public static final int CLOSE_MSG = -100;
+    public static final int CLOSE_MSG_NO = -100;
 
     @PostConstruct
     public void postConstruct() {
@@ -32,7 +32,7 @@ public class SocketCloseHandler implements Handlebars {
 
     @Override
     public int msgNo() {
-        return CLOSE_MSG;
+        return CLOSE_MSG_NO;
     }
 
     @Override

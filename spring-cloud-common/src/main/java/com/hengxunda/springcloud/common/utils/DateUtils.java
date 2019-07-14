@@ -63,7 +63,6 @@ public abstract class DateUtils extends org.apache.commons.lang3.time.DateUtils 
         System.out.println("args = " + getTime());
         System.out.println("args = " + getDateTime());
         System.out.println("args = " + getDateTime("yyyy.MM.dd HH:mm"));
-
         System.out.println("args = " + parse("2018-07-14 14:11:27"));
         System.out.println("args = " + isLeapYear(LocalDate.now()));
     }

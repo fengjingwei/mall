@@ -28,7 +28,6 @@ public class LiveStreamResponse implements Serializable {
     private String streamingStatus;
 
     public void setDownstream(LVBChannel lvbChannel) {
-
         channelId = lvbChannel.getChannelId();
         DownstreamAddress address = lvbChannel.getDownstreamAddress();
         flvDownstream = address.getFlvAddress();

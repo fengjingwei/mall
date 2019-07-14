@@ -45,7 +45,6 @@ public abstract class LiveAddressUtils {
                     GetStreamResponse streamResponse = baiduCloudService.getStream("play.ofweek.com", "liveofweek", pushStream);
                     LiveAddressUtils.put(roomId, newLVBChannel(streamResponse));
                 }
-
             });
             isIncited = true;
         }

@@ -23,7 +23,7 @@ public class RedisDistributedLock {
 
     public RedisDistributedLock(RedisHelper redisHelper, String lockKey) {
         this.redisHelper = redisHelper;
-        this.lockKey = lockKey + "_lock";
+        this.lockKey = lockKey;
     }
 
     public RedisDistributedLock(RedisHelper redisHelper, String lockKey, int timeoutMs) {
@@ -50,13 +50,11 @@ public class RedisDistributedLock {
         return obj != null ? obj.toString() : null;
     }
 
-    private boolean setNX(final String key, final String value) {
-
-        return redisHelper.setNX(key, value);
+    private boolean setNx(final String key, final String value) {
+        return redisHelper.setNx(key, value);
     }
 
     private String getSet(final String key, final String value) {
-
         return redisHelper.getSet(key, value);
     }
 
@@ -77,7 +75,7 @@ public class RedisDistributedLock {
             long expires = System.currentTimeMillis() + expireMs + 1;
             // 锁到期时间
             String expiresStr = String.valueOf(expires);
-            if (this.setNX(lockKey, expiresStr)) {
+            if (this.setNx(lockKey, expiresStr)) {
                 // lock acquired
                 locked = true;
                 return true;

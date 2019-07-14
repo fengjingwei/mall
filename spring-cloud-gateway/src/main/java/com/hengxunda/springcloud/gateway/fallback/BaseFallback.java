@@ -7,4 +7,6 @@ public interface BaseFallback extends FallbackProvider {
     String ORDER_SERVICE_ID = "order-service";
 
     String ACCOUNT_SERVICE_ID = "account-service";
+
+    String INVENTORY_SERVICE_ID = "inventory-service";
 }

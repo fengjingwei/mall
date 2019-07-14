@@ -39,7 +39,6 @@ public class LiveStartBroadcast implements Serializable {
     }
 
     public void setDownstream(LVBChannel lvbChannel) {
-
         channelId = lvbChannel.getChannelId();
         DownstreamAddress address = lvbChannel.getDownstreamAddress();
         flvDownstream = Objects.nonNull(address) ? address.getFlvAddress() : "";

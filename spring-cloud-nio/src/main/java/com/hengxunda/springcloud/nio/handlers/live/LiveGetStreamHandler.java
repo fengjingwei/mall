@@ -51,7 +51,6 @@ public class LiveGetStreamHandler extends AbstractBaseHandler<LiveGetStreamReque
         return "ONGOING".equals(status) ? "STREAMING" : status;
     }
 
-
     @Override
     public int msgNo() {
         return MsgNoEnum.Live.LIVE_GET_STREAM.getCode();

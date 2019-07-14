@@ -105,8 +105,8 @@ public class RedisHelper implements CacheManager {
         return redisTemplate.opsForList().index(key, index);
     }
 
-    public final Object lSet(String key, Object value) {
-        return redisTemplate.opsForList().rightPush(key, value);
+    public final void lSet(String key, Object value) {
+        redisTemplate.opsForList().rightPush(key, value);
     }
 
     public final Object lSet(String key, Object value, long expireSeconds) {
@@ -115,8 +115,8 @@ public class RedisHelper implements CacheManager {
         return true;
     }
 
-    public final long lSet(String key, List<Object> value) {
-        return redisTemplate.opsForList().rightPushAll(key, value);
+    public final void lSet(String key, List<Object> value) {
+        redisTemplate.opsForList().rightPushAll(key, value);
     }
 
     public final boolean lSet(String key, List<Object> value, long expireSeconds) {
@@ -153,7 +153,7 @@ public class RedisHelper implements CacheManager {
     }
 
     @Override
-    public boolean setNX(String key, String value) {
+    public boolean setNx(String key, String value) {
         Object object = null;
         try {
             object = redisTemplate.execute((RedisCallback<Object>) connection -> {

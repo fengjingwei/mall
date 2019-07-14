@@ -94,7 +94,9 @@ public class BaseMessage implements Serializable {
     @AllArgsConstructor
     public enum StatusCodeEnum implements HttpStatus {
 
-        OK(SC_OK, "正常"), BAD_REQUEST(SC_BAD_REQUEST, "请求异常"), SERVER_ERROR(SC_INTERNAL_SERVER_ERROR, "服务器错误");
+        OK(SC_OK, "正常"),
+        BAD_REQUEST(SC_BAD_REQUEST, "请求异常"),
+        SERVER_ERROR(SC_INTERNAL_SERVER_ERROR, "服务器错误");
 
         private final int code;
 

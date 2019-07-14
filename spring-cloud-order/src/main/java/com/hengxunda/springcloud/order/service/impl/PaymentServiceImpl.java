@@ -60,7 +60,7 @@ public class PaymentServiceImpl implements PaymentService {
         log.info("{}", "===========执行spring cloud扣减库存==========");
         final int timeoutMs = 10000;
         final int expireMs = 20000;
-        RedisDistributedLock lock = new RedisDistributedLock(redisHelper, "order_pay", timeoutMs, expireMs);
+        RedisDistributedLock lock = new RedisDistributedLock(redisHelper, "order:pay:" + order.getNumber(), timeoutMs, expireMs);
         try {
             if (lock.lock()) {
                 log.info("lock key : {}", lock.getLockKey());

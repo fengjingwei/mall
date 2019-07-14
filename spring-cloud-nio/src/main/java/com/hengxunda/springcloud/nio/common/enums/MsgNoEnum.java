@@ -11,7 +11,8 @@ public interface MsgNoEnum {
 
         KEEP_ALIVE(0, "心跳包"),
 
-        BAD_REQUEST(404, "未知请求");
+        BAD_REQUEST(404, "未知请求"),
+        ;
 
         private Integer code;
 

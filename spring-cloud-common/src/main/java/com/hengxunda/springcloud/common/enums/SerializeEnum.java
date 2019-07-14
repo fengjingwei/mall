@@ -33,7 +33,7 @@ public enum SerializeEnum {
     private String serialize;
 
     public static SerializeEnum acquireByCode(String serialize) {
-        return Arrays.stream(values()).filter(v -> Objects.equals(v.serialize, serialize)).findFirst().orElse(KRYO);
+        return Arrays.stream(values()).filter(v -> Objects.equals(v.serialize, serialize)).findFirst().orElse(null);
     }
 
 }

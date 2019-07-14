@@ -11,8 +11,10 @@ public final class DispatchHandler extends SimpleChannelInboundHandler<BaseMessa
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
-        Handlebars handler = MapperHandler.getHandler(SocketCloseHandler.CLOSE_MSG);
-        handler.process(ctx, null);
+        Handlebars handler = MapperHandler.getHandler(SocketCloseHandler.CLOSE_MSG_NO);
+        if (handler != null) {
+            handler.process(ctx, null);
+        }
     }
 
     @Override

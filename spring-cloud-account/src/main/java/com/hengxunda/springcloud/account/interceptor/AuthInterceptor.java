@@ -47,7 +47,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             String authToken = request.getHeader(AUTH_TOKEN);
             if (StringUtils.isNotBlank(authToken)) {
                 try {
-                    AccountJWT accountJWT = JwtUtils.parseJWT(authToken);
+                    final AccountJWT accountJWT = JwtUtils.parseJWT(authToken);
                     if (Objects.nonNull(accountJWT)) {
                         request.setAttribute(JWT_SESSION_KEY, accountJWT);
                         return true;
