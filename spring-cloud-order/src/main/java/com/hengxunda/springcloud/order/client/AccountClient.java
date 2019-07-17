@@ -1,8 +1,8 @@
 package com.hengxunda.springcloud.order.client;
 
+import com.hengxunda.springcloud.order.config.FeignConfig;
 import com.hengxunda.springcloud.order.dto.AccountDTO;
 import com.hengxunda.springcloud.order.hystrix.AccountHystrix;
-import com.hengxunda.springcloud.order.swagger.FeignConfig;
 import feign.Param;
 import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;

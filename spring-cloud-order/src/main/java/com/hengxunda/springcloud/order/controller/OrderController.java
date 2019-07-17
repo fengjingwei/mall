@@ -1,6 +1,8 @@
 package com.hengxunda.springcloud.order.controller;
 
 import com.hengxunda.springcloud.common.annotation.Authorization;
+import com.hengxunda.springcloud.common.enums.OrderEnum;
+import com.hengxunda.springcloud.common.exception.ServiceException;
 import com.hengxunda.springcloud.common.persistence.AjaxResponse;
 import com.hengxunda.springcloud.order.entity.Order;
 import com.hengxunda.springcloud.order.rabbitmq.producers.OrderProducer;
@@ -40,9 +42,19 @@ public class OrderController {
 
     @ApiOperation(value = "订单支付并进行扣除账户余额，进行库存扣减")
     @PostMapping(value = "orderPay")
-    public AjaxResponse orderPay(@RequestParam(value = "number") String number, @RequestParam(value = "amount") BigDecimal amount) {
-        Order order = Order.builder().number(number).totalAmount(amount).build();
-        orderProducer.orderPay(order);
+    public AjaxResponse orderPay(@RequestParam(value = "orderNo") String orderNo, @RequestParam(value = "amount") BigDecimal amount) {
+        final Order order = orderService.get(orderNo);
+        if (order == null) {
+            throw new ServiceException("订单不存在");
+        }
+        final OrderEnum.Status status = OrderEnum.Status.acquireByCode(order.getStatus());
+        if (status == OrderEnum.Status.CANCEL) {
+            throw new ServiceException("订单已取消");
+        }
+        if (status == OrderEnum.Status.PAY_SUCCESS) {
+            throw new ServiceException("订单重复支付");
+        }
+        orderProducer.orderPay(Order.builder().orderNo(orderNo).totalAmount(amount).build());
         return AjaxResponse.success();
     }
 

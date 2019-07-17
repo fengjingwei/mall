@@ -9,6 +9,14 @@ import java.util.List;
 public interface OrderService extends BaseService<Order> {
 
     /**
+     * 获取订单
+     *
+     * @param orderNo 订单编号
+     * @return
+     */
+    Order get(String orderNo);
+
+    /**
      * 查询所有订单
      *
      * @return
@@ -18,9 +26,9 @@ public interface OrderService extends BaseService<Order> {
     /**
      * 订单支付并进行扣除账户余额，进行库存扣减
      *
-     * @param number 订单编号
-     * @param amount 支付金额
+     * @param orderNo 订单编号
+     * @param amount  支付金额
      * @return
      */
-    String orderPay(String number, BigDecimal amount);
+    String orderPay(String orderNo, BigDecimal amount);
 }

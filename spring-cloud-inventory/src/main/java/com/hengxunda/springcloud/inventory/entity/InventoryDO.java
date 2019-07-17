@@ -20,5 +20,4 @@ public class InventoryDO extends DataEntity<InventoryDO> {
      * 锁定库存
      */
     private Integer lockInventory;
-
 }

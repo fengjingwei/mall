@@ -22,7 +22,7 @@ public class AccountServiceImpl extends AbstractCrudService<AccountMapper, Accou
         accountDO.setUpdateTime(DateUtils.now());
         final int update = dao.update(accountDO);
         if (update != 1) {
-            throw new ServiceException("资金不足!");
+            throw new ServiceException("资金不足");
         }
         return true;
     }

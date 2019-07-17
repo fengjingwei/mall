@@ -42,12 +42,12 @@ public class PaymentServiceImpl implements PaymentService {
     public void makePayment(Order order) {
         final BigDecimal accountInfo = accountRibbon.findByUserId(order.getUserId());
         if (accountInfo.compareTo(order.getTotalAmount()) < 0) {
-            throw new ServiceException("余额不足!");
+            throw new ServiceException("余额不足");
         }
 
         final Integer inventoryInfo = inventoryRibbon.findByProductId(order.getProductId());
         if (inventoryInfo < order.getCount()) {
-            throw new ServiceException("库存不足!");
+            throw new ServiceException("库存不足");
         }
 
         // 扣除用户余额
@@ -60,7 +60,7 @@ public class PaymentServiceImpl implements PaymentService {
         log.info("{}", "===========执行spring cloud扣减库存==========");
         final int timeoutMs = 10000;
         final int expireMs = 20000;
-        RedisDistributedLock lock = new RedisDistributedLock(redisHelper, "order:pay:" + order.getNumber(), timeoutMs, expireMs);
+        RedisDistributedLock lock = new RedisDistributedLock(redisHelper, "order:pay:" + order.getOrderNo(), timeoutMs, expireMs);
         try {
             if (lock.lock()) {
                 log.info("lock key : {}", lock.getLockKey());

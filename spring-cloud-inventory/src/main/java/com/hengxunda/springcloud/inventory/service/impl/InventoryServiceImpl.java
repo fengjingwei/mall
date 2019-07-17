@@ -20,7 +20,7 @@ public class InventoryServiceImpl extends AbstractCrudService<InventoryMapper, I
         entity.setLockInventory(entity.getLockInventory() + inventoryDTO.getCount());
         final int decrease = dao.decrease(entity);
         if (decrease != 1) {
-            throw new ServiceException("库存不足!");
+            throw new ServiceException("库存不足");
         }
         return Boolean.TRUE;
     }

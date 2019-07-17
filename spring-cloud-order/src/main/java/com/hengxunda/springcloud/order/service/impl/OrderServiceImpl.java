@@ -25,21 +25,28 @@ public class OrderServiceImpl extends AbstractCrudService<OrderMapper, Order> im
     private RedisHelper redisHelper;
 
     private static String key(Order order) {
-        return "order_" + order.getNumber();
+        return "order_" + order.getOrderNo();
+    }
+
+    @Override
+    public Order get(String orderNo) {
+        return dao.get(orderNo);
     }
 
     @Override
     public List<Order> listAll() {
+        // 强制路由主库
+        // HintManager.getInstance().setMasterRouteOnly();
         return dao.listAll();
     }
 
     @Override
     @Transactional
-    public String orderPay(String number, BigDecimal amount) {
-        Order order = Order.builder().number(number).totalAmount(amount).status(OrderEnum.Status.PAYING.code()).build();
-        final int rows = dao.update(order);
+    public String orderPay(String orderNo, BigDecimal amount) {
+        final Order entity = Order.builder().orderNo(orderNo).totalAmount(amount).status(OrderEnum.Status.PAY_SUCCESS.code()).build();
+        final int rows = dao.update(entity);
         if (rows > 0) {
-            paymentService.makePayment(dao.get(number));
+            paymentService.makePayment(dao.get(orderNo));
         }
         return "success";
     }
@@ -48,7 +55,7 @@ public class OrderServiceImpl extends AbstractCrudService<OrderMapper, Order> im
     @Transactional
     public Order save(Order order) {
         if (order.boolNewRecord()) {
-            order.setNumber(SnowFlakeUtils.getInstance().getId());
+            order.setOrderNo(SnowFlakeUtils.getInstance().getId());
             order.setStatus(OrderEnum.Status.NOT_PAY.code());
             order.preInsert();
             dao.insert(order);

@@ -2,7 +2,7 @@ package com.hengxunda.springcloud.order.client;
 
 import com.hengxunda.springcloud.order.dto.InventoryDTO;
 import com.hengxunda.springcloud.order.hystrix.InventoryHystrix;
-import com.hengxunda.springcloud.order.swagger.FeignConfig;
+import com.hengxunda.springcloud.order.config.FeignConfig;
 import feign.Param;
 import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;

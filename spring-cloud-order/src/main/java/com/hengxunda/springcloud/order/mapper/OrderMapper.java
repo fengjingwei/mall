@@ -38,8 +38,8 @@ public interface OrderMapper extends CrudDao<Order> {
     /**
      * 获取某个订单
      *
-     * @param number
+     * @param orderNo
      * @return
      */
-    Order get(@Param("number") String number);
+    Order get(@Param("orderNo") String orderNo);
 }

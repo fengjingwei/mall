@@ -1,4 +1,4 @@
-package com.hengxunda.springcloud.order.swagger;
+package com.hengxunda.springcloud.order.config;
 
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;

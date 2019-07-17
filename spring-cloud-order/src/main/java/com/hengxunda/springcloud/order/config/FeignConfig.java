@@ -1,4 +1,4 @@
-package com.hengxunda.springcloud.order.swagger;
+package com.hengxunda.springcloud.order.config;
 
 import feign.*;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;

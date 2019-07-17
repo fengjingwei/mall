@@ -17,7 +17,7 @@ public class Order extends DataEntity<Order> {
     /**
      * 订单编号
      */
-    private String number;
+    private String orderNo;
 
     /**
      * 订单状态

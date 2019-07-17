@@ -25,7 +25,7 @@ public class ExpiredMessageListener extends MessageListenerAdapter {
         this.countDownLatch = countDownLatch;
     }
 
-    private static String getOrderNumber(String message) {
+    private static String getOrderNo(String message) {
         final String keyPrefix = "order_";
         if (StringUtils.isNoneBlank(message) && message.contains(keyPrefix)) {
             message = StringUtils.substringAfter(message, keyPrefix);
@@ -36,7 +36,7 @@ public class ExpiredMessageListener extends MessageListenerAdapter {
     @Override
     public void onMessage(@NonNull Message message, byte[] pattern) {
         log.info("ExpiredMessageListener -> onMessage -> < {} > key expire.", message);
-        Order order = Order.builder().number(getOrderNumber(message.toString())).status(OrderEnum.Status.CANCEL.code()).build();
+        Order order = Order.builder().orderNo(getOrderNo(message.toString())).status(OrderEnum.Status.CANCEL.code()).build();
         orderMapper.update(order);
         countDownLatch.countDown();
     }

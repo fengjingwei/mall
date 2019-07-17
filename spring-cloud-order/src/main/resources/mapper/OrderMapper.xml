@@ -7,26 +7,26 @@
     </select>
 
     <select id="get" parameterType="java.lang.String" resultType="Order">
-        select * from `order` where number = #{number}
+        select * from `order` where order_no = #{orderNo}
     </select>
 
     <insert id="insert" parameterType="Order">
         insert into `order` (
-        create_time,
-        number,
-        status,
+        order_no,
+        user_id,
         product_id,
-        total_amount,
+        status,
         count,
-        user_id
+        total_amount,
+        create_time
         ) values (
-        #{createTime},
-        #{number},
-        #{status},
+        #{orderNo},
+        #{userId},
         #{productId},
-        #{totalAmount},
+        #{status},
         #{count},
-        #{userId}
+        #{totalAmount},
+        #{createTime}
         )
     </insert>
 
@@ -35,7 +35,7 @@
         <if test="totalAmount != null">
             , total_amount = #{totalAmount}
         </if>
-        where number = #{number}
+        where order_no = #{orderNo}
     </update>
 
 </mapper>

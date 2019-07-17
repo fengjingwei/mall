@@ -15,5 +15,4 @@ public class AccountDO extends DataEntity<AccountDO> {
     private BigDecimal balance;
 
     private BigDecimal freezeAmount;
-
 }

@@ -163,7 +163,7 @@ public class RedisHelper implements CacheManager {
                 return success;
             });
         } catch (Exception e) {
-            log.error("setNX redis error, key : {}", key);
+            log.error("setNx redis error, key : {}", key);
         }
         return object != null ? (Boolean) object : false;
     }

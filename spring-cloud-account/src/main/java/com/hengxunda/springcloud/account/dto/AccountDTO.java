@@ -19,5 +19,4 @@ public class AccountDTO implements Serializable {
      * 扣款金额
      */
     private BigDecimal amount;
-
 }
