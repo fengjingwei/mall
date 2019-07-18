@@ -3,35 +3,20 @@
 <mapper namespace="com.hengxunda.springcloud.order.mapper.OrderMapper">
 
     <select id="listAll" resultType="Order">
-        select * from `order` order by create_time desc
+        select * from t_order order by create_time desc
     </select>
 
     <select id="get" parameterType="java.lang.String" resultType="Order">
-        select * from `order` where order_no = #{orderNo}
+        select * from t_order where order_no = #{orderNo}
     </select>
 
     <insert id="insert" parameterType="Order">
-        insert into `order` (
-        order_no,
-        user_id,
-        product_id,
-        status,
-        count,
-        total_amount,
-        create_time
-        ) values (
-        #{orderNo},
-        #{userId},
-        #{productId},
-        #{status},
-        #{count},
-        #{totalAmount},
-        #{createTime}
-        )
+        insert into t_order (order_no, user_id, product_id, status, count, total_amount, create_time)
+        values (#{orderNo}, #{userId}, #{productId}, #{status}, #{count}, #{totalAmount}, #{createTime})
     </insert>
 
     <update id="update" parameterType="Order">
-        update `order` set status = #{status}
+        update t_order set status = #{status}
         <if test="totalAmount != null">
             , total_amount = #{totalAmount}
         </if>

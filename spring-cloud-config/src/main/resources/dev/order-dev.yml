@@ -6,6 +6,9 @@ server:
 
 spring:
   shardingsphere:
+    props:
+      sql:
+        show: true
     datasource:
       names: master,slave
       master:
@@ -20,11 +23,28 @@ spring:
         url: jdbc:mysql://192.168.1.227:3306/mall_order?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
         password: 123456
-    masterslave:
-      load-balance-algorithm-type: round_robin
-      name: dataSource
-      master-data-source-name: master
-      slave-data-source-names: slave
+    #masterslave:
+    #  load-balance-algorithm-type: round_robin
+    #  name: dataSource
+    #  master-data-source-name: master
+    #  slave-data-source-names: slave
+    sharding:
+      master-slave-rules:
+        ds0:
+          master-data-source-name: master
+          slave-data-source-names: slave
+      tables:
+        t_order:
+          key-generator-column: id
+          actual-data-nodes: ds0.t_order_${0..2}
+          table-strategy:
+            #inline:
+            #  sharding-column: user_id
+            #  algorithm-expression: t_order_${user_id % 3}
+            standard:
+              sharding-column: user_id
+              precise-algorithm-class-name: com.hengxunda.springcloud.order.algorithm.MyPreciseShardingAlgorithm
+
   #datasource:
   # driver-class-name: com.mysql.jdbc.Driver
   # url: jdbc:mysql://192.168.1.139:3306/mall_order?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false

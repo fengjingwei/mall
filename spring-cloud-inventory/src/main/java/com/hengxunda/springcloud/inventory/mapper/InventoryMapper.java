@@ -15,7 +15,7 @@ public interface InventoryMapper extends CrudDao<InventoryDO> {
      * @param inventory 实体对象
      * @return rows
      */
-    @Update("update inventory set total_inventory = #{totalInventory}," +
+    @Update("update t_inventory set total_inventory = #{totalInventory}," +
             " lock_inventory = #{lockInventory} " +
             " where product_id = #{productId} and total_inventory > 0")
     int decrease(InventoryDO inventory);
@@ -26,6 +26,6 @@ public interface InventoryMapper extends CrudDao<InventoryDO> {
      * @param productId 商品id
      * @return Inventory
      */
-    @Select("select * from inventory where product_id = #{productId}")
+    @Select("select * from t_inventory where product_id = #{productId}")
     InventoryDO findByProductId(String productId);
 }

@@ -16,7 +16,7 @@ public interface AccountMapper extends CrudDao<AccountDO> {
      * @return rows
      */
     @Override
-    @Update("update account set balance = #{balance}," +
+    @Update("update t_account set balance = #{balance}," +
             " freeze_amount = #{freezeAmount}, update_time = #{updateTime}" +
             " where user_id = #{userId} and balance > 0")
     int update(AccountDO accountDO);
@@ -27,6 +27,6 @@ public interface AccountMapper extends CrudDao<AccountDO> {
      * @param userId 用户id
      * @return AccountDO
      */
-    @Select("select * from account where user_id = #{userId}")
+    @Select("select * from t_account where user_id = #{userId}")
     AccountDO findByUserId(String userId);
 }
