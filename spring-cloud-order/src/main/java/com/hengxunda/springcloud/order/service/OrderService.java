@@ -19,9 +19,10 @@ public interface OrderService extends BaseService<Order> {
     /**
      * 查询所有订单
      *
+     * @param keyword 关键字
      * @return
      */
-    List<Order> listAll();
+    List<Order> listAll(String keyword);
 
     /**
      * 订单支付并进行扣除账户余额，进行库存扣减

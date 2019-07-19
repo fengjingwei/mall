@@ -34,10 +34,10 @@ public class OrderServiceImpl extends AbstractCrudService<OrderMapper, Order> im
     }
 
     @Override
-    public List<Order> listAll() {
+    public List<Order> listAll(String keyword) {
         // 强制路由主库
         // HintManager.getInstance().setMasterRouteOnly();
-        return dao.listAll();
+        return dao.listAll(keyword);
     }
 
     @Override

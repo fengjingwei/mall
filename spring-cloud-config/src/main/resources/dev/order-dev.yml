@@ -9,6 +9,10 @@ spring:
     props:
       sql:
         show: true
+      check:
+        table:
+          metadata:
+            enabled: true
     datasource:
       names: master,slave
       master:
@@ -44,6 +48,7 @@ spring:
             standard:
               sharding-column: user_id
               precise-algorithm-class-name: com.hengxunda.springcloud.order.algorithm.MyPreciseShardingAlgorithm
+      binding-tables: t_order
 
   #datasource:
   # driver-class-name: com.mysql.jdbc.Driver

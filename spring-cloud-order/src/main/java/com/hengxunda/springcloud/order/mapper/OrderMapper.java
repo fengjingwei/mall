@@ -31,9 +31,10 @@ public interface OrderMapper extends CrudDao<Order> {
     /**
      * 获取所有的订单
      *
-     * @return List<Order>
+     * @param keyword 关键字
+     * @return
      */
-    List<Order> listAll();
+    List<Order> listAll(@Param("keyword") String keyword);
 
     /**
      * 获取某个订单

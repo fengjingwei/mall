@@ -27,6 +27,9 @@ zuul:
     account-service:
       path: /account/**
       serviceId: account-service
+    inventory-service:
+      path: /inventory/**
+      serviceId: inventory-service
   host:
     socket-timeout-millis: 60000
     connect-timeout-millis: 60000

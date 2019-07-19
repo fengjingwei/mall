@@ -4,12 +4,14 @@ import com.hengxunda.springcloud.common.annotation.Authorization;
 import com.hengxunda.springcloud.common.enums.OrderEnum;
 import com.hengxunda.springcloud.common.exception.ServiceException;
 import com.hengxunda.springcloud.common.persistence.AjaxResponse;
+import com.hengxunda.springcloud.order.dto.OrderDTO;
 import com.hengxunda.springcloud.order.entity.Order;
 import com.hengxunda.springcloud.order.rabbitmq.producers.OrderProducer;
 import com.hengxunda.springcloud.order.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,16 +29,19 @@ public class OrderController {
     private OrderProducer orderProducer;
 
     @ApiOperation(value = "获取所有的订单")
+    @ApiImplicitParam(name = "keyword", value = "关键字", paramType = "query", dataType = "String")
     @GetMapping("listAll")
-    public AjaxResponse listAll() {
-        return AjaxResponse.success(orderService.listAll());
+    public AjaxResponse listAll(@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) {
+        return AjaxResponse.success(orderService.listAll(keyword.trim()));
     }
 
     @Authorization
     @ApiOperation(value = "创建订单")
-    @ApiImplicitParam(name = "order", value = "订单请求对象", required = true, paramType = "body", dataType = "Order")
+    @ApiImplicitParam(name = "orderDTO", value = "订单请求对象", required = true, paramType = "body", dataType = "OrderDTO")
     @PostMapping("create")
-    public AjaxResponse create(@RequestBody Order order) {
+    public AjaxResponse create(@RequestBody OrderDTO orderDTO) {
+        Order order = new Order();
+        BeanUtils.copyProperties(orderDTO, order);
         return AjaxResponse.success(orderService.save(order));
     }
 

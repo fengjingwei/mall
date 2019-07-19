@@ -3,24 +3,34 @@
 <mapper namespace="com.hengxunda.springcloud.order.mapper.OrderMapper">
 
     <select id="listAll" resultType="Order">
-        select * from t_order order by create_time desc
+        SELECT * FROM t_order
+        <if test="keyword != null and keyword != ''">
+            <where>
+                order_no LIKE concat('%', #{keyword}, '%')
+                OR
+                user_id = #{keyword}
+                OR
+                status IN (#{keyword})
+            </where>
+        </if>
+        ORDER BY create_time DESC
     </select>
 
     <select id="get" parameterType="java.lang.String" resultType="Order">
-        select * from t_order where order_no = #{orderNo}
+        SELECT * FROM t_order WHERE order_no = #{orderNo}
     </select>
 
     <insert id="insert" parameterType="Order">
-        insert into t_order (order_no, user_id, product_id, status, count, total_amount, create_time)
-        values (#{orderNo}, #{userId}, #{productId}, #{status}, #{count}, #{totalAmount}, #{createTime})
+        INSERT INTO t_order (order_no, user_id, product_id, status, count, total_amount, create_time)
+        VALUES (#{orderNo}, #{userId}, #{productId}, #{status}, #{count}, #{totalAmount}, #{createTime})
     </insert>
 
     <update id="update" parameterType="Order">
-        update t_order set status = #{status}
+        UPDATE t_order SET status = #{status}
         <if test="totalAmount != null">
             , total_amount = #{totalAmount}
         </if>
-        where order_no = #{orderNo}
+        WHERE order_no = #{orderNo}
     </update>
 
 </mapper>

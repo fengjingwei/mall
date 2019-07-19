@@ -1,5 +1,6 @@
 package com.hengxunda.springcloud.order.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,13 +13,9 @@ public class AccountDTO implements Serializable {
 
     private static final long serialVersionUID = 7223470850578998427L;
 
-    /**
-     * 用户id
-     */
+    @ApiModelProperty(name = "userId", notes = "用户id", example = "10000", required = true)
     private String userId;
 
-    /**
-     * 扣款金额
-     */
+    @ApiModelProperty(name = "amount", notes = "扣款金额", example = "100", required = true)
     private BigDecimal amount;
 }
