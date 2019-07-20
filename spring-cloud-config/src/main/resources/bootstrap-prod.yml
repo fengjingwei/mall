@@ -10,8 +10,8 @@ spring:
         git:
           uri: https://github.com/fengjingwei/mall
           search-paths: spring-cloud-config/src/main/resources/**
-          username: 951159049@qq.com
-          password: More201314
+          username: Your git account
+          password: Your git password
   zipkin:
     base-url: http://192.168.1.135:9413
 
