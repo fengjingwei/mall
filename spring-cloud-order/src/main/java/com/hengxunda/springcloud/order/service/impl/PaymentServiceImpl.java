@@ -67,6 +67,7 @@ public class PaymentServiceImpl implements PaymentService {
         AccountDTO accountDTO = AccountDTO.builder().amount(order.getTotalAmount()).userId(order.getUserId()).build();
         log.info("{}", "===========执行spring cloud扣减资金==========");
         accountClient.payment(accountDTO);
+
         // 进入扣减库存
         InventoryDTO inventoryDTO = InventoryDTO.builder().count(order.getCount()).productId(order.getProductId()).build();
         log.info("{}", "===========执行spring cloud扣减库存==========");

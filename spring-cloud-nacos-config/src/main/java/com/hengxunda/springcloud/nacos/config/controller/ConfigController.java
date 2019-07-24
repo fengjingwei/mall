@@ -18,5 +18,4 @@ public class ConfigController {
     public String getConfig() {
         return address;
     }
-
 }

@@ -15,8 +15,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-
 @RestController
 @RequestMapping("/order")
 @Api(description = "订单管理")
@@ -47,7 +45,7 @@ public class OrderController {
 
     @ApiOperation(value = "订单支付并进行扣除账户余额，进行库存扣减")
     @PostMapping(value = "orderPay")
-    public AjaxResponse orderPay(@RequestParam(value = "orderNo") String orderNo, @RequestParam(value = "amount") BigDecimal amount) {
+    public AjaxResponse orderPay(@RequestParam(value = "orderNo") String orderNo) {
         final Order order = orderService.get(orderNo);
         if (order == null) {
             throw new ServiceException("订单不存在");
@@ -59,7 +57,7 @@ public class OrderController {
         if (status == OrderEnum.Status.PAY_SUCCESS) {
             throw new ServiceException("订单重复支付");
         }
-        orderProducer.orderPay(Order.builder().orderNo(orderNo).totalAmount(amount).build());
+        orderProducer.orderPay(Order.builder().orderNo(orderNo).build());
         return AjaxResponse.success();
     }
 
