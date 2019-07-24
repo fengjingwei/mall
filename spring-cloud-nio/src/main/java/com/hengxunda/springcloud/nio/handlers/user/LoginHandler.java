@@ -13,7 +13,7 @@ import com.hengxunda.springcloud.nio.handlers.user.dto.LoginRequest;
 import com.hengxunda.springcloud.nio.handlers.user.dto.LoginResponse;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@Slf4j
+@Log4j2
 @Component
 public class LoginHandler extends AbstractBaseHandler<LoginRequest> {
 

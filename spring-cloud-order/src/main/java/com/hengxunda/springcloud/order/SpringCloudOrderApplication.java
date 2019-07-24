@@ -5,6 +5,8 @@ import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServl
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -26,11 +28,11 @@ import java.util.concurrent.CountDownLatch;
 
 @EnableHystrix
 @EnableEurekaClient
-@SpringBootApplication
+@EnableFeignClients
+@SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 @EnableHystrixDashboard
-@ComponentScan(basePackages = "com.hengxunda.springcloud")
+@ComponentScan(basePackages = {"com.hengxunda.springcloud"})
 @MapperScan(basePackages = "com.hengxunda.springcloud.order.mapper")
-@EnableFeignClients(basePackages = ("com.hengxunda.springcloud.order.client"))
 public class SpringCloudOrderApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {

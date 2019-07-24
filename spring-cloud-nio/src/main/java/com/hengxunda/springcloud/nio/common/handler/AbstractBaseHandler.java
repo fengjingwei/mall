@@ -7,12 +7,12 @@ import com.hengxunda.springcloud.nio.common.netty.RoomChannelMatcher;
 import com.hengxunda.springcloud.nio.handlers.user.LoginHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import javax.annotation.PostConstruct;
 import java.util.Objects;
 
-@Slf4j
+@Log4j2
 public abstract class AbstractBaseHandler<R> implements Handlebars {
 
     @PostConstruct

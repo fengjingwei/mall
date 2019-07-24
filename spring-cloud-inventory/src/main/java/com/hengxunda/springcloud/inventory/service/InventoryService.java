@@ -9,16 +9,17 @@ public interface InventoryService extends BaseService<InventoryDO> {
     /**
      * 扣减库存操作
      *
-     * @param inventoryDTO 库存DTO对象
-     * @return true
+     * @param inventoryDTO
+     * @return
      */
-    Boolean decrease(InventoryDTO inventoryDTO);
+    // @Hmily
+    String decrease(InventoryDTO inventoryDTO);
 
     /**
      * 获取商品库存信息
      *
-     * @param productId 商品id
-     * @return InventoryDO
+     * @param productId
+     * @return
      */
     InventoryDO findByProductId(String productId);
 }

@@ -17,14 +17,14 @@ import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.NettyRuntime;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.SpringBootConfiguration;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.util.concurrent.*;
 
-@Slf4j
+@Log4j2
 @SpringBootConfiguration
 public class ServerServletListener implements ServletContextListener {
 

@@ -12,7 +12,8 @@ public interface AccountService extends BaseService<AccountDO> {
      * @param accountDTO
      * @return
      */
-    boolean payment(AccountDTO accountDTO);
+    // @Hmily
+    String payment(AccountDTO accountDTO);
 
     /**
      * 获取用户账户信息

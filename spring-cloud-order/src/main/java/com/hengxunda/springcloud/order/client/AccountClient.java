@@ -15,17 +15,18 @@ public interface AccountClient {
     /**
      * 用户账户付款
      *
-     * @param accountDO 实体类
-     * @return true 成功
+     * @param accountDO
+     * @return
      */
+    // @Hmily
     @RequestLine("POST /account-service/account/payment")
-    Boolean payment(AccountDTO accountDO);
+    String payment(AccountDTO accountDO);
 
     /**
      * 获取用户账户信息
      *
-     * @param userId 用户id
-     * @return AccountDO
+     * @param userId
+     * @return
      */
     @RequestLine("GET /account-service/account/findByUserId?userId={userId}")
     BigDecimal findByUserId(@Param("userId") String userId);

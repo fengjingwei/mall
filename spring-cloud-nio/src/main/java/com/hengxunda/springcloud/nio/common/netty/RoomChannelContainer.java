@@ -7,13 +7,13 @@ import io.netty.channel.Channel;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@Slf4j
+@Log4j2
 public class RoomChannelContainer {
 
     // <roomId, <userId, channel>>

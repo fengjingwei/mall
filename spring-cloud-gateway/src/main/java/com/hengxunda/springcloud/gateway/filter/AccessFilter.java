@@ -5,13 +5,13 @@ import com.hengxunda.springcloud.common.utils.FastJsonUtils;
 import com.hengxunda.springcloud.common.utils.StringUtils;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.apache.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Slf4j
+@Log4j2
 @Component
 public class AccessFilter extends ZuulFilter {
 

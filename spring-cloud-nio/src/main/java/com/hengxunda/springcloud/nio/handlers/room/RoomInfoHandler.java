@@ -7,10 +7,10 @@ import com.hengxunda.springcloud.nio.common.handler.AbstractBaseHandler;
 import com.hengxunda.springcloud.nio.handlers.room.dto.RoomInfoResponse;
 import com.hengxunda.springcloud.nio.handlers.user.LoginHandler;
 import io.netty.channel.Channel;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
-@Slf4j
+@Log4j2
 @Component
 public class RoomInfoHandler extends AbstractBaseHandler<EmptyRequest> {
 

@@ -1,6 +1,6 @@
 package com.hengxunda.springcloud.common.utils;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-@Slf4j
+@Log4j2
 @Component
 @Lazy(false)
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {

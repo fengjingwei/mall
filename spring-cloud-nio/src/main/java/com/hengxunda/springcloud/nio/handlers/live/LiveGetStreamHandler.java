@@ -11,13 +11,13 @@ import com.hengxunda.springcloud.nio.handlers.live.utils.LVBChannel;
 import com.hengxunda.springcloud.nio.handlers.live.utils.LiveAddressUtils;
 import com.hengxunda.springcloud.nio.handlers.user.LoginHandler;
 import io.netty.channel.Channel;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
-@Slf4j
+@Log4j2
 @Component
 public class LiveGetStreamHandler extends AbstractBaseHandler<LiveGetStreamRequest> {
 

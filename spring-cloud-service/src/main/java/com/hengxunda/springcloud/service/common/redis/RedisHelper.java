@@ -1,21 +1,19 @@
 package com.hengxunda.springcloud.service.common.redis;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-@Slf4j
+@Log4j2
 @Component
-public class RedisHelper implements CacheManager {
+public class RedisHelper {
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -135,56 +133,4 @@ public class RedisHelper implements CacheManager {
             return null;
         });
     }
-
-    @Override
-    public String getSet(String key, String value) {
-        Object object = null;
-        try {
-            object = redisTemplate.execute((RedisCallback<Object>) connection -> {
-                StringRedisSerializer serializer = new StringRedisSerializer();
-                byte[] ret = connection.getSet(Objects.requireNonNull(serializer.serialize(key)), Objects.requireNonNull(serializer.serialize(value)));
-                connection.close();
-                return serializer.deserialize(ret);
-            });
-        } catch (Exception e) {
-            log.error("getSet redis error, key : {}", key);
-        }
-        return object != null ? (String) object : null;
-    }
-
-    @Override
-    public boolean setNx(String key, String value) {
-        Object object = null;
-        try {
-            object = redisTemplate.execute((RedisCallback<Object>) connection -> {
-                StringRedisSerializer serializer = new StringRedisSerializer();
-                Boolean success = connection.setNX(Objects.requireNonNull(serializer.serialize(key)), Objects.requireNonNull(serializer.serialize(value)));
-                connection.close();
-                return success;
-            });
-        } catch (Exception e) {
-            log.error("setNx redis error, key : {}", key);
-        }
-        return object != null ? (Boolean) object : false;
-    }
-
-    @Override
-    public Object get(String key) {
-        Object object = null;
-        try {
-            object = redisTemplate.execute((RedisCallback<Object>) connection -> {
-                StringRedisSerializer serializer = new StringRedisSerializer();
-                byte[] data = connection.get(Objects.requireNonNull(serializer.serialize(key)));
-                connection.close();
-                if (data == null) {
-                    return null;
-                }
-                return serializer.deserialize(data);
-            });
-        } catch (Exception e) {
-            log.error("get redis error, key : {}", key);
-        }
-        return object;
-    }
-
 }

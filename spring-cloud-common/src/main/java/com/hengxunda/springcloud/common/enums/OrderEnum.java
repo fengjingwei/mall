@@ -15,9 +15,11 @@ public interface OrderEnum {
 
         NOT_PAY(1, "未支付"),
 
-        PAY_SUCCESS(2, "支付成功"),
+        PAYING(2, "支付中"),
 
-        PAY_FAIL(3, "支付失败");
+        PAY_SUCCESS(3, "支付成功"),
+
+        PAY_FAIL(4, "支付失败");
 
         private final int code;
 

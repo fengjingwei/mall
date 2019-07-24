@@ -4,7 +4,7 @@ import com.hengxunda.springcloud.common.enums.OrderEnum;
 import com.hengxunda.springcloud.common.utils.StringUtils;
 import com.hengxunda.springcloud.order.entity.Order;
 import com.hengxunda.springcloud.order.mapper.OrderMapper;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
@@ -12,7 +12,7 @@ import org.springframework.lang.NonNull;
 
 import java.util.concurrent.CountDownLatch;
 
-@Slf4j
+@Log4j2
 public class ExpiredMessageListener extends MessageListenerAdapter {
 
     private final CountDownLatch countDownLatch;

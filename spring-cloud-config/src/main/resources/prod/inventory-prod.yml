@@ -26,6 +26,23 @@ spring:
   zipkin:
     base-url: http://192.168.1.135:9413
 
+  redis:
+    database: 0
+    host: 192.168.1.245
+    port: 6379
+    password: o^mt9#nIvv7u%`
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+    timeout: 60000ms
+
+redisson:
+  address: redis://${spring.redis.host}:${spring.redis.port}
+  password: ${spring.redis.password}
+
 mybatis:
   type-aliases-package: com.hengxunda.springcloud.inventory.entity
   config-location: classpath:mybatis/mybatis-config.xml

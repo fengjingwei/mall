@@ -4,7 +4,7 @@ import com.hengxunda.springcloud.order.entity.Order;
 import com.hengxunda.springcloud.order.rabbitmq.OrderConfig;
 import com.hengxunda.springcloud.order.service.OrderService;
 import com.rabbitmq.client.Channel;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Slf4j
+@Log4j2
 @Component
 @RabbitListener(queues = OrderConfig.ORDER_PAY_QUEUE, containerFactory = "rabbitListenerContainerFactory")
 public class OrderConsumer {

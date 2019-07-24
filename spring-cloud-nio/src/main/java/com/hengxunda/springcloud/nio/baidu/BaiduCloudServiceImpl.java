@@ -2,12 +2,12 @@ package com.hengxunda.springcloud.nio.baidu;
 
 import com.baidubce.services.lss.LssClient;
 import com.baidubce.services.lss.model.*;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
-@Slf4j
+@Log4j2
 @Service
 public class BaiduCloudServiceImpl implements BaiduCloudService {
 

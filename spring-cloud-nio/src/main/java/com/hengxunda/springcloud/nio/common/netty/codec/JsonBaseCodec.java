@@ -6,11 +6,11 @@ import com.hengxunda.springcloud.nio.common.dto.BaseMessage;
 import com.hengxunda.springcloud.nio.common.enums.MsgNoEnum;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageCodec;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
 
-@Slf4j
+@Log4j2
 public class JsonBaseCodec extends MessageToMessageCodec<String, BaseMessage> {
 
     /**

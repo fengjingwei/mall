@@ -1,51 +1,64 @@
 package com.hengxunda.springcloud.order.service.impl;
 
+import com.hengxunda.springcloud.common.enums.OrderEnum;
 import com.hengxunda.springcloud.common.exception.ServiceException;
 import com.hengxunda.springcloud.order.client.AccountClient;
-import com.hengxunda.springcloud.order.client.AccountRibbon;
 import com.hengxunda.springcloud.order.client.InventoryClient;
-import com.hengxunda.springcloud.order.client.InventoryRibbon;
 import com.hengxunda.springcloud.order.dto.AccountDTO;
 import com.hengxunda.springcloud.order.dto.InventoryDTO;
 import com.hengxunda.springcloud.order.entity.Order;
+import com.hengxunda.springcloud.order.mapper.OrderMapper;
 import com.hengxunda.springcloud.order.service.PaymentService;
-import com.hengxunda.springcloud.service.common.redis.RedisDistributedLock;
-import com.hengxunda.springcloud.service.common.redis.RedisHelper;
-import lombok.extern.slf4j.Slf4j;
+import com.hengxunda.springcloud.service.common.redis.lock.RedissLockUtils;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
-@Slf4j
+@Log4j2
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-    @Autowired
-    private AccountClient accountClient;
+    private final OrderMapper orderMapper;
+
+    // private final AccountRibbon accountRibbon;
+
+    // private final InventoryRibbon inventoryRibbon;
+
+    private final AccountClient accountClient;
+
+    private final InventoryClient inventoryClient;
+
+    /*@Autowired
+    public PaymentServiceImpl(OrderMapper orderMapper,
+                              AccountRibbon accountRibbon,
+                              InventoryRibbon inventoryRibbon) {
+        this.orderMapper = orderMapper;
+        this.accountRibbon = accountRibbon;
+        this.inventoryRibbon = inventoryRibbon;
+    }*/
 
     @Autowired
-    private InventoryClient inventoryClient;
-
-    @Autowired
-    private AccountRibbon accountRibbon;
-
-    @Autowired
-    private InventoryRibbon inventoryRibbon;
-
-    @Autowired
-    private RedisHelper redisHelper;
+    public PaymentServiceImpl(OrderMapper orderMapper,
+                              AccountClient accountClient,
+                              InventoryClient inventoryClient) {
+        this.orderMapper = orderMapper;
+        this.accountClient = accountClient;
+        this.inventoryClient = inventoryClient;
+    }
 
     @Override
-    @Transactional
+    // @Hmily(confirmMethod = "confirmOrderStatus", cancelMethod = "cancelOrderStatus")
     public void makePayment(Order order) {
-        final BigDecimal accountInfo = accountRibbon.findByUserId(order.getUserId());
+        order.setStatus(OrderEnum.Status.PAYING.code());
+        orderMapper.update(order);
+        final BigDecimal accountInfo = accountClient.findByUserId(order.getUserId());
         if (accountInfo.compareTo(order.getTotalAmount()) < 0) {
             throw new ServiceException("余额不足");
         }
 
-        final Integer inventoryInfo = inventoryRibbon.findByProductId(order.getProductId());
+        final Integer inventoryInfo = inventoryClient.findByProductId(order.getProductId());
         if (inventoryInfo < order.getCount()) {
             throw new ServiceException("库存不足");
         }
@@ -53,23 +66,33 @@ public class PaymentServiceImpl implements PaymentService {
         // 扣除用户余额
         AccountDTO accountDTO = AccountDTO.builder().amount(order.getTotalAmount()).userId(order.getUserId()).build();
         log.info("{}", "===========执行spring cloud扣减资金==========");
-        accountRibbon.payment(accountDTO);
-
+        accountClient.payment(accountDTO);
         // 进入扣减库存
         InventoryDTO inventoryDTO = InventoryDTO.builder().count(order.getCount()).productId(order.getProductId()).build();
         log.info("{}", "===========执行spring cloud扣减库存==========");
-        final int timeoutMs = 10000;
-        final int expireMs = 20000;
-        RedisDistributedLock lock = new RedisDistributedLock(redisHelper, "order:pay:" + order.getOrderNo(), timeoutMs, expireMs);
+        final String lockKey = "order:pay:" + order.getOrderNo();
+        log.info("lock key : {}", lockKey);
+        final boolean b = RedissLockUtils.tryLock(lockKey, 5, 300);
         try {
-            if (lock.lock()) {
-                log.info("lock key : {}", lock.getLockKey());
-                inventoryRibbon.decrease(inventoryDTO);
+            if (b) {
+                inventoryClient.decrease(inventoryDTO);
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } finally {
-            lock.unlock();
+            if (b) {
+                RedissLockUtils.unlock(lockKey);
+            }
         }
+    }
+
+    public void confirmOrderStatus(Order order) {
+        order.setStatus(OrderEnum.Status.PAY_SUCCESS.code());
+        orderMapper.update(order);
+        log.info("{}", "===========进行订单confirm操作完成==========");
+    }
+
+    public void cancelOrderStatus(Order order) {
+        order.setStatus(OrderEnum.Status.PAY_FAIL.code());
+        orderMapper.update(order);
+        log.info("{}", "===========进行订单cancel操作完成==========");
     }
 }

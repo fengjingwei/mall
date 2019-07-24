@@ -1,5 +1,6 @@
 package com.hengxunda.springcloud.account.mapper;
 
+import com.hengxunda.springcloud.account.dto.AccountDTO;
 import com.hengxunda.springcloud.account.entity.AccountDO;
 import com.hengxunda.springcloud.common.persistence.CrudDao;
 import org.apache.ibatis.annotations.Mapper;
@@ -12,8 +13,8 @@ public interface AccountMapper extends CrudDao<AccountDO> {
     /**
      * 扣减账户余额
      *
-     * @param accountDO 实体类
-     * @return rows
+     * @param accountDO
+     * @return
      */
     @Override
     @Update("update t_account set balance = #{balance}," +
@@ -22,10 +23,32 @@ public interface AccountMapper extends CrudDao<AccountDO> {
     int update(AccountDO accountDO);
 
     /**
+     * (确认)扣减账户余额
+     *
+     * @param accountDTO
+     * @return
+     */
+    @Update("update t_account set" +
+            " freeze_amount = freeze_amount - #{amount}" +
+            " where user_id = #{userId} and freeze_amount > 0")
+    int confirm(AccountDTO accountDTO);
+
+    /**
+     * (取消)扣减账户余额
+     *
+     * @param accountDTO
+     * @return
+     */
+    @Update("update t_account set balance = balance + #{amount}," +
+            " freeze_amount = freeze_amount - #{amount}" +
+            " where user_id = #{userId} and freeze_amount > 0")
+    int cancel(AccountDTO accountDTO);
+
+    /**
      * 根据userId获取用户账户信息
      *
-     * @param userId 用户id
-     * @return AccountDO
+     * @param userId
+     * @return
      */
     @Select("select * from t_account where user_id = #{userId}")
     AccountDO findByUserId(String userId);

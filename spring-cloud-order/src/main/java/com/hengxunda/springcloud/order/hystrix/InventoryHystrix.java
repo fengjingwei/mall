@@ -2,17 +2,17 @@ package com.hengxunda.springcloud.order.hystrix;
 
 import com.hengxunda.springcloud.order.client.InventoryClient;
 import com.hengxunda.springcloud.order.dto.InventoryDTO;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
-@Slf4j
+@Log4j2
 @Component
 public class InventoryHystrix implements InventoryClient {
 
     @Override
-    public Boolean decrease(InventoryDTO inventoryDTO) {
+    public String decrease(InventoryDTO inventoryDTO) {
         log.info("feign decrease error... {}", inventoryDTO);
-        return false;
+        return "false";
     }
 
     @Override

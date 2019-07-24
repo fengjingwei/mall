@@ -5,11 +5,11 @@ import com.hengxunda.springcloud.common.exception.ServiceException;
 import com.hengxunda.springcloud.common.security.jwt.AccountJWT;
 import com.hengxunda.springcloud.common.security.jwt.JwtUtils;
 import com.hengxunda.springcloud.common.utils.FastJsonUtils;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-@Slf4j
+@Log4j2
 @Service
 public class LoginServiceImpl implements LoginService {
 

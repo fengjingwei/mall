@@ -41,13 +41,8 @@ public class OrderServiceImpl extends AbstractCrudService<OrderMapper, Order> im
     }
 
     @Override
-    @Transactional
     public String orderPay(String orderNo, BigDecimal amount) {
-        final Order entity = Order.builder().orderNo(orderNo).totalAmount(amount).status(OrderEnum.Status.PAY_SUCCESS.code()).build();
-        final int rows = dao.update(entity);
-        if (rows > 0) {
-            paymentService.makePayment(dao.get(orderNo));
-        }
+        paymentService.makePayment(dao.get(orderNo));
         return "success";
     }
 

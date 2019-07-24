@@ -7,10 +7,10 @@ import com.hengxunda.springcloud.nio.common.netty.RoomChannelContainer;
 import com.hengxunda.springcloud.nio.handlers.chat.dto.PrivateChatRequest;
 import com.hengxunda.springcloud.nio.handlers.chat.dto.PrivateChatResponse;
 import io.netty.channel.Channel;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
-@Slf4j
+@Log4j2
 @Component
 public class PrivateChatHandler extends AbstractBaseHandler<PrivateChatRequest> {
 

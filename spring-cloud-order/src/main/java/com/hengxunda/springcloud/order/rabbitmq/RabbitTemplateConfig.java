@@ -1,6 +1,6 @@
 package com.hengxunda.springcloud.order.rabbitmq;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate.ConfirmCallback;
@@ -11,7 +11,7 @@ import org.springframework.boot.SpringBootConfiguration;
 
 import javax.annotation.PostConstruct;
 
-@Slf4j
+@Log4j2
 @SpringBootConfiguration
 public class RabbitTemplateConfig implements ConfirmCallback, ReturnCallback {
 

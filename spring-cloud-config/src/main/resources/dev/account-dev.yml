@@ -39,6 +39,25 @@ spring:
         min-idle: 0
     timeout: 60000ms
 
+redisson:
+  address: redis://${spring.redis.host}:${spring.redis.port}
+  password: ${spring.redis.password}
+
+org:
+  dromara:
+    hmily:
+      serializer: kryo
+      recoverDelayTime: 128
+      retryMax: 5
+      scheduledDelay: 128
+      scheduledThreadMax: 10
+      started: false
+      repositorySupport: redis
+      hmilyRedisConfig:
+        hostName: ${spring.redis.host}
+        port: ${spring.redis.port}
+        password: ${spring.redis.password}
+
 mybatis:
   type-aliases-package: com.hengxunda.springcloud.account.entity
   config-location: classpath:mybatis/mybatis-config.xml

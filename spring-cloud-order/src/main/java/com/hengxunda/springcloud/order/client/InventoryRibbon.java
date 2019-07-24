@@ -15,8 +15,9 @@ public class InventoryRibbon {
     @Autowired
     private RestTemplate restTemplate;
 
-    public Boolean decrease(InventoryDTO inventoryDTO) {
-        return restTemplate.postForObject("http://inventory-service/inventory-service/inventory/decrease", inventoryDTO, Boolean.class);
+    public boolean decrease(InventoryDTO inventoryDTO) {
+        final String result = restTemplate.postForObject("http://inventory-service/inventory-service/inventory/decrease", inventoryDTO, String.class);
+        return Boolean.getBoolean(result);
     }
 
     public Integer findByProductId(String productId) {

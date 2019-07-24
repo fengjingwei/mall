@@ -6,11 +6,14 @@
         SELECT * FROM t_order
         <if test="keyword != null and keyword != ''">
             <where>
+                (
                 order_no LIKE concat('%', #{keyword}, '%')
                 OR
                 user_id = #{keyword}
                 OR
                 status IN (#{keyword})
+                )
+                AND create_time BETWEEN DATE_SUB(NOW(), interval 1 month) AND NOW()
             </where>
         </if>
         ORDER BY create_time DESC

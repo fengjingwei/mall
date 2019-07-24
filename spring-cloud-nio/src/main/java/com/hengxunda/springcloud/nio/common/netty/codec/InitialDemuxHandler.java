@@ -14,10 +14,10 @@ import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateEvent;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.codec.Charsets;
 
-@Slf4j
+@Log4j2
 @NoArgsConstructor
 public final class InitialDemuxHandler extends ChannelInboundHandlerAdapter {
 

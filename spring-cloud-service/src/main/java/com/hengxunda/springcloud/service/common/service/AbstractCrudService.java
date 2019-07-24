@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional(readOnly = true)
 public abstract class AbstractCrudService<D extends CrudDao<T>, T extends BaseEntity> implements BaseService<T> {
 
     /**
@@ -25,7 +24,6 @@ public abstract class AbstractCrudService<D extends CrudDao<T>, T extends BaseEn
      * @return
      */
     @Override
-    @Transactional
     public T save(T entity) {
         if (entity.boolNewRecord()) {
             entity.preInsert();
@@ -84,5 +82,4 @@ public abstract class AbstractCrudService<D extends CrudDao<T>, T extends BaseEn
         List<T> list = dao.findList(entity);
         return new PageInfo<>(list);
     }
-
 }

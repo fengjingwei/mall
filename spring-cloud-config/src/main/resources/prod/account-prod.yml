@@ -39,6 +39,10 @@ spring:
         min-idle: 0
     timeout: 60000ms
 
+redisson:
+  address: redis://${spring.redis.host}:${spring.redis.port}
+  password: ${spring.redis.password}
+
 mybatis:
   type-aliases-package: com.hengxunda.springcloud.account.entity
   config-location: classpath:mybatis/mybatis-config.xml

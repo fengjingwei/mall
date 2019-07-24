@@ -17,12 +17,12 @@ public class AccountRibbon {
     @Autowired
     private RestTemplate restTemplate;
 
-    public Boolean payment(AccountDTO accountDO) {
-        return restTemplate.postForObject("http://account-service/account-service/account/payment", accountDO, Boolean.class);
+    public boolean payment(AccountDTO accountDO) {
+        final String result = restTemplate.postForObject("http://account-service/account-service/account/payment", accountDO, String.class);
+        return Boolean.getBoolean(result);
     }
 
     public BigDecimal findByUserId(String userId) {
         return restTemplate.getForObject("http://account-service/account-service/account/findByUserId?userId=" + userId, BigDecimal.class);
     }
-
 }
