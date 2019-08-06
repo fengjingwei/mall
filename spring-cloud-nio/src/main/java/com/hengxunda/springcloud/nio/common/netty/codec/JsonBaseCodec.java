@@ -33,8 +33,7 @@ public class JsonBaseCodec extends MessageToMessageCodec<String, BaseMessage> {
             sendExceptionResponse(ctx);
             return;
         }
-
-        log.info("服务端收到 : {}", msg);
+        log.info("服务端收到 : " + msg);
         BaseMessage receivedMsg;
         try {
             String jsonMsg = StringUtils.substring(msg, 5);

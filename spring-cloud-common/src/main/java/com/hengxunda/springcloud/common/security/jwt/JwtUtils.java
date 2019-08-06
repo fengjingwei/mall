@@ -5,6 +5,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.commons.lang3.RandomUtils;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
@@ -62,16 +63,17 @@ public abstract class JwtUtils {
         }
     }
 
+    private Date generateExpirationDate(long expiration) {
+        return new Date(System.currentTimeMillis() + expiration * 1000);
+    }
+
     public static void main(String[] args) {
-        AccountJwt accountJwt = AccountJwt.builder().account("18588257670").build();
+        AccountJwt accountJwt = AccountJwt.builder().userId(RandomUtils.nextLong(1, 100)).account("18588257670").build();
         final String jwt = createJwt(FastJsonUtils.toJSONString(accountJwt), 36000000L);
         System.out.println("jwt = " + jwt);
         accountJwt = parseJwt(jwt, AccountJwt.class);
+        accountJwt.setJwt(jwt);
         System.out.println("accountJwt = " + accountJwt);
         verifyJwt(jwt);
-    }
-
-    private Date generateExpirationDate(long expiration) {
-        return new Date(System.currentTimeMillis() + expiration * 1000);
     }
 }

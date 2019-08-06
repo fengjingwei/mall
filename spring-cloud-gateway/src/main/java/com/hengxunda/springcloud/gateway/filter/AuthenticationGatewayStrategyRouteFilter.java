@@ -32,7 +32,11 @@ public class AuthenticationGatewayStrategyRouteFilter extends AbstractGatewayStr
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        ServerHttpRequest request = exchange.getRequest();
+        final ServerHttpRequest request = exchange.getRequest();
+        final String upgrade = request.getHeaders().getUpgrade();
+        if (StringUtils.equalsIgnoreCase("websocket", upgrade)) {
+            return chain.filter(exchange);
+        }
         final String path = request.getURI().getPath();
         final List<Object> urls = redisHelper.lGet(C.AUTH_SKIP_URLS_KEY, 0, redisHelper.lGetListSize(C.AUTH_SKIP_URLS_KEY));
         if (Collections3Utils.isNotEmpty(urls.stream().filter(url -> path.contains(url.toString())).collect(Collectors.toList()))) {
@@ -68,9 +72,7 @@ public class AuthenticationGatewayStrategyRouteFilter extends AbstractGatewayStr
         if (!verifyJwt) {
             return exchangeResponse.writeWith(Flux.just(exchangeResponse.bufferFactory().wrap(buildExchangeResponse(exchangeResponse, "Invalid request token."))));
         }
-        final ServerHttpRequest newRequest = request.mutate().header(C.AUTHORIZATION, jwt).build();
-        final ServerWebExchange newWebExchange = exchange.mutate().request(newRequest).build();
-        return chain.filter(newWebExchange);
+        return chain.filter(exchange);
     }
 
     private byte[] buildExchangeResponse(final ServerHttpResponse exchangeResponse, final String message) {
