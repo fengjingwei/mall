@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class OrderServiceImpl extends AbstractCrudService<OrderMapper, Order> implements OrderService {
@@ -22,10 +23,6 @@ public class OrderServiceImpl extends AbstractCrudService<OrderMapper, Order> im
 
     @Autowired
     private RedisHelper redisHelper;
-
-    private static String key(Order order) {
-        return "order_" + order.getOrderNo();
-    }
 
     @Override
     public Order get(String orderNo) {
@@ -49,12 +46,12 @@ public class OrderServiceImpl extends AbstractCrudService<OrderMapper, Order> im
     @Transactional
     public Order save(Order order) {
         if (order.boolNewRecord()) {
-            order.setOrderNo(SnowFlakeUtils.getInstance().getId());
+            order.setOrderNo(SnowFlakeUtils.getId());
             order.setStatus(OrderEnum.Status.NOT_PAY.code());
             order.preInsert();
             dao.insert(order);
 
-            redisHelper.putObject(key(order), order, 0b1111L);
+            redisHelper.putObject("order_" + order.getOrderNo(), order, 0b1111L, TimeUnit.MINUTES);
         }
         return order;
     }

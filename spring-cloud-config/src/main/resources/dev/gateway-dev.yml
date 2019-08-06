@@ -5,10 +5,73 @@ server:
     context-path: /gateway-service
 
 spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+      - id: account-service-id
+        uri: lb://account-service
+        predicates:
+        - Path=/account/**
+        #- Method=GET
+        filters:
+        - StripPrefix=1
+        - name: Retry
+          args:
+            retries: 5
+            series:
+            - SERVER_ERROR
+            statuses:
+            - OK
+            methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            exceptions:
+            - java.io.IOException
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 5
+            redis-rate-limiter.burstCapacity: 20
+            key-resolver: "#{@apiKeyResolver}"
+      - id: inventory-service-id
+        uri: lb://inventory-service
+        predicates:
+        - Path=/inventory/**
+        filters:
+        - StripPrefix=1
+      - id: order-service-id
+        uri: lb://order-service
+        predicates:
+        - Path=/order/**
+        filters:
+        - StripPrefix=1
+      - id: nio-service-id
+        #uri: lb:ws://nio-service
+        uri: ws://127.0.0.1:9081
+        predicates:
+        - Path=/ws/**
   application:
     name: gateway-service
   zipkin:
     base-url: http://localhost:9412
+
+  redis:
+    database: 0
+    host: 192.168.1.245
+    port: 6379
+    password: o^mt9#nIvv7u%`
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+    timeout: 60000ms
 
 eureka:
   client:
@@ -18,18 +81,18 @@ eureka:
     prefer-ip-address: true
     #instance-id: ${spring.cloud.client.ip-address}:${server.port}
 
-zuul:
-  ignoredServices: '*'
-  routes:
-    order-service:
-      path: /order/**
-      serviceId: order-service
-    account-service:
-      path: /account/**
-      serviceId: account-service
-    inventory-service:
-      path: /inventory/**
-      serviceId: inventory-service
-  host:
-    socket-timeout-millis: 60000
-    connect-timeout-millis: 60000
+#zuul:
+#  ignoredServices: '*'
+#  routes:
+#    order-service:
+#      path: /order/**
+#      serviceId: order-service
+#    account-service:
+#      path: /account/**
+#      serviceId: account-service
+#    inventory-service:
+#      path: /inventory/**
+#      serviceId: inventory-service
+#  host:
+#    socket-timeout-millis: 60000
+#    connect-timeout-millis: 60000

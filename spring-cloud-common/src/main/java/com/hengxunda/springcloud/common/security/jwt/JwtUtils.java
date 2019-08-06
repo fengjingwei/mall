@@ -14,35 +14,18 @@ import java.util.UUID;
 
 public abstract class JwtUtils {
 
-    /**
-     * 密钥
-     */
-    private static final String LEXICAL_XSD_BASE_64_BINARY = "neoamyAYwuHCo2IFAgd1oRpSP0nzL1BF5t6ItqpKViM";
+    private static final String SECRET_KEY = "neoamyAYwuHCo2IFAgd1oRpSP0nzL1BF5t6ItqpKViM";
 
-    public static String createSimpleJWT(String subject, long ttlMillis) {
-        return createJWT(UUID.randomUUID().toString(), "192837465", subject, ttlMillis);
+    public static String createJwt(String subject, long ttlMillis) {
+        return createJwt(UUID.randomUUID().toString(), "192837465", subject, ttlMillis);
     }
 
-    /**
-     * Sample method to construct a JWT
-     *
-     * @param id
-     * @param issuer
-     * @param subject
-     * @param ttlMillis
-     * @return
-     */
-    public static String createJWT(String id, String issuer, String subject, long ttlMillis) {
-
+    private static String createJwt(String id, String issuer, String subject, long ttlMillis) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
-
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(LEXICAL_XSD_BASE_64_BINARY);
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
-
-        // Let's set the JWT Claims
         JwtBuilder builder = Jwts.builder()
                 // JWT的唯一标识
                 .setId(id)
@@ -62,32 +45,30 @@ public abstract class JwtUtils {
         return builder.compact();
     }
 
-    /**
-     * Sample method to validate and read the JWT
-     *
-     * @param jwt
-     * @return
-     */
-    public static AccountJWT parseJWT(String jwt) {
-        // This line will throw an exception if it is not a signed JWS (as expected)
-        Claims claims = Jwts.parser()
-                .setSigningKey(DatatypeConverter.parseBase64Binary(LEXICAL_XSD_BASE_64_BINARY))
+    public static <T> T parseJwt(String jwt, Class<T> clazz) {
+        final Claims claims = Jwts.parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
                 .parseClaimsJws(jwt)
                 .getBody();
+        return FastJsonUtils.parseObject(claims.getSubject(), clazz);
+    }
 
-        return FastJsonUtils.parseObject(claims.getSubject(), AccountJWT.class);
+    public static boolean verifyJwt(String jwt) {
+        try {
+            parseJwt(jwt, null);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static void main(String[] args) {
-        AccountJWT accountJWT = AccountJWT.builder().phone("18588257670").email("951159049@qq.com").build();
-
-        String jwt = createSimpleJWT(FastJsonUtils.toJSONString(accountJWT), 3600000L);
-
-        System.out.println("jwt = " + jwt.length());
-
-        accountJWT = parseJWT(jwt);
-
-        System.out.println("accountJWT = " + accountJWT.getPhone());
+        AccountJwt accountJwt = AccountJwt.builder().account("18588257670").build();
+        final String jwt = createJwt(FastJsonUtils.toJSONString(accountJwt), 36000000L);
+        System.out.println("jwt = " + jwt);
+        accountJwt = parseJwt(jwt, AccountJwt.class);
+        System.out.println("accountJwt = " + accountJwt);
+        verifyJwt(jwt);
     }
 
     private Date generateExpirationDate(long expiration) {

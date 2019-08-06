@@ -1,6 +1,6 @@
 package com.hengxunda.springcloud.account.configuration;
 
-import com.hengxunda.springcloud.account.interceptor.AuthInterceptor;
+import com.hengxunda.springcloud.account.interceptor.AuthenticationInterceptor;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -14,9 +14,8 @@ public class AdminConfiguration {
         return new WebMvcConfigurer() {
             @Override
             public void addInterceptors(final InterceptorRegistry registry) {
-                registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/**");
+                registry.addInterceptor(new AuthenticationInterceptor()).addPathPatterns("/**");
             }
         };
     }
-
 }

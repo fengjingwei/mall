@@ -1,3 +1,4 @@
+/*
 package com.hengxunda.springcloud.gateway.fallback;
 
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
@@ -10,3 +11,4 @@ public interface BaseFallback extends FallbackProvider {
 
     String INVENTORY_SERVICE_ID = "inventory-service";
 }
+*/

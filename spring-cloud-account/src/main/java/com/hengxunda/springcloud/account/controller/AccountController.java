@@ -31,6 +31,11 @@ public class AccountController {
         return accountService.findByUserId(userId).getBalance();
     }
 
+    @PostMapping("register")
+    public AjaxResponse register(@RequestBody final UserDTO userDTO) {
+        return AjaxResponse.success(userDTO);
+    }
+
     @PostMapping("login")
     public AjaxResponse login(@RequestBody final UserDTO userDTO) {
         return AjaxResponse.success(loginService.login(userDTO.getAccount(), userDTO.getPassword()));

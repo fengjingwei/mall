@@ -1,6 +1,6 @@
 package com.hengxunda.springcloud.account.service;
 
-import com.hengxunda.springcloud.common.security.jwt.AccountJWT;
+import com.hengxunda.springcloud.common.security.jwt.AccountJwt;
 
 public interface LoginService {
 
@@ -11,5 +11,5 @@ public interface LoginService {
      * @param password
      * @return
      */
-    AccountJWT login(String account, String password);
+    AccountJwt login(String account, String password);
 }

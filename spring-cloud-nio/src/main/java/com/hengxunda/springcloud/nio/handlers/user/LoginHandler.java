@@ -2,7 +2,7 @@ package com.hengxunda.springcloud.nio.handlers.user;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.hengxunda.springcloud.common.security.jwt.AccountJWT;
+import com.hengxunda.springcloud.common.security.jwt.AccountJwt;
 import com.hengxunda.springcloud.common.utils.DateUtils;
 import com.hengxunda.springcloud.nio.common.dto.BaseMessage;
 import com.hengxunda.springcloud.nio.common.enums.MsgNoEnum;
@@ -64,7 +64,7 @@ public class LoginHandler extends AbstractBaseHandler<LoginRequest> {
     private void enterRoom(LoginRequest requestBody, Channel channel) {
         UserUtils.setRoomId(channel, requestBody.getRoomId());
         UserUtils.setMode(channel, requestBody.getMode());
-        UserUtils.setUser(channel, new AccountJWT(requestBody.getUserId()));
+        UserUtils.setUser(channel, new AccountJwt(requestBody.getUserId()));
         UserUtils.setCreateTime(channel, DateUtils.getLocalDateTime());
     }
 
@@ -75,14 +75,14 @@ public class LoginHandler extends AbstractBaseHandler<LoginRequest> {
     }
 
     private void sendEnterRoomNotification(Channel channel) {
-        AccountJWT accountJWT = UserUtils.getUser(channel);
+        AccountJwt accountJwt = UserUtils.getUser(channel);
         if (RoomChannelContainer.isOtherChannelInRoom(channel)) {
-            log.error("该用户已经有其它端在线,不发送进入房间通知, userId : {}", accountJWT.getId());
+            log.error("该用户已经有其它端在线,不发送进入房间通知, userId : {}", accountJwt.getUserId());
             return;
         }
         BaseMessage message = BaseMessage.getNotification();
         message.setMsgNo(MsgNoEnum.User.USER_ENTER_BROADCAST.getCode());
-        message.setBody(accountJWT);
+        message.setBody(accountJwt);
         super.sendToRoomExcludeSelf(channel, message);
     }
 
@@ -94,7 +94,7 @@ public class LoginHandler extends AbstractBaseHandler<LoginRequest> {
 
         private static final AttributeKey<LocalDateTime> CREATE_TIME = AttributeKey.valueOf("createTime");
 
-        private static final AttributeKey<AccountJWT> USER = AttributeKey.valueOf("user");
+        private static final AttributeKey<AccountJwt> USER = AttributeKey.valueOf("user");
 
         private static void setRoomId(Channel channel, String roomId) {
             channel.attr(ROOM_ID).set(roomId);
@@ -120,17 +120,17 @@ public class LoginHandler extends AbstractBaseHandler<LoginRequest> {
             return channel.attr(CREATE_TIME).get();
         }
 
-        public static void setUser(Channel channel, AccountJWT user) {
+        public static void setUser(Channel channel, AccountJwt user) {
             channel.attr(USER).set(user);
         }
 
-        public static AccountJWT getUser(Channel channel) {
+        public static AccountJwt getUser(Channel channel) {
             return channel.attr(USER).get();
         }
 
         public static Long getUserId(Channel channel) {
-            AccountJWT user = getUser(channel);
-            return Objects.nonNull(user) ? user.getId() : null;
+            AccountJwt user = getUser(channel);
+            return Objects.nonNull(user) ? user.getUserId() : null;
         }
     }
 

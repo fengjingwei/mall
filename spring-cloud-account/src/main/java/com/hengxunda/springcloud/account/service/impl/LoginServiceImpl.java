@@ -2,7 +2,7 @@ package com.hengxunda.springcloud.account.service.impl;
 
 import com.hengxunda.springcloud.account.service.LoginService;
 import com.hengxunda.springcloud.common.exception.ServiceException;
-import com.hengxunda.springcloud.common.security.jwt.AccountJWT;
+import com.hengxunda.springcloud.common.security.jwt.AccountJwt;
 import com.hengxunda.springcloud.common.security.jwt.JwtUtils;
 import com.hengxunda.springcloud.common.utils.FastJsonUtils;
 import lombok.extern.log4j.Log4j2;
@@ -23,13 +23,13 @@ public class LoginServiceImpl implements LoginService {
     private long timeout;
 
     @Override
-    public AccountJWT login(final String account, final String password) {
+    public AccountJwt login(final String account, final String password) {
         log.info("account = [{}], password = [{}]", account, password);
         if (this.account.equals(account) && this.password.equals(password)) {
-            AccountJWT accountJWT = AccountJWT.builder().account(account).password(password).build();
-            String jwtToken = JwtUtils.createSimpleJWT(FastJsonUtils.toJSONString(accountJWT), timeout);
-            accountJWT.setAuthToken(jwtToken);
-            return accountJWT;
+            AccountJwt accountJwt = AccountJwt.builder().account(account).build();
+            final String jwt = JwtUtils.createJwt(FastJsonUtils.toJSONString(accountJwt), timeout);
+            accountJwt.setJwt(jwt);
+            return accountJwt;
         }
         throw new ServiceException("用户名或密码错误");
     }

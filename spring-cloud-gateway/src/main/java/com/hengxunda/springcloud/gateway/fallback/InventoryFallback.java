@@ -1,3 +1,4 @@
+/*
 package com.hengxunda.springcloud.gateway.fallback;
 
 import com.hengxunda.springcloud.common.persistence.AjaxResponse;
@@ -60,3 +61,4 @@ public class InventoryFallback implements BaseFallback {
         };
     }
 }
+*/

@@ -1,7 +1,7 @@
 package com.hengxunda.springcloud.nio.common.handler;
 
 import com.hengxunda.springcloud.common.exception.ServiceException;
-import com.hengxunda.springcloud.common.security.jwt.AccountJWT;
+import com.hengxunda.springcloud.common.security.jwt.AccountJwt;
 import com.hengxunda.springcloud.nio.common.dto.BaseMessage;
 import com.hengxunda.springcloud.nio.common.enums.MsgNoEnum;
 import com.hengxunda.springcloud.nio.common.netty.RoomChannelContainer;
@@ -50,7 +50,7 @@ public class SocketCloseHandler implements Handlebars {
     }
 
     private void sendRoomNotification(Channel channel) {
-        AccountJWT accountJWT = LoginHandler.UserUtils.getUser(channel);
+        AccountJwt accountJWT = LoginHandler.UserUtils.getUser(channel);
         if (Objects.nonNull(accountJWT)) {
             if (RoomChannelContainer.isOtherChannelInRoom(channel)) {
                 return;
