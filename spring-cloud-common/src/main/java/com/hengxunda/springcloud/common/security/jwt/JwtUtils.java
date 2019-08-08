@@ -47,11 +47,16 @@ public abstract class JwtUtils {
     }
 
     public static <T> T parseJwt(String jwt, Class<T> clazz) {
-        final Claims claims = Jwts.parser()
-                .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
-                .parseClaimsJws(jwt)
-                .getBody();
-        return FastJsonUtils.parseObject(claims.getSubject(), clazz);
+        try {
+            final Claims claims = Jwts.parser()
+                    .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
+                    .parseClaimsJws(jwt)
+                    .getBody();
+            return FastJsonUtils.parseObject(claims.getSubject(), clazz);
+        } catch (Exception e) {
+            System.out.println("e = " + e.getMessage());
+            return null;
+        }
     }
 
     public static boolean verifyJwt(String jwt) {
@@ -68,7 +73,12 @@ public abstract class JwtUtils {
     }
 
     public static void main(String[] args) {
-        AccountJwt accountJwt = AccountJwt.builder().userId(RandomUtils.nextLong(1, 100)).account("18588257670").build();
+        AccountJwt accountJwt = AccountJwt.builder()
+                .userId(RandomUtils.nextLong(1, 100))
+                .account("18588257670")
+                .roles("admin")
+                .loginTime("2019-08-08 09:35:00")
+                .build();
         final String jwt = createJwt(FastJsonUtils.toJSONString(accountJwt), 36000000L);
         System.out.println("jwt = " + jwt);
         accountJwt = parseJwt(jwt, AccountJwt.class);

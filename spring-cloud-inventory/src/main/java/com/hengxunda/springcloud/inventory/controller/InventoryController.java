@@ -3,10 +3,7 @@ package com.hengxunda.springcloud.inventory.controller;
 import com.hengxunda.springcloud.inventory.dto.InventoryDTO;
 import com.hengxunda.springcloud.inventory.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/inventory")
@@ -15,12 +12,12 @@ public class InventoryController {
     @Autowired
     private InventoryService inventoryService;
 
-    @RequestMapping("decrease")
+    @PostMapping("decrease")
     public String decrease(@RequestBody InventoryDTO inventoryDTO) {
         return inventoryService.decrease(inventoryDTO);
     }
 
-    @RequestMapping("findByProductId")
+    @GetMapping("findByProductId")
     public Integer findByProductId(@RequestParam("productId") String productId) {
         return inventoryService.findByProductId(productId).getTotalInventory();
     }

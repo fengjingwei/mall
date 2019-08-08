@@ -2,6 +2,7 @@ package com.hengxunda.springcloud.gateway.filter;
 
 import com.hengxunda.springcloud.common.constant.C;
 import com.hengxunda.springcloud.common.persistence.AjaxResponse;
+import com.hengxunda.springcloud.common.security.jwt.AccountJwt;
 import com.hengxunda.springcloud.common.security.jwt.JwtUtils;
 import com.hengxunda.springcloud.common.utils.Collections3Utils;
 import com.hengxunda.springcloud.common.utils.FastJsonUtils;
@@ -23,6 +24,7 @@ import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class AuthenticationGatewayStrategyRouteFilter extends AbstractGatewayStrategyRouteFilter {
@@ -68,9 +70,21 @@ public class AuthenticationGatewayStrategyRouteFilter extends AbstractGatewayStr
         if (StringUtils.isEmpty(jwt) || isBlackToken(jwt)) {
             return exchangeResponse.writeWith(Flux.just(exchangeResponse.bufferFactory().wrap(buildExchangeResponse(exchangeResponse, "Authorization Header There is no."))));
         }
-        final boolean verifyJwt = JwtUtils.verifyJwt(jwt);
-        if (!verifyJwt) {
+        final AccountJwt accountJwt = JwtUtils.parseJwt(jwt, AccountJwt.class);
+        if (accountJwt == null) {
             return exchangeResponse.writeWith(Flux.just(exchangeResponse.bufferFactory().wrap(buildExchangeResponse(exchangeResponse, "Invalid request token."))));
+        } else {
+            final Object o = redisHelper.getObject(C.ROLES_PERMISSION_MAP_KEY);
+            if (o == null) {
+                return exchangeResponse.writeWith(Flux.just(exchangeResponse.bufferFactory().wrap(buildExchangeResponse(exchangeResponse, "Invalid role key."))));
+            } else {
+                if (o instanceof Map) {
+                    final List<String> permissions = ((Map<String, List<String>>) o).get(accountJwt.getRoles());
+                    if (Collections3Utils.isEmpty(permissions.stream().filter(path::contains).collect(Collectors.toList()))) {
+                        return exchangeResponse.writeWith(Flux.just(exchangeResponse.bufferFactory().wrap(buildExchangeResponse(exchangeResponse, "Unauthorized request path."))));
+                    }
+                }
+            }
         }
         return chain.filter(exchange);
     }

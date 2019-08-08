@@ -1,4 +1,4 @@
-package com.hengxunda.springcloud.order.config;
+package com.hengxunda.springcloud.inventory.configuration;
 
 import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import org.springframework.boot.SpringBootConfiguration;
@@ -30,7 +30,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Swagger API")
-                .description("Spring Cloud Order Model Swagger")
+                .description("Spring Cloud Inventory Model Swagger")
                 .license("Apache 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .termsOfServiceUrl("")

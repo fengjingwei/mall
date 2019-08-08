@@ -20,13 +20,13 @@ public class AccountController {
     @Autowired
     private LoginService loginService;
 
-    @RequestMapping("payment")
+    @PostMapping("payment")
     public String save(@RequestBody AccountDTO accountDO) {
         return accountService.payment(accountDO);
     }
 
     // @Authorization
-    @RequestMapping("findByUserId")
+    @GetMapping("findByUserId")
     public BigDecimal findByUserId(@RequestParam("userId") String userId) {
         return accountService.findByUserId(userId).getBalance();
     }

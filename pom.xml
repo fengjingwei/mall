@@ -23,6 +23,7 @@
         <java.version>1.8</java.version>
         <springfox.version>2.9.2</springfox.version>
         <springcloud.version>Finchley.RELEASE</springcloud.version>
+        <swagger.bootstrap.ui.version>1.9.5</swagger.bootstrap.ui.version>
     </properties>
 
     <modules>
@@ -217,6 +218,12 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${springfox.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>swagger-bootstrap-ui</artifactId>
+                <version>${swagger.bootstrap.ui.version}</version>
             </dependency>
 
             <dependency>

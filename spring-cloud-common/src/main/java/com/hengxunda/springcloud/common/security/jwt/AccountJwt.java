@@ -11,11 +11,15 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AccountJwt {
 
-    private Long userId;
-
     private String jwt;
 
+    private Long userId;
+
     private String account;
+
+    private String roles;
+
+    private String loginTime;
 
     public AccountJwt(Long userId) {
         setUserId(userId);

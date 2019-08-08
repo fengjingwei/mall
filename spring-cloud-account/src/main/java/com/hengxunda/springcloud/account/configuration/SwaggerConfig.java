@@ -1,5 +1,6 @@
 package com.hengxunda.springcloud.account.configuration;
 
+import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import static com.google.common.collect.Lists.newArrayList;
 
 @EnableSwagger2
 @SpringBootConfiguration
+@EnableSwaggerBootstrapUI
 public class SwaggerConfig {
 
     private static final String VERSION = "1.0.0";
@@ -28,7 +30,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Swagger API")
-                .description("Spring Cloud Account Model")
+                .description("Spring Cloud Account Model Swagger")
                 .license("Apache 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .termsOfServiceUrl("")

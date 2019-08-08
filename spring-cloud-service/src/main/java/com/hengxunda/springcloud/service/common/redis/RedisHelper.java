@@ -35,6 +35,10 @@ public class RedisHelper {
         stringRedisTemplate.opsForValue().set(key, value, expireSeconds, TimeUnit.SECONDS);
     }
 
+    public final void putObject(String key, Object value) {
+        redisTemplate.opsForValue().set(key, value);
+    }
+
     public final void putObject(String key, Object value, long expireSeconds) {
         putObject(key, value, expireSeconds, TimeUnit.SECONDS);
     }
