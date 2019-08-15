@@ -61,7 +61,7 @@ public class SpringCloudOrderApplication implements WebMvcConfigurer {
     }
 
     @Bean
-    RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
+    public RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.addMessageListener(listenerAdapter, new PatternTopic("__keyevent@0__:expired"));
@@ -69,12 +69,12 @@ public class SpringCloudOrderApplication implements WebMvcConfigurer {
     }
 
     @Bean
-    CountDownLatch latch() {
+    public CountDownLatch latch() {
         return new CountDownLatch(1);
     }
 
     @Bean
-    ExpiredMessageListener expiredMessageListener(CountDownLatch countDownLatch) {
+    public ExpiredMessageListener expiredMessageListener(CountDownLatch countDownLatch) {
         return new ExpiredMessageListener(countDownLatch);
     }
 }

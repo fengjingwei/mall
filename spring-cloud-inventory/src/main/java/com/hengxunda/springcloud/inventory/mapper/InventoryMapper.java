@@ -16,9 +16,9 @@ public interface InventoryMapper extends CrudDao<InventoryDO> {
      * @param inventory
      * @return
      */
-    @Update("update t_inventory set total_inventory = #{totalInventory}," +
-            " lock_inventory = #{lockInventory}" +
-            " where product_id = #{productId} and total_inventory > 0")
+    @Update("update t_inventory set total_inventory = #{totalInventory}, " +
+            "lock_inventory = #{lockInventory} " +
+            "where product_id = #{productId} and total_inventory > 0")
     int decrease(InventoryDO inventory);
 
     /**
@@ -27,9 +27,9 @@ public interface InventoryMapper extends CrudDao<InventoryDO> {
      * @param inventoryDTO
      * @return
      */
-    @Update("update t_inventory set" +
-            " lock_inventory = lock_inventory - #{count}" +
-            " where product_id = #{productId} and lock_inventory > 0")
+    @Update("update t_inventory set " +
+            "lock_inventory = lock_inventory - #{count} " +
+            "where product_id = #{productId} and lock_inventory > 0")
     int confirm(InventoryDTO inventoryDTO);
 
     /**
@@ -38,9 +38,9 @@ public interface InventoryMapper extends CrudDao<InventoryDO> {
      * @param inventoryDTO
      * @return
      */
-    @Update("update t_inventory set total_inventory = total_inventory + #{count}," +
-            " lock_inventory = lock_inventory - #{count}" +
-            " where product_id = #{productId} and lock_inventory > 0")
+    @Update("update t_inventory set total_inventory = total_inventory + #{count}, " +
+            "lock_inventory = lock_inventory - #{count} " +
+            "where product_id = #{productId} and lock_inventory > 0")
     int cancel(InventoryDTO inventoryDTO);
 
     /**

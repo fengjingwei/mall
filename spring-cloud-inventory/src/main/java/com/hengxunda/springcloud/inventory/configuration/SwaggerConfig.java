@@ -35,7 +35,7 @@ public class SwaggerConfig {
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .termsOfServiceUrl("")
                 .version(VERSION)
-                .contact(new Contact("Guard", "", "951159049@qq.com"))
+                .contact(new Contact("GarageBand", "", "951159049@qq.com"))
                 .build();
     }
 

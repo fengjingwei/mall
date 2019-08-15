@@ -26,6 +26,7 @@ public class OrderController {
     @Autowired
     private OrderProducer orderProducer;
 
+    @Authorization
     @ApiOperation(value = "获取所有的订单")
     @ApiImplicitParam(name = "keyword", value = "关键字", paramType = "query", dataType = "String")
     @GetMapping("listAll")
@@ -38,13 +39,14 @@ public class OrderController {
     @ApiImplicitParam(name = "orderDTO", value = "订单请求对象", required = true, paramType = "body", dataType = "OrderDTO")
     @PostMapping("create")
     public AjaxResponse create(@RequestBody OrderDTO orderDTO) {
-        Order order = new Order();
+        final Order order = new Order();
         BeanUtils.copyProperties(orderDTO, order);
         return AjaxResponse.success(orderService.save(order));
     }
 
+    @Authorization
     @ApiOperation(value = "订单支付并进行扣除账户余额，进行库存扣减")
-    @PostMapping(value = "orderPay")
+    @PostMapping("orderPay")
     public AjaxResponse orderPay(@RequestParam(value = "orderNo") String orderNo) {
         final Order order = orderService.get(orderNo);
         if (order == null) {
@@ -60,5 +62,4 @@ public class OrderController {
         orderProducer.orderPay(Order.builder().orderNo(orderNo).build());
         return AjaxResponse.success();
     }
-
 }

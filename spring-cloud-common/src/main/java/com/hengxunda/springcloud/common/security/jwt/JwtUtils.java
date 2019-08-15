@@ -68,10 +68,6 @@ public abstract class JwtUtils {
         }
     }
 
-    private Date generateExpirationDate(long expiration) {
-        return new Date(System.currentTimeMillis() + expiration * 1000);
-    }
-
     public static void main(String[] args) {
         AccountJwt accountJwt = AccountJwt.builder()
                 .userId(RandomUtils.nextLong(1, 100))
@@ -85,5 +81,9 @@ public abstract class JwtUtils {
         accountJwt.setJwt(jwt);
         System.out.println("accountJwt = " + accountJwt);
         verifyJwt(jwt);
+    }
+
+    private Date generateExpirationDate(long expiration) {
+        return new Date(System.currentTimeMillis() + expiration * 1000);
     }
 }

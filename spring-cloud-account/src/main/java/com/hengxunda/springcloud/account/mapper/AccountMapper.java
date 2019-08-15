@@ -17,9 +17,9 @@ public interface AccountMapper extends CrudDao<AccountDO> {
      * @return
      */
     @Override
-    @Update("update t_account set balance = #{balance}," +
-            " freeze_amount = #{freezeAmount}, update_time = #{updateTime}" +
-            " where user_id = #{userId} and balance > 0")
+    @Update("update t_account set balance = #{balance}, " +
+            "freeze_amount = #{freezeAmount}, update_time = #{updateTime} " +
+            "where user_id = #{userId} and balance > 0")
     int update(AccountDO accountDO);
 
     /**
@@ -28,9 +28,9 @@ public interface AccountMapper extends CrudDao<AccountDO> {
      * @param accountDTO
      * @return
      */
-    @Update("update t_account set" +
-            " freeze_amount = freeze_amount - #{amount}" +
-            " where user_id = #{userId} and freeze_amount > 0")
+    @Update("update t_account set " +
+            "freeze_amount = freeze_amount - #{amount} " +
+            "where user_id = #{userId} and freeze_amount > 0")
     int confirm(AccountDTO accountDTO);
 
     /**
@@ -39,9 +39,9 @@ public interface AccountMapper extends CrudDao<AccountDO> {
      * @param accountDTO
      * @return
      */
-    @Update("update t_account set balance = balance + #{amount}," +
-            " freeze_amount = freeze_amount - #{amount}" +
-            " where user_id = #{userId} and freeze_amount > 0")
+    @Update("update t_account set balance = balance + #{amount}, " +
+            "freeze_amount = freeze_amount - #{amount} " +
+            "where user_id = #{userId} and freeze_amount > 0")
     int cancel(AccountDTO accountDTO);
 
     /**

@@ -1,6 +1,7 @@
 /*
 package com.hengxunda.springcloud.gateway.filter;
 
+import com.hengxunda.springcloud.common.constant.C;
 import com.hengxunda.springcloud.common.persistence.AjaxResponse;
 import com.hengxunda.springcloud.common.utils.FastJsonUtils;
 import com.hengxunda.springcloud.common.utils.StringUtils;
@@ -86,5 +87,4 @@ public class AuthenticationZuulStrategyRouteFilter extends ZuulFilter {
         }
         return null;
     }
-}
-*/
+}*/

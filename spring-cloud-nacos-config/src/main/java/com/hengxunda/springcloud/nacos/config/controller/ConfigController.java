@@ -14,7 +14,7 @@ public class ConfigController {
     @Value("${address}")
     private String address;
 
-    @GetMapping(value = "/get")
+    @GetMapping(value = "get")
     public String getConfig() {
         return address;
     }
