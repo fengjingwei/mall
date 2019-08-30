@@ -13,6 +13,8 @@ import java.io.Serializable;
 @Builder
 public class LoginResponse implements Serializable {
 
+    private static final long serialVersionUID = -4397367848007485549L;
+
     /**
      * 用户id
      */

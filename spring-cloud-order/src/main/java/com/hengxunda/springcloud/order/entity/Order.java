@@ -14,6 +14,8 @@ import java.math.BigDecimal;
 @Builder
 public class Order extends DataEntity<Order> {
 
+    private static final long serialVersionUID = 7129947702140907900L;
+
     /**
      * 订单编号
      */

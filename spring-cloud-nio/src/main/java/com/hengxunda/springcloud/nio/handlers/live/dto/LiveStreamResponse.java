@@ -15,6 +15,8 @@ import java.io.Serializable;
 @Builder
 public class LiveStreamResponse implements Serializable {
 
+    private static final long serialVersionUID = 1216786342420206827L;
+
     private String channelId;
 
     private String hlsDownstream;

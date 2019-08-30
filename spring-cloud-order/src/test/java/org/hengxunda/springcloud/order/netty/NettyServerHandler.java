@@ -10,7 +10,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         final String body = (String) msg;
         System.out.println("服务端收到客户端[" + ctx.channel().remoteAddress() + "] -> " + body);
-        ctx.writeAndFlush(SnowFlakeUtils.getInstance().getId() + "$_");
+        ctx.writeAndFlush(SnowFlakeUtils.getId() + "$_");
     }
 
     @Override

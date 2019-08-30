@@ -13,5 +13,7 @@ import java.io.Serializable;
 @Builder
 public class LiveGetStreamRequest implements Serializable {
 
+    private static final long serialVersionUID = -7995182865067260456L;
+
     private String type;
 }

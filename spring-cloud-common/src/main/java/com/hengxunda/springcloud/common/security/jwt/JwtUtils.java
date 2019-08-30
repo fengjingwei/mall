@@ -1,6 +1,7 @@
 package com.hengxunda.springcloud.common.security.jwt;
 
 import com.hengxunda.springcloud.common.utils.FastJsonUtils;
+import com.hengxunda.springcloud.common.utils.SnowFlakeUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -11,17 +12,16 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
-import java.util.UUID;
 
 public abstract class JwtUtils {
 
     private static final String SECRET_KEY = "neoamyAYwuHCo2IFAgd1oRpSP0nzL1BF5t6ItqpKViM";
 
     public static String createJwt(String subject, long ttlMillis) {
-        return createJwt(UUID.randomUUID().toString(), "192837465", subject, ttlMillis);
+        return createJwt(SnowFlakeUtils.getUUID(), subject, ttlMillis);
     }
 
-    private static String createJwt(String id, String issuer, String subject, long ttlMillis) {
+    private static String createJwt(String id, String subject, long ttlMillis) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
@@ -35,7 +35,7 @@ public abstract class JwtUtils {
                 // JWT的主体,即它的所有人
                 .setSubject(subject)
                 // JWT的签发主体
-                .setIssuer(issuer)
+                .setIssuer("192837465")
                 .signWith(signatureAlgorithm, signingKey);
 
         if (ttlMillis >= 0) {

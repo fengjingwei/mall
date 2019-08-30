@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class RoomInfoResponse implements Serializable {
 
+    private static final long serialVersionUID = -3102224088126690509L;
+
     @NonNull
     private String roomId;
 

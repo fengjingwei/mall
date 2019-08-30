@@ -13,6 +13,8 @@ import java.io.Serializable;
 @Builder
 public class LiveStopBroadcast implements Serializable {
 
+    private static final long serialVersionUID = -2350787368815289483L;
+
     private String channelId;
 
     private String type;

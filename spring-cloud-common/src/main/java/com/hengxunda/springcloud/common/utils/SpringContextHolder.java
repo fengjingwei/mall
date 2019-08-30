@@ -13,7 +13,7 @@ import java.net.URL;
 
 @Log4j2
 @Component
-@Lazy(false)
+@Lazy(value = false)
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
 
     private static ApplicationContext applicationContext = null;

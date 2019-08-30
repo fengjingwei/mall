@@ -11,10 +11,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 public final class Track implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 8647690440751700913L;
 
     private String name;
 
     private Integer count;
-
 }

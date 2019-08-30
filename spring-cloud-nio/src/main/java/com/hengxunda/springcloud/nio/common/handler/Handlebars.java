@@ -6,7 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 public interface Handlebars {
 
     /**
-     * 初始化将自己加入到HandlerMapperUtils中
+     * 初始化将自己加入到HandlerMapper中
      */
     void init();
 

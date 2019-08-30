@@ -12,6 +12,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class GroupChatRequest implements Serializable {
 
+    private static final long serialVersionUID = -5512272062049036159L;
+
     private String roomId;
 
     private String content;

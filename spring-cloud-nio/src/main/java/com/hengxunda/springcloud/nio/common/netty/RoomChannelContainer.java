@@ -16,10 +16,14 @@ import java.util.Objects;
 @Log4j2
 public class RoomChannelContainer {
 
-    // <roomId, <userId, channel>>
+    /**
+     * <roomId, <userId, channel>>
+     */
     public static final Map<String, Map<Long, Channel>> ROOM_ONLINE_MAPS = Maps.newConcurrentMap();
 
-    // <roomId, channelGroup>
+    /**
+     * <roomId, channelGroup>
+     */
     private static final Map<String, ChannelGroup> ROOM_GROUPS = Maps.newConcurrentMap();
 
     private static final ChannelGroup USER_GROUP = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);

@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 public class InventoryDO extends DataEntity<InventoryDO> {
 
+    private static final long serialVersionUID = -7684737526853183642L;
+
     /**
      * 商品id
      */

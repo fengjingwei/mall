@@ -11,6 +11,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class LoginRequest implements Serializable {
 
+    private static final long serialVersionUID = -8528732451515766896L;
+
     /**
      * 登录类型
      */

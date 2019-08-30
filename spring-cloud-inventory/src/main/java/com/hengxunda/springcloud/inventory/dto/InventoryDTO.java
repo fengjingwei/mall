@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Data
 public class InventoryDTO implements Serializable {
 
-    private static final long serialVersionUID = 8229355519336565493L;
+    private static final long serialVersionUID = 4889926876564231067L;
 
     @ApiModelProperty(name = "productId", value = "商品id", example = "1", required = true)
     private String productId;

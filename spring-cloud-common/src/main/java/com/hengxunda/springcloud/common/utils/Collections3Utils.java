@@ -91,7 +91,6 @@ public abstract class Collections3Utils {
         for (T element : b) {
             list.remove(element);
         }
-
         return list;
     }
 
@@ -105,7 +104,6 @@ public abstract class Collections3Utils {
      */
     public static <T> List<T> intersection(Collection<T> a, Collection<T> b) {
         List<T> list = new ArrayList<>();
-
         for (T element : a) {
             if (b.contains(element)) {
                 list.add(element);

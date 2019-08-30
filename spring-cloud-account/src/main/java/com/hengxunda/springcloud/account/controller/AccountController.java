@@ -21,8 +21,8 @@ public class AccountController {
     private LoginService loginService;
 
     @PostMapping("payment")
-    public String save(@RequestBody AccountDTO accountDO) {
-        return accountService.payment(accountDO);
+    public String payment(@RequestBody AccountDTO accountDTO) {
+        return accountService.payment(accountDTO);
     }
 
     // @Authorization

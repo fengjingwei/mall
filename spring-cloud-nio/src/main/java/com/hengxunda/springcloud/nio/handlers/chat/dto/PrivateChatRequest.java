@@ -12,6 +12,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class PrivateChatRequest implements Serializable {
 
+    private static final long serialVersionUID = -4158290738500300224L;
+
     private String roomId;
 
     private String content;

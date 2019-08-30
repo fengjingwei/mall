@@ -19,7 +19,7 @@ public interface InventoryService extends BaseService<InventoryDO> {
      * 获取商品库存信息
      *
      * @param productId
-     * @return
+     * @return {@link InventoryDO}
      */
     InventoryDO findByProductId(String productId);
 }

@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
 
-    public static final char SEPARATOR = '_';
+    private static final char SEPARATOR = '_';
     private final static char[] HEX_CHARS = "0123456789ABCDEF".toCharArray();
     private static Pattern REPLACE_NULL_PATTERN = Pattern.compile("//r|//n|//u3000");
     private static Pattern NULL_PATTERN = Pattern.compile("^(//s)*$");
@@ -61,7 +61,7 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 替换掉HTML标签方法
      */
     public static String replaceHtml(String html) {
-        if (isBlank(html)) {
+        if (html == null) {
             return "";
         }
         String regEx = "<.+?>";
@@ -94,14 +94,11 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
         if (s == null) {
             return null;
         }
-
         s = s.toLowerCase();
-
         StringBuilder sb = new StringBuilder(s.length());
         boolean upperCase = false;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-
             if (c == SEPARATOR) {
                 upperCase = true;
             } else if (upperCase) {
@@ -111,7 +108,6 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
                 sb.append(c);
             }
         }
-
         return sb.toString();
     }
 
@@ -141,18 +137,14 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
         if (s == null) {
             return null;
         }
-
         StringBuilder sb = new StringBuilder();
         boolean upperCase = false;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-
             boolean nextUpperCase = true;
-
             if (i < (s.length() - 1)) {
                 nextUpperCase = Character.isUpperCase(s.charAt(i + 1));
             }
-
             if ((i > 0) && Character.isUpperCase(c)) {
                 if (!upperCase || !nextUpperCase) {
                     sb.append(SEPARATOR);
@@ -161,10 +153,8 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
             } else {
                 upperCase = false;
             }
-
             sb.append(Character.toLowerCase(c));
         }
-
         return sb.toString();
     }
 

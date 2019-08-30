@@ -11,5 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class LiveStartRequest implements Serializable {
 
+    private static final long serialVersionUID = 8247106611573520111L;
+
     private String type;
 }

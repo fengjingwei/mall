@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Builder
 public class AccountDTO implements Serializable {
 
-    private static final long serialVersionUID = 7223470850578998427L;
+    private static final long serialVersionUID = 1282327367426303082L;
 
     @ApiModelProperty(name = "userId", value = "用户id", example = "10000", required = true)
     private String userId;

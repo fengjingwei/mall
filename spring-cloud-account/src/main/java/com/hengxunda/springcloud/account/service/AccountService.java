@@ -19,7 +19,7 @@ public interface AccountService extends BaseService<AccountDO> {
      * 获取用户账户信息
      *
      * @param userId
-     * @return
+     * @return {@link AccountDO}
      */
     AccountDO findByUserId(String userId);
 }

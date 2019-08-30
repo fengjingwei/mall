@@ -9,7 +9,7 @@ public interface LoginService {
      *
      * @param account
      * @param password
-     * @return
+     * @return {@link AccountJwt}
      */
     AccountJwt login(String account, String password);
 }

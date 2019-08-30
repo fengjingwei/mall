@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Data
 public class AccountDO extends DataEntity<AccountDO> {
 
-    private static final long serialVersionUID = -81849676368907419L;
+    private static final long serialVersionUID = -862497289608498627L;
 
     private String userId;
 

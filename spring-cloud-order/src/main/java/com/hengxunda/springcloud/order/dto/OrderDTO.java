@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Data
 public class OrderDTO implements Serializable {
 
-    private static final long serialVersionUID = 7223470850578998427L;
+    private static final long serialVersionUID = 7615257915471703342L;
 
     @ApiModelProperty(name = "userId", value = "用户id", example = "10000", required = true)
     private String userId;

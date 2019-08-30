@@ -14,6 +14,8 @@ import java.util.Date;
 @Builder
 public class PrivateChatResponse implements Serializable {
 
+    private static final long serialVersionUID = -3611328289816869385L;
+
     private String roomId;
 
     private String content;

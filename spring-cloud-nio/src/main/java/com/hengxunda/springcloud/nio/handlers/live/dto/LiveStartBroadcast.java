@@ -16,6 +16,8 @@ import java.util.Objects;
 @Builder
 public class LiveStartBroadcast implements Serializable {
 
+    private static final long serialVersionUID = -5849964348631322940L;
+
     private String type;
 
     private Long userId;

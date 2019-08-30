@@ -13,6 +13,8 @@ import java.io.Serializable;
 @Builder
 public class LiveAddressResponse implements Serializable {
 
+    private static final long serialVersionUID = -2939152838506553543L;
+
     private String upstreamAddress;
 
     private String channelId;

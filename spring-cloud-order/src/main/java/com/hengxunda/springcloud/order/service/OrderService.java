@@ -11,7 +11,7 @@ public interface OrderService extends BaseService<Order> {
      * 获取订单
      *
      * @param orderNo 订单编号
-     * @return
+     * @return {@link Order}
      */
     Order get(String orderNo);
 
@@ -19,7 +19,7 @@ public interface OrderService extends BaseService<Order> {
      * 查询所有订单
      *
      * @param keyword 关键字
-     * @return
+     * @return {@link List<Order>}
      */
     List<Order> listAll(String keyword);
 
