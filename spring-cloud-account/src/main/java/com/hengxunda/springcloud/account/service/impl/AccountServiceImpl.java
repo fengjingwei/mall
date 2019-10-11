@@ -8,6 +8,7 @@ import com.hengxunda.springcloud.common.exception.ServiceException;
 import com.hengxunda.springcloud.common.utils.DateUtils;
 import com.hengxunda.springcloud.service.common.service.AbstractCrudService;
 import lombok.extern.log4j.Log4j2;
+import org.dromara.hmily.annotation.Hmily;
 import org.springframework.stereotype.Service;
 
 @Log4j2
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class AccountServiceImpl extends AbstractCrudService<AccountMapper, AccountDO> implements AccountService {
 
     @Override
-    // @Hmily(confirmMethod = "confirmMethod", cancelMethod = "cancelMethod")
+    @Hmily(confirmMethod = "confirmMethod", cancelMethod = "cancelMethod")
     public String payment(AccountDTO accountDTO) {
         log.info("{}", "===========执行try付款方法==========");
         final AccountDO accountDO = dao.findByUserId(accountDTO.getUserId());

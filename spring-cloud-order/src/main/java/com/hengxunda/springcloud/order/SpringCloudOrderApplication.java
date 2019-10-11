@@ -15,6 +15,7 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
@@ -31,6 +32,7 @@ import java.util.concurrent.CountDownLatch;
 @EnableFeignClients
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 @EnableHystrixDashboard
+@ImportResource({"classpath:applicationContext.xml"})
 @ComponentScan(basePackages = {"com.hengxunda.springcloud"})
 @MapperScan(basePackages = "com.hengxunda.springcloud.order.mapper")
 public class SpringCloudOrderApplication implements WebMvcConfigurer {
@@ -78,5 +80,3 @@ public class SpringCloudOrderApplication implements WebMvcConfigurer {
         return new ExpiredMessageListener(countDownLatch);
     }
 }
-
-

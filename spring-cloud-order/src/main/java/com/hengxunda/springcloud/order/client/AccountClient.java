@@ -5,6 +5,7 @@ import com.hengxunda.springcloud.order.dto.AccountDTO;
 import com.hengxunda.springcloud.order.hystrix.AccountHystrix;
 import feign.Param;
 import feign.RequestLine;
+import org.dromara.hmily.annotation.Hmily;
 import org.springframework.cloud.openfeign.FeignClient;
 
 import java.math.BigDecimal;
@@ -18,7 +19,7 @@ public interface AccountClient {
      * @param accountDO
      * @return
      */
-    // @Hmily
+    @Hmily
     @RequestLine("POST /account-service/account/payment")
     String payment(AccountDTO accountDO);
 

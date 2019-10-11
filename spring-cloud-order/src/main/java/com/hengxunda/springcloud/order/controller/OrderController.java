@@ -59,6 +59,9 @@ public class OrderController {
         if (status == OrderEnum.Status.PAY_SUCCESS) {
             throw new ServiceException("订单重复支付");
         }
+        if (status == OrderEnum.Status.PAY_FAIL) {
+            throw new ServiceException("订单支付失败");
+        }
         orderProducer.orderPay(Order.builder().orderNo(orderNo).build());
         return AjaxResponse.success();
     }

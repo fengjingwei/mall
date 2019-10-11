@@ -18,11 +18,11 @@ public class AjaxResponse<T> implements Serializable {
 
     private T data;
 
-    public static <T> AjaxResponse<T> success() {
+    public static AjaxResponse success() {
         return success("");
     }
 
-    public static <T> AjaxResponse<T> success(String msg) {
+    public static AjaxResponse success(String msg) {
         return success(msg, null);
     }
 
@@ -30,19 +30,19 @@ public class AjaxResponse<T> implements Serializable {
         return success(null, data);
     }
 
-    public static <T> AjaxResponse<T> success(String msg, Object data) {
+    public static AjaxResponse success(String msg, Object data) {
         return get(ErrorCodeEnum.SUCCESS.code(), msg, data);
     }
 
-    public static <T> AjaxResponse<T> error(String msg) {
+    public static AjaxResponse error(String msg) {
         return error(ErrorCodeEnum.ERROR.code(), msg);
     }
 
-    public static <T> AjaxResponse<T> error(int code, String msg) {
+    public static AjaxResponse error(int code, String msg) {
         return get(code, msg, null);
     }
 
-    public static <T> AjaxResponse<T> get(int code, String msg, Object data) {
+    public static AjaxResponse get(int code, String msg, Object data) {
         return new AjaxResponse(code, msg, data);
     }
 }

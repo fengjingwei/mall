@@ -1,12 +1,18 @@
 package com.hengxunda.springcloud.order.dto;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class OrderDTO implements Serializable {
 
     private static final long serialVersionUID = 7615257915471703342L;

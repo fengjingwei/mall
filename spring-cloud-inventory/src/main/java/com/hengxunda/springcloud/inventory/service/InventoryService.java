@@ -3,6 +3,7 @@ package com.hengxunda.springcloud.inventory.service;
 import com.hengxunda.springcloud.inventory.dto.InventoryDTO;
 import com.hengxunda.springcloud.inventory.entity.InventoryDO;
 import com.hengxunda.springcloud.service.common.service.BaseService;
+import org.dromara.hmily.annotation.Hmily;
 
 public interface InventoryService extends BaseService<InventoryDO> {
 
@@ -12,7 +13,7 @@ public interface InventoryService extends BaseService<InventoryDO> {
      * @param inventoryDTO
      * @return
      */
-    // @Hmily
+    @Hmily
     String decrease(InventoryDTO inventoryDTO);
 
     /**

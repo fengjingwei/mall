@@ -7,6 +7,7 @@ import com.hengxunda.springcloud.inventory.mapper.InventoryMapper;
 import com.hengxunda.springcloud.inventory.service.InventoryService;
 import com.hengxunda.springcloud.service.common.service.AbstractCrudService;
 import lombok.extern.log4j.Log4j2;
+import org.dromara.hmily.annotation.Hmily;
 import org.springframework.stereotype.Service;
 
 @Log4j2
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class InventoryServiceImpl extends AbstractCrudService<InventoryMapper, InventoryDO> implements InventoryService {
 
     @Override
-    // @Hmily(confirmMethod = "confirmMethod", cancelMethod = "cancelMethod")
+    @Hmily(confirmMethod = "confirmMethod", cancelMethod = "cancelMethod")
     public String decrease(InventoryDTO inventoryDTO) {
         log.info("{}", "===========执行try扣减库存方法==========");
         final InventoryDO entity = dao.findByProductId(inventoryDTO.getProductId());

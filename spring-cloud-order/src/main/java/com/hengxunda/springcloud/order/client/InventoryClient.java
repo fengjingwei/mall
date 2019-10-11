@@ -5,6 +5,7 @@ import com.hengxunda.springcloud.order.dto.InventoryDTO;
 import com.hengxunda.springcloud.order.hystrix.InventoryHystrix;
 import feign.Param;
 import feign.RequestLine;
+import org.dromara.hmily.annotation.Hmily;
 import org.springframework.cloud.openfeign.FeignClient;
 
 @FeignClient(value = "inventory-service", configuration = FeignConfig.class, fallback = InventoryHystrix.class)
@@ -16,7 +17,7 @@ public interface InventoryClient {
      * @param inventoryDTO
      * @return
      */
-    // @Hmily
+    @Hmily
     @RequestLine("POST /inventory-service/inventory/decrease")
     String decrease(InventoryDTO inventoryDTO);
 

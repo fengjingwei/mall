@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd" default-autowire="byName">
+
+    <context:component-scan base-package="org.dromara.hmily.*"/>
+    <aop:aspectj-autoproxy expose-proxy="true"/>
+    <bean id="hmilyTransactionBootstrap" class="org.dromara.hmily.core.bootstrap.HmilyTransactionBootstrap">
+        <property name="serializer" value="kryo"/>
+        <property name="recoverDelayTime" value="120"/>
+        <property name="retryMax" value="5"/>
+        <property name="scheduledDelay" value="120"/>
+        <property name="scheduledThreadMax" value="10"/>
+        <property name="asyncThreads" value="200"/>
+        <property name="started" value="true"/>
+        <property name="repositorySupport" value="redis"/>
+        <property name="hmilyRedisConfig">
+            <bean class="org.dromara.hmily.common.config.HmilyRedisConfig">
+                <property name="hostName" value="192.168.1.245"/>
+                <property name="port" value="6379"/>
+                <property name="password" value="o^mt9#nIvv7u%`"/>
+            </bean>
+        </property>
+    </bean>
+</beans>

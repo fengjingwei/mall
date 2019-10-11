@@ -11,6 +11,7 @@ import com.hengxunda.springcloud.order.mapper.OrderMapper;
 import com.hengxunda.springcloud.order.service.PaymentService;
 import com.hengxunda.springcloud.service.common.redis.lock.RedissLockUtils;
 import lombok.extern.log4j.Log4j2;
+import org.dromara.hmily.annotation.Hmily;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    // @Hmily(confirmMethod = "confirmOrderStatus", cancelMethod = "cancelOrderStatus")
+    @Hmily(confirmMethod = "confirmOrderStatus", cancelMethod = "cancelOrderStatus")
     public void makePayment(Order order) {
         order.setStatus(OrderEnum.Status.PAYING.code());
         orderMapper.update(order);
