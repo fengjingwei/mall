@@ -46,5 +46,4 @@ public interface BaseService<T> {
      * @return
      */
     PageInfo<T> findPage(T entity, int pageNo, int pageSize);
-
 }

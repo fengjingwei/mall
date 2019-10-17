@@ -1,6 +1,6 @@
 package com.hengxunda.springcloud.gateway.resolver;
 
-import com.hengxunda.springcloud.common.constant.C;
+import com.hengxunda.springcloud.common.constant.GatewayConstant;
 import com.hengxunda.springcloud.service.common.redis.RedisHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
@@ -22,7 +22,7 @@ public class MyKeyResolver {
 
     @Bean("userKeyResolver")
     public KeyResolver userKeyResolver() {
-        return exchange -> Mono.just(exchange.getRequest().getQueryParams().getFirst(redisHelper.getStringFromRedis(C.RATE_LIMITER_KEY)));
+        return exchange -> Mono.just(exchange.getRequest().getQueryParams().getFirst(redisHelper.getStringFromRedis(GatewayConstant.GATEWAY_RATE_LIMITER)));
     }
 
     @Bean("ipKeyResolver")

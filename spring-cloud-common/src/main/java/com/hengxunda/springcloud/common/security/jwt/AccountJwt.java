@@ -17,9 +17,9 @@ public class AccountJwt {
 
     private String account;
 
-    private String roles;
-
     private String loginTime;
+
+    // ...
 
     public AccountJwt(Long userId) {
         setUserId(userId);

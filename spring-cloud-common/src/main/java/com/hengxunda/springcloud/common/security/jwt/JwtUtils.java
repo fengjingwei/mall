@@ -72,7 +72,6 @@ public abstract class JwtUtils {
         AccountJwt accountJwt = AccountJwt.builder()
                 .userId(RandomUtils.nextLong(1, 100))
                 .account("18588257670")
-                .roles("admin")
                 .loginTime("2019-08-08 09:35:00")
                 .build();
         final String jwt = createJwt(FastJsonUtils.toJSONString(accountJwt), 36000000L);

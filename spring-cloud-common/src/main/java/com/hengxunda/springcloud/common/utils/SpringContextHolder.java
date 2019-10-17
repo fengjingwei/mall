@@ -57,7 +57,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     }
 
     private static void assertContextInjected() {
-        Validate.validState(applicationContext != null, "applicationContext属性未注入, 请在applicationContext.xml中定义SpringContextHolder.");
+        Validate.validState(applicationContext != null, "Get spring context exception, reason: null");
     }
 
     @Override

@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
 
     private static final char SEPARATOR = '_';
-    private final static char[] HEX_CHARS = "0123456789ABCDEF".toCharArray();
+    private static final char[] HEX_CHARS = "0123456789ABCDEF".toCharArray();
     private static Pattern REPLACE_NULL_PATTERN = Pattern.compile("//r|//n|//u3000");
     private static Pattern NULL_PATTERN = Pattern.compile("^(//s)*$");
 

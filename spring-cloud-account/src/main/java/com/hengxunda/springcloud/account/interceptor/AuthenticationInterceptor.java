@@ -1,7 +1,7 @@
 package com.hengxunda.springcloud.account.interceptor;
 
 import com.hengxunda.springcloud.common.annotation.Authorization;
-import com.hengxunda.springcloud.common.constant.C;
+import com.hengxunda.springcloud.common.constant.GatewayConstant;
 import com.hengxunda.springcloud.common.persistence.AjaxResponse;
 import com.hengxunda.springcloud.common.security.jwt.JwtUtils;
 import com.hengxunda.springcloud.common.utils.FastJsonUtils;
@@ -39,7 +39,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             if (Objects.isNull(annotation) && Objects.isNull(handlerMethod.getBeanType().getAnnotation(Authorization.class))) {
                 return true;
             }
-            String jwt = request.getHeader(C.AUTHORIZATION);
+            String jwt = request.getHeader(GatewayConstant.AUTHORIZATION);
             if (StringUtils.isNotBlank(jwt)) {
                 try {
                     return JwtUtils.verifyJwt(jwt);

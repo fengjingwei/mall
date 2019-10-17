@@ -1,7 +1,7 @@
 /*
 package com.hengxunda.springcloud.gateway.filter;
 
-import com.hengxunda.springcloud.common.constant.C;
+import com.hengxunda.springcloud.common.constant.GatewayConstant;
 import com.hengxunda.springcloud.common.persistence.AjaxResponse;
 import com.hengxunda.springcloud.common.utils.FastJsonUtils;
 import com.hengxunda.springcloud.common.utils.StringUtils;
@@ -21,21 +21,6 @@ public class AuthenticationZuulStrategyRouteFilter extends ZuulFilter {
 /**
  * 过滤器的类型,它决定过滤器在请求的哪个生命周期中执行,这里定义为pre,代表会在请求被路由之前执行
  *
- * @return 过滤器的执行顺序, 当请求在一个阶段中存在多个过滤器时, 需要根据该方法返回的值来依次执行
- * @return 判断该过滤器是否需要被执行, 这里我们直接返回了true, 因此该过滤器对所有的请求都生效, 实际运行中我们可以利用该函数来指定过滤器的有效范围
- * @return 过滤器的具体执行逻辑
- * @return 过滤器的执行顺序, 当请求在一个阶段中存在多个过滤器时, 需要根据该方法返回的值来依次执行
- * @return 判断该过滤器是否需要被执行, 这里我们直接返回了true, 因此该过滤器对所有的请求都生效, 实际运行中我们可以利用该函数来指定过滤器的有效范围
- * @return 过滤器的具体执行逻辑
- * @return 过滤器的执行顺序, 当请求在一个阶段中存在多个过滤器时, 需要根据该方法返回的值来依次执行
- * @return 判断该过滤器是否需要被执行, 这里我们直接返回了true, 因此该过滤器对所有的请求都生效, 实际运行中我们可以利用该函数来指定过滤器的有效范围
- * @return 过滤器的具体执行逻辑
- * @return 过滤器的执行顺序, 当请求在一个阶段中存在多个过滤器时, 需要根据该方法返回的值来依次执行
- * @return 判断该过滤器是否需要被执行, 这里我们直接返回了true, 因此该过滤器对所有的请求都生效, 实际运行中我们可以利用该函数来指定过滤器的有效范围
- * @return 过滤器的具体执行逻辑
- * @return 过滤器的执行顺序, 当请求在一个阶段中存在多个过滤器时, 需要根据该方法返回的值来依次执行
- * @return 判断该过滤器是否需要被执行, 这里我们直接返回了true, 因此该过滤器对所有的请求都生效, 实际运行中我们可以利用该函数来指定过滤器的有效范围
- * @return 过滤器的具体执行逻辑
  * @return 过滤器的执行顺序, 当请求在一个阶段中存在多个过滤器时, 需要根据该方法返回的值来依次执行
  * @return 判断该过滤器是否需要被执行, 这里我们直接返回了true, 因此该过滤器对所有的请求都生效, 实际运行中我们可以利用该函数来指定过滤器的有效范围
  * @return 过滤器的具体执行逻辑
@@ -83,7 +68,7 @@ public class AuthenticationZuulStrategyRouteFilter extends ZuulFilter {
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
         log.info("send {} request to {}", request.getMethod(), request.getRequestURI());
-        String jwt = request.getHeader(C.AUTHORIZATION);
+        String jwt = request.getHeader(GatewayConstant.AUTHORIZATION);
         if (StringUtils.isNotBlank(jwt)) {
             context.setSendZuulResponse(true);
             context.setResponseStatusCode(HttpStatus.SC_OK);
