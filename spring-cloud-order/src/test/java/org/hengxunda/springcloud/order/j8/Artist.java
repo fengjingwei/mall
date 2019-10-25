@@ -1,4 +1,4 @@
-package org.hengxunda.springcloud.order;
+package org.hengxunda.springcloud.order.j8;
 
 import com.google.common.collect.Lists;
 import lombok.Data;

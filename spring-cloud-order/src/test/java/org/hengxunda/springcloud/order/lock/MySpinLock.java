@@ -1,4 +1,4 @@
-package org.hengxunda.springcloud.order;
+package org.hengxunda.springcloud.order.lock;
 
 /**
  * 不可重入锁(自旋锁)
@@ -20,7 +20,6 @@ public class MySpinLock {
     }
 
     public static class TestMySpinLock {
-
         MySpinLock mySpinLock = new MySpinLock();
 
         public static void main(String[] args) {

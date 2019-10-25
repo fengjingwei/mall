@@ -1,4 +1,4 @@
-package org.hengxunda.springcloud.order;
+package org.hengxunda.springcloud.order.j8;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

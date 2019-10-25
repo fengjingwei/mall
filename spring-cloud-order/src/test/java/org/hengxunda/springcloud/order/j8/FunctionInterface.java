@@ -1,4 +1,4 @@
-package org.hengxunda.springcloud.order;
+package org.hengxunda.springcloud.order.j8;
 
 @FunctionalInterface
 public interface FunctionInterface {

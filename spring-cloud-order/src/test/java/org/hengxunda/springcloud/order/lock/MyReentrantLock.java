@@ -1,4 +1,4 @@
-package org.hengxunda.springcloud.order;
+package org.hengxunda.springcloud.order.lock;
 
 /**
  * 可重入锁
@@ -32,7 +32,6 @@ public class MyReentrantLock {
     }
 
     public static class TestMyReentrantLock {
-
         MyReentrantLock myReentrantLock = new MyReentrantLock();
 
         public static void main(String[] args) {
