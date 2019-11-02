@@ -1,18 +1,31 @@
 package com.hengxunda.springcloud.account.entity;
 
 import com.hengxunda.springcloud.common.persistence.DataEntity;
-import lombok.Data;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Data
-public class AccountDO extends DataEntity<AccountDO> {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode(callSuper = true)
+public class Account extends DataEntity<Account> {
 
     private static final long serialVersionUID = -862497289608498627L;
 
+    /**
+     * 用户id
+     */
     private String userId;
 
+    /**
+     * 可用余额
+     */
     private BigDecimal balance;
 
+    /**
+     * 冻结余额
+     */
     private BigDecimal freezeAmount;
 }

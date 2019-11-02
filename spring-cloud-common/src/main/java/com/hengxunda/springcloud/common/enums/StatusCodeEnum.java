@@ -6,7 +6,7 @@ import org.apache.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
-public enum ErrorCodeEnum implements HttpStatus {
+public enum StatusCodeEnum implements HttpStatus {
 
     SUCCESS(SC_OK, "success"),
 

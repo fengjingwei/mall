@@ -23,7 +23,7 @@
         SELECT * FROM t_order WHERE order_no = #{orderNo}
     </select>
 
-    <insert id="insert" parameterType="Order">
+    <insert id="insert" parameterType="Order" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO t_order (order_no, user_id, product_id, status, count, total_amount, create_time)
         VALUES (#{orderNo}, #{userId}, #{productId}, #{status}, #{count}, #{totalAmount}, #{createTime})
     </insert>

@@ -1,6 +1,6 @@
 package com.hengxunda.springcloud.common.persistence;
 
-import com.hengxunda.springcloud.common.enums.ErrorCodeEnum;
+import com.hengxunda.springcloud.common.enums.StatusCodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -31,11 +31,11 @@ public class AjaxResponse<T> implements Serializable {
     }
 
     public static AjaxResponse success(String msg, Object data) {
-        return get(ErrorCodeEnum.SUCCESS.code(), msg, data);
+        return get(StatusCodeEnum.SUCCESS.code(), msg, data);
     }
 
     public static AjaxResponse error(String msg) {
-        return error(ErrorCodeEnum.ERROR.code(), msg);
+        return error(StatusCodeEnum.ERROR.code(), msg);
     }
 
     public static AjaxResponse error(int code, String msg) {

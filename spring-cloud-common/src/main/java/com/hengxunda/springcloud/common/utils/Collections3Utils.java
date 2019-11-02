@@ -1,6 +1,8 @@
 package com.hengxunda.springcloud.common.utils;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -110,5 +112,25 @@ public abstract class Collections3Utils {
             }
         }
         return list;
+    }
+
+    public static <R> List<R> copy(List<?> source, Class<R> classz) {
+        return copyProperties(source, classz);
+    }
+
+    private static <R> List<R> copyProperties(List<?> sources, Class<R> classz) {
+        List<R> target = Lists.newCopyOnWriteArrayList();
+        if (isNotEmpty(sources)) {
+            sources.forEach(source -> {
+                try {
+                    final R r = classz.newInstance();
+                    BeanUtils.copyProperties(source, r);
+                    target.add(r);
+                } catch (InstantiationException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+        return target;
     }
 }

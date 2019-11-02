@@ -3,6 +3,7 @@ package com.hengxunda.springcloud.common.security.coder;
 import com.hengxunda.springcloud.common.security.Hex;
 import sun.misc.BASE64Encoder;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 /**
@@ -85,7 +86,7 @@ public abstract class MDCoder extends SecurityCoder {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             BASE64Encoder base64en = new BASE64Encoder();
             //加密后的字符串
-            return base64en.encode(md5.digest(str.getBytes("utf-8")));
+            return base64en.encode(md5.digest(str.getBytes(StandardCharsets.UTF_8)));
         } catch (Exception e) {
             return "";
         }

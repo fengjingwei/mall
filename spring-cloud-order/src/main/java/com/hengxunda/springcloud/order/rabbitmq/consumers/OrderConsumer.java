@@ -2,7 +2,7 @@ package com.hengxunda.springcloud.order.rabbitmq.consumers;
 
 import com.hengxunda.springcloud.order.entity.Order;
 import com.hengxunda.springcloud.order.rabbitmq.OrderConfig;
-import com.hengxunda.springcloud.order.service.OrderService;
+import com.hengxunda.springcloud.order.service.PaymentService;
 import com.rabbitmq.client.Channel;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -21,13 +21,13 @@ import java.io.IOException;
 public class OrderConsumer {
 
     @Autowired
-    private OrderService orderService;
+    private PaymentService paymentService;
 
     @RabbitHandler
     public void process(@Payload Order order, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag, Channel channel) throws IOException {
         log.info("order = {}", order);
         try {
-            orderService.orderPay(order.getOrderNo());
+            paymentService.makePayment(order);
         } catch (Exception e) {
             e.printStackTrace();
             // 进行失败业务处理

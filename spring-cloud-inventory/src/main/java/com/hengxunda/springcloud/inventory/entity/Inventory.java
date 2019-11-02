@@ -1,10 +1,14 @@
 package com.hengxunda.springcloud.inventory.entity;
 
 import com.hengxunda.springcloud.common.persistence.DataEntity;
-import lombok.Data;
+import lombok.*;
 
 @Data
-public class InventoryDO extends DataEntity<InventoryDO> {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode(callSuper = true)
+public class Inventory extends DataEntity<Inventory> {
 
     private static final long serialVersionUID = -7684737526853183642L;
 

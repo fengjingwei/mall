@@ -2,11 +2,15 @@ package com.hengxunda.springcloud.common.persistence;
 
 import com.hengxunda.springcloud.common.utils.DateUtils;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public abstract class DataEntity<T> extends BaseEntity<T> {
+
+    private static final long serialVersionUID = -525935473949459811L;
 
     /**
      * 创建者
@@ -44,5 +48,4 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
     public void preUpdate() {
         this.updateTime = DateUtils.now();
     }
-
 }

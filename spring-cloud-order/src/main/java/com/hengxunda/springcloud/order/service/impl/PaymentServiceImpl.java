@@ -1,7 +1,7 @@
 package com.hengxunda.springcloud.order.service.impl;
 
+import com.hengxunda.springcloud.common.a.Assert;
 import com.hengxunda.springcloud.common.enums.OrderEnum;
-import com.hengxunda.springcloud.common.exception.ServiceException;
 import com.hengxunda.springcloud.order.client.AccountClient;
 import com.hengxunda.springcloud.order.client.InventoryClient;
 import com.hengxunda.springcloud.order.dto.AccountDTO;
@@ -54,23 +54,23 @@ public class PaymentServiceImpl implements PaymentService {
     public void makePayment(Order order) {
         order.setStatus(OrderEnum.Status.PAYING.code());
         orderMapper.update(order);
-        final BigDecimal accountInfo = accountClient.findByUserId(order.getUserId());
-        if (accountInfo.compareTo(order.getTotalAmount()) < 0) {
-            throw new ServiceException("余额不足");
-        }
+        final String userId = order.getUserId();
+        final BigDecimal balance = accountClient.findByUserId(userId);
+        final BigDecimal totalAmount = order.getTotalAmount();
+        Assert.state(balance.compareTo(totalAmount) < 0, String.format("账户[%s]余额不足", userId));
 
-        final Integer inventoryInfo = inventoryClient.findByProductId(order.getProductId());
-        if (inventoryInfo < order.getCount()) {
-            throw new ServiceException("库存不足");
-        }
+        final String productId = order.getProductId();
+        final Integer inventory = inventoryClient.findByProductId(productId);
+        final Integer count = order.getCount();
+        Assert.state(inventory < count, String.format("商品[%s]库存不足", productId));
 
         // 扣除用户余额
-        AccountDTO accountDTO = AccountDTO.builder().amount(order.getTotalAmount()).userId(order.getUserId()).build();
+        AccountDTO accountDTO = AccountDTO.builder().amount(totalAmount).userId(userId).build();
         log.info("{}", "===========执行spring cloud扣减资金==========");
         accountClient.payment(accountDTO);
 
         // 进入扣减库存
-        InventoryDTO inventoryDTO = InventoryDTO.builder().count(order.getCount()).productId(order.getProductId()).build();
+        InventoryDTO inventoryDTO = InventoryDTO.builder().count(count).productId(productId).build();
         log.info("{}", "===========执行spring cloud扣减库存==========");
         final String lockKey = "order:pay:" + order.getOrderNo();
         log.info("lock key : {}", lockKey);

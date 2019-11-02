@@ -71,7 +71,7 @@ public class SpringCloudOrderApplication implements WebMvcConfigurer {
     }
 
     @Bean
-    public CountDownLatch latch() {
+    public CountDownLatch countDownLatch() {
         return new CountDownLatch(1);
     }
 

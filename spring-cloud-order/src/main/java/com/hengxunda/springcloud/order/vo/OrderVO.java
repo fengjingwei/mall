@@ -1,18 +1,21 @@
-package com.hengxunda.springcloud.order.entity;
+package com.hengxunda.springcloud.order.vo;
 
-import com.hengxunda.springcloud.common.persistence.DataEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(callSuper = true)
-public class Order extends DataEntity<Order> {
+public class OrderVO implements Serializable {
 
-    private static final long serialVersionUID = 7129947702140907900L;
+    private static final long serialVersionUID = 3766503812423137982L;
 
     /**
      * 订单编号
@@ -43,4 +46,9 @@ public class Order extends DataEntity<Order> {
      * 购买人
      */
     private String userId;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
 }
