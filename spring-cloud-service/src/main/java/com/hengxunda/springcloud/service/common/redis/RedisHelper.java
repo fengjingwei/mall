@@ -23,15 +23,15 @@ public class RedisHelper {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    public final String getStringFromRedis(String key) {
+    public final String getString(String key) {
         return stringRedisTemplate.opsForValue().get(key);
     }
 
-    public final void putStringToRedis(String key, String value) {
+    public final void putString(String key, String value) {
         stringRedisTemplate.opsForValue().set(key, value);
     }
 
-    public final void putStringToRedis(String key, String value, long expireSeconds) {
+    public final void putString(String key, String value, long expireSeconds) {
         stringRedisTemplate.opsForValue().set(key, value, expireSeconds, TimeUnit.SECONDS);
     }
 

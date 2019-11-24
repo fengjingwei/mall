@@ -57,7 +57,7 @@ public class AuthenticationGatewayStrategyRouteFilter extends AbstractGatewayStr
         urls.add("/order/listAll");
         // urls.add("/order/create");
         // urls.add("/order/orderPay");
-        redisHelper.putStringToRedis(GatewayConstant.GATEWAY_AUTH_SKIP_URLS, Joiner.on(",").skipNulls().join(urls));
+        redisHelper.putString(GatewayConstant.GATEWAY_AUTH_SKIP_URLS, Joiner.on(",").skipNulls().join(urls));
     }
 
     @Override
@@ -68,7 +68,10 @@ public class AuthenticationGatewayStrategyRouteFilter extends AbstractGatewayStr
             return chain.filter(exchange);
         }
         final String path = request.getURI().getPath();
-        final String values = redisHelper.getStringFromRedis(GatewayConstant.GATEWAY_AUTH_SKIP_URLS);
+        if (StringUtils.endsWith(path, "defaultfallback")) {
+            return chain.filter(exchange);
+        }
+        final String values = redisHelper.getString(GatewayConstant.GATEWAY_AUTH_SKIP_URLS);
         final List<String> paths = Splitter.on(",").trimResults().omitEmptyStrings().splitToList(values);
         if (paths.stream().anyMatch(path::contains)) {
             /*if (request.getMethod() == HttpMethod.POST && !request.getHeaders().getContentType().includes(MediaType.MULTIPART_FORM_DATA)) {

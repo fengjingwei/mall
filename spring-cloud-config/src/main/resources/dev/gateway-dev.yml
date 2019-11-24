@@ -1,5 +1,5 @@
 server:
-  port: 8886
+  port: 8885
   address: 0.0.0.0
   servlet:
     context-path: /gateway-service
@@ -16,7 +16,6 @@ spring:
         uri: lb://account-service
         predicates:
         - Path=/account/**
-        #- Method=GET
         filters:
         - StripPrefix=1
         - name: Retry
@@ -28,9 +27,38 @@ spring:
             - OK
             methods:
             - GET
-            - POST
-            - PUT
-            - DELETE
+            #- POST
+            #- PUT
+            #- DELETE
+            exceptions:
+            - java.io.IOException
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 5
+            redis-rate-limiter.burstCapacity: 20
+            key-resolver: "#{@userKeyResolver}"
+        - name: Hystrix
+          args:
+            name: account-fallback
+            fallbackUri: forward:${server.servlet.context-path}/defaultfallback
+      - id: inventory-service-id
+        uri: lb://inventory-service
+        predicates:
+        - Path=/inventory/**
+        filters:
+        - StripPrefix=1
+        - name: Retry
+          args:
+            retries: 5
+            series:
+            - SERVER_ERROR
+            statuses:
+            - OK
+            methods:
+            - GET
+            #- POST
+            #- PUT
+            #- DELETE
             exceptions:
             - java.io.IOException
         - name: RequestRateLimiter
@@ -38,18 +66,39 @@ spring:
             redis-rate-limiter.replenishRate: 5
             redis-rate-limiter.burstCapacity: 20
             key-resolver: "#{@apiKeyResolver}"
-      - id: inventory-service-id
-        uri: lb://inventory-service
-        predicates:
-        - Path=/inventory/**
-        filters:
-        - StripPrefix=1
+        - name: Hystrix
+          args:
+            name: inventory-fallback
+            fallbackUri: forward:${server.servlet.context-path}/defaultfallback
       - id: order-service-id
         uri: lb://order-service
         predicates:
         - Path=/order/**
         filters:
         - StripPrefix=1
+        - name: Retry
+          args:
+            retries: 3
+            series:
+            - SERVER_ERROR
+            statuses:
+            - OK
+            methods:
+            - GET
+            #- POST
+            #- PUT
+            #- DELETE
+            exceptions:
+            - java.io.IOException
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 5
+            redis-rate-limiter.burstCapacity: 20
+            key-resolver: "#{@ipKeyResolver}"
+        - name: Hystrix
+          args:
+            name: order-fallback
+            fallbackUri: forward:${server.servlet.context-path}/defaultfallback
       - id: nio-service-id
         #uri: lb:ws://nio-service
         uri: ws://127.0.0.1:9081
@@ -73,13 +122,28 @@ spring:
         min-idle: 0
     timeout: 60000ms
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  level:
+    org.springframework.cloud.gateway: trace
+    org.springframework.http.server.reactive: debug
+    org.springframework.web.reactive: debug
+    org.springframework.boot.autoconfigure.web: debug
+    reactor.netty: debug
+    redisratelimiter: debug
+
 eureka:
   client:
     service-url:
       default-zone: http://localhost:8761/eureka/
   instance:
     prefer-ip-address: true
-    #instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
 
 #zuul:
 #  ignoredServices: '*'

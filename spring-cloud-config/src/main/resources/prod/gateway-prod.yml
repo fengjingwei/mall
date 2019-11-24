@@ -1,14 +1,141 @@
 server:
-  port: 9886
+  port: 9885
   address: 0.0.0.0
   servlet:
     context-path: /gateway-service
 
 spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+      - id: account-service-id
+        uri: lb://account-service
+        predicates:
+        - Path=/account/**
+        filters:
+        - StripPrefix=1
+        - name: Retry
+          args:
+            retries: 5
+            series:
+            - SERVER_ERROR
+            statuses:
+            - OK
+            methods:
+            - GET
+            #- POST
+            #- PUT
+            #- DELETE
+            exceptions:
+            - java.io.IOException
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 5
+            redis-rate-limiter.burstCapacity: 20
+            key-resolver: "#{@userKeyResolver}"
+        - name: Hystrix
+          args:
+            name: account-fallback
+            fallbackUri: forward:${server.servlet.context-path}/defaultfallback
+      - id: inventory-service-id
+        uri: lb://inventory-service
+        predicates:
+        - Path=/inventory/**
+        filters:
+        - StripPrefix=1
+        - name: Retry
+          args:
+            retries: 5
+            series:
+            - SERVER_ERROR
+            statuses:
+            - OK
+            methods:
+            - GET
+            #- POST
+            #- PUT
+            #- DELETE
+            exceptions:
+            - java.io.IOException
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 5
+            redis-rate-limiter.burstCapacity: 20
+            key-resolver: "#{@apiKeyResolver}"
+        - name: Hystrix
+          args:
+            name: inventory-fallback
+            fallbackUri: forward:${server.servlet.context-path}/defaultfallback
+      - id: order-service-id
+        uri: lb://order-service
+        predicates:
+        - Path=/order/**
+        filters:
+        - StripPrefix=1
+        - name: Retry
+          args:
+            retries: 3
+            series:
+            - SERVER_ERROR
+            statuses:
+            - OK
+            methods:
+            - GET
+            #- POST
+            #- PUT
+            #- DELETE
+            exceptions:
+            - java.io.IOException
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 5
+            redis-rate-limiter.burstCapacity: 20
+            key-resolver: "#{@ipKeyResolver}"
+        - name: Hystrix
+          args:
+            name: order-fallback
+            fallbackUri: forward:${server.servlet.context-path}/defaultfallback
+      - id: nio-service-id
+        #uri: lb:ws://nio-service
+        uri: ws://127.0.0.1:9081
+        predicates:
+        - Path=/ws/**
   application:
     name: gateway-service
   zipkin:
     base-url: http://192.168.1.135:9413
+
+  redis:
+    database: 0
+    host: 192.168.1.245
+    port: 6379
+    password: o^mt9#nIvv7u%`
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+    timeout: 60000ms
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  level:
+    org.springframework.cloud.gateway: trace
+    org.springframework.http.server.reactive: debug
+    org.springframework.web.reactive: debug
+    org.springframework.boot.autoconfigure.web: debug
+    reactor.netty: debug
+    redisratelimiter: debug
 
 eureka:
   client:
@@ -16,20 +143,20 @@ eureka:
       default-zone: http://192.168.1.135:8761/eureka/,http://192.168.1.135:8861/eureka/,http://192.168.1.135:8961/eureka/
   instance:
     prefer-ip-address: true
-    #instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
 
-zuul:
-  ignoredServices: '*'
-  routes:
-    order-service:
-      path: /order/**
-      serviceId: order-service
-    account-service:
-      path: /account/**
-      serviceId: account-service
-    inventory-service:
-      path: /inventory/**
-      serviceId: inventory-service
-  host:
-    socket-timeout-millis: 60000
-    connect-timeout-millis: 60000
+#zuul:
+#  ignoredServices: '*'
+#  routes:
+#    order-service:
+#      path: /order/**
+#      serviceId: order-service
+#    account-service:
+#      path: /account/**
+#      serviceId: account-service
+#    inventory-service:
+#      path: /inventory/**
+#      serviceId: inventory-service
+#  host:
+#    socket-timeout-millis: 60000
+#    connect-timeout-millis: 60000

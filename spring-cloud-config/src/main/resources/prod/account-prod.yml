@@ -1,5 +1,5 @@
 server:
-  port: 9882
+  port: 9881
   address: 0.0.0.0
   servlet:
     context-path: /account-service
@@ -53,7 +53,7 @@ eureka:
       default-zone: http://192.168.1.135:8761/eureka/,http://192.168.1.135:8861/eureka/,http://192.168.1.135:8961/eureka/
   instance:
     prefer-ip-address: true
-    #instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
 
 p:
   account: admin

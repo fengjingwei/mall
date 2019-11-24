@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>spring-cloud-order</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-RELEASE</version>
     <packaging>jar</packaging>
     <name>Mall Spring Cloud Order</name>
     <description>Order project for Spring Cloud</description>
@@ -11,13 +11,17 @@
     <parent>
         <groupId>com.hengxunda</groupId>
         <artifactId>mall</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1-RELEASE</version>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <druid.version>1.1.21</druid.version>
+        <disruptor.version>3.4.0</disruptor.version>
+        <sharding.jdbc.version>4.0.0-RC1</sharding.jdbc.version>
+        <spring.cloud.hmily.version>2.0.6-RELEASE</spring.cloud.hmily.version>
     </properties>
 
     <dependencies>
@@ -69,7 +73,13 @@
         <dependency>
             <groupId>org.dromara</groupId>
             <artifactId>hmily-springcloud</artifactId>
-            <version>2.0.5-RELEASE</version>
+            <version>${spring.cloud.hmily.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.lmax</groupId>
+                    <artifactId>disruptor</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -106,11 +116,6 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
@@ -139,19 +144,19 @@
         <dependency>
             <groupId>com.lmax</groupId>
             <artifactId>disruptor</artifactId>
-            <version>3.4.0</version>
+            <version>${disruptor.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.16</version>
+            <version>${druid.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-            <version>4.0.0-RC1</version>
+            <version>${sharding.jdbc.version}</version>
         </dependency>
     </dependencies>
 

@@ -43,7 +43,7 @@ public class OrderController {
     @Autowired
     private OrderPayCommandBus orderPayCommandBus;
 
-    @ApiOperation(value = "获取所有的订单")
+    @ApiOperation(value = "获取所有订单")
     @ApiImplicitParam(name = "keyword", value = "关键字", paramType = "query", dataType = "String")
     @GetMapping("listAll")
     public AjaxResponse listAll(@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) {
@@ -66,7 +66,7 @@ public class OrderController {
         return AjaxResponse.success(cancelOrderCommandBus.dispatch(cancelOrderCommand, orderNo));
     }
 
-    @ApiOperation(value = "订单支付并进行扣除账户余额，进行库存扣减")
+    @ApiOperation(value = "订单支付【进行扣除账户余额，进行库存扣减】")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true, paramType = "query", dataType = "String")
     @PostMapping("orderPay")
     public AjaxResponse orderPay(@RequestParam(value = "orderNo") String orderNo) {

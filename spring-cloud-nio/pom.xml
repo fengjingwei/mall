@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>spring-cloud-nio</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-RELEASE</version>
     <packaging>jar</packaging>
     <name>Mall Spring Cloud Nio</name>
     <description>Nio project for Spring Cloud</description>
@@ -11,14 +11,15 @@
     <parent>
         <groupId>com.hengxunda</groupId>
         <artifactId>mall</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1-RELEASE</version>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <springcloud.version>Finchley.RELEASE</springcloud.version>
+        <netty.all.version>4.1.43.Final</netty.all.version>
+        <bce.java.sdk.version>0.10.82</bce.java.sdk.version>
     </properties>
 
     <dependencies>
@@ -69,13 +70,13 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.43.Final</version>
+            <version>${netty.all.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.baidubce</groupId>
             <artifactId>bce-java-sdk</artifactId>
-            <version>0.10.32</version>
+            <version>${bce.java.sdk.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>ch.qos.logback</groupId>

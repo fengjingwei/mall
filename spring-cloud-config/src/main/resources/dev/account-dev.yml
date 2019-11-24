@@ -1,5 +1,5 @@
 server:
-  port: 8882
+  port: 8881
   address: 0.0.0.0
   servlet:
     context-path: /account-service
@@ -68,7 +68,7 @@ eureka:
       default-zone: http://localhost:8761/eureka/
   instance:
     prefer-ip-address: true
-    #instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
 
 p:
   account: admin

@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>spring-cloud-zipkin</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-RELEASE</version>
     <packaging>jar</packaging>
     <name>Mall Spring Cloud Zipkin</name>
     <description>Zipkin project for Spring Cloud</description>
@@ -11,7 +11,7 @@
     <parent>
         <groupId>com.hengxunda</groupId>
         <artifactId>mall</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1-RELEASE</version>
     </parent>
 
     <properties>

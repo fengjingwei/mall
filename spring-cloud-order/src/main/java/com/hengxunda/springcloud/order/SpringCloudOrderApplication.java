@@ -1,5 +1,6 @@
 package com.hengxunda.springcloud.order;
 
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import com.hengxunda.springcloud.order.listener.ExpiredMessageListener;
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
 import org.mybatis.spring.annotation.MapperScan;
@@ -30,7 +31,7 @@ import java.util.concurrent.CountDownLatch;
 @EnableHystrix
 @EnableEurekaClient
 @EnableFeignClients
-@SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
+@SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class, DruidDataSourceAutoConfigure.class})
 @EnableHystrixDashboard
 @ImportResource({"classpath:applicationContext.xml"})
 @ComponentScan(basePackages = {"com.hengxunda.springcloud"})

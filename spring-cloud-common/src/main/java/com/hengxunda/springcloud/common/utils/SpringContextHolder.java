@@ -6,6 +6,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.net.HttpURLConnection;
@@ -16,7 +17,9 @@ import java.net.URL;
 @Lazy(value = false)
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
 
-    private static ApplicationContext applicationContext = null;
+    private static ApplicationContext applicationContext;
+
+    private static Environment environment;
 
     public static ApplicationContext getApplicationContext() {
         assertContextInjected();
@@ -37,6 +40,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
             throw new RuntimeException(e);
         }
         SpringContextHolder.applicationContext = applicationContext;
+        environment = applicationContext.getEnvironment();
     }
 
     public static <T> T getBean(String name) {
@@ -54,6 +58,11 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
             log.debug("清除SpringContextHolder中的ApplicationContext: {}", applicationContext);
         }
         applicationContext = null;
+        environment = null;
+    }
+
+    public static Environment getEnvironment() {
+        return environment;
     }
 
     private static void assertContextInjected() {

@@ -1,26 +1,72 @@
 server:
-  port: 9884
+  port: 9883
   address: 0.0.0.0
   servlet:
     context-path: /order-service
 
 spring:
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.1.139:3306/mall_order?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
-    username: root
-    password: 123456
-    dbcp2:
-      initial-size: 20
-      min-idle: 20
-      max-wait-millis: 60000
-      time-between-eviction-runs-millis: 60000
-      min-evictable-idle-time-millis: 30000
-      validation-query: select 'x'
-      test-while-idle: true
-      test-on-borrow: false
-      test-on-return: false
-      pool-prepared-statements: true
+  shardingsphere:
+    props:
+      sql:
+        show: true
+      check:
+        table:
+          metadata:
+            enabled: true
+    datasource:
+      names: master,slave
+      master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.1.139:3306/mall_order?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: root
+        password: 123456
+      slave:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.1.227:3306/mall_order?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: root
+        password: 123456
+    #masterslave:
+    #  load-balance-algorithm-type: round_robin
+    #  name: dataSource
+    #  master-data-source-name: master
+    #  slave-data-source-names: slave
+    sharding:
+      master-slave-rules:
+        ds0:
+          master-data-source-name: master
+          slave-data-source-names: slave
+      tables:
+        t_order:
+          key-generator-column: id
+          actual-data-nodes: ds0.t_order_${0..2}
+          table-strategy:
+            #inline:
+            #  sharding-column: user_id
+            #  algorithm-expression: t_order_${user_id % 3}
+            standard:
+              sharding-column: user_id
+              precise-algorithm-class-name: com.hengxunda.springcloud.order.algorithm.MyPreciseShardingAlgorithm
+              range-algorithm-class-name: com.hengxunda.springcloud.order.algorithm.MyRangeShardingAlgorithm
+      #binding-tables: t_order
+
+  #datasource:
+  # driver-class-name: com.mysql.jdbc.Driver
+  # url: jdbc:mysql://192.168.1.139:3306/mall_order?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+  # username: root
+  # password: 123456
+  # dbcp2:
+  #   initial-size: 20
+  #   min-idle: 20
+  #   max-wait-millis: 60000
+  #   time-between-eviction-runs-millis: 60000
+  #   min-evictable-idle-time-millis: 30000
+  #   validation-query: select 'x'
+  #   test-while-idle: true
+  #   test-on-borrow: false
+  #   test-on-return: false
+  #   pool-prepared-statements: true
   application:
     name: order-service
   zipkin:
@@ -67,7 +113,7 @@ eureka:
       default-zone: http://192.168.1.135:8761/eureka/,http://192.168.1.135:8861/eureka/,http://192.168.1.135:8961/eureka/
   instance:
     prefer-ip-address: true
-    #instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
 
 management:
   endpoint:

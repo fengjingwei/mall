@@ -1,0 +1,30 @@
+[
+  {
+    "filters": [],
+    "id": "account-dynamic-route-id",
+    "order": 1,
+    "predicates": [
+      {
+        "args": {
+          "pattern": "/a-r"
+        },
+        "name": "Path"
+      }
+    ],
+    "uri": "http://localhost:8881/account-service/account/findByUserId?userId=10002"
+  },
+  {
+    "filters": [],
+    "id": "inventory-dynamic-route-id",
+    "order": 2,
+    "predicates": [
+      {
+        "args": {
+          "pattern": "/i-r"
+        },
+        "name": "Path"
+      }
+    ],
+    "uri": "http://localhost:8882/inventory-service/inventory/findByProductId?productId=1"
+  }
+]

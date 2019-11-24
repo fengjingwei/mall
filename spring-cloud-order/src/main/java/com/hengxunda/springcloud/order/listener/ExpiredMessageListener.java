@@ -36,8 +36,11 @@ public class ExpiredMessageListener extends MessageListenerAdapter {
     @Override
     public void onMessage(@NonNull Message message, byte[] pattern) {
         log.info("ExpiredMessageListener -> onMessage -> < {} > key expire.", message);
-        Order order = Order.builder().orderNo(getOrderNo(message.toString())).status(OrderEnum.Status.CANCEL.code()).build();
-        orderMapper.update(order);
+        final String orderNo = getOrderNo(message.toString());
+        if (StringUtils.isNoneBlank(orderNo)) {
+            Order order = Order.builder().orderNo(orderNo).status(OrderEnum.Status.CANCEL.code()).build();
+            orderMapper.update(order);
+        }
         countDownLatch.countDown();
     }
 }

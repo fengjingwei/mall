@@ -74,7 +74,7 @@ public abstract class JwtUtils {
                 .account("18588257670")
                 .loginTime("2019-08-08 09:35:00")
                 .build();
-        final String jwt = createJwt(FastJsonUtils.toJSONString(accountJwt), 36000000L);
+        final String jwt = createJwt(FastJsonUtils.toJSONString(accountJwt), 86400000L);
         System.out.println("jwt = " + jwt);
         accountJwt = parseJwt(jwt, AccountJwt.class);
         accountJwt.setJwt(jwt);

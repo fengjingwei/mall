@@ -5,3 +5,8 @@ spring:
       label: master
       uri: http://192.168.1.135:9000/
       name: gateway
+    nacos:
+      config:
+        server-addr: 192.168.1.135:8848
+        group: DEFAULT_GROUP
+        data-id: gateway-dynamic-route-dev.json
