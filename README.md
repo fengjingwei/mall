@@ -11,7 +11,7 @@
 7. 集成增强版Swagger-ui可视化界面可以快速体验.
 
 ## 架构图 ##
-![](F:/architecture.jpg)
+![](https://raw.githubusercontent.com/fengjingwei/mall/master/architecture.jpg)
 `注:架构图中部分技术点还未对接，后续会陆续完成.`
 
 ## Prerequisite ##
