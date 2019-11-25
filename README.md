@@ -13,7 +13,7 @@
 9. 集成增强版Swagger-bootstrap-ui可视化界面可以快速体验.
 
 ## 架构图 ##
-![](https://raw.githubusercontent.com/fengjingwei/mall/master/doc/architecture.jpg)
+- ![](https://github.com/fengjingwei/Docs/raw/master/architecture.jpg)
 `注:架构图中部分技术点还未对接，后续会陆续完成.`
 
 ## Prerequisite ##
@@ -34,4 +34,4 @@
 
 ## Support ##
 - 如有任何问题欢迎微我
-- ![](https://raw.githubusercontent.com/fengjingwei/mall/master/doc/wechat.jpg)
+- ![](https://github.com/fengjingwei/Docs/raw/master/wechat.jpg)
