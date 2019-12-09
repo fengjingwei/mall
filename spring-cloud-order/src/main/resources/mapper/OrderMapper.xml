@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hengxunda.springcloud.order.mapper.OrderMapper">
 
-    <select id="listAll" resultType="Order">
+    <select id="listAll" resultType="com.hengxunda.springcloud.order.entity.Order">
         SELECT * FROM t_order
         <if test="keyword != null and keyword != ''">
             <where>
@@ -19,16 +19,17 @@
         ORDER BY create_time DESC
     </select>
 
-    <select id="get" parameterType="java.lang.String" resultType="Order">
+    <select id="get" parameterType="java.lang.String" resultType="com.hengxunda.springcloud.order.entity.Order">
         SELECT * FROM t_order WHERE order_no = #{orderNo}
     </select>
 
-    <insert id="insert" parameterType="Order" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO t_order (order_no, user_id, product_id, status, count, total_amount, create_time)
+    <insert id="insert" parameterType="com.hengxunda.springcloud.order.entity.Order" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id">
+        INSERT INTO t_order (order_no, user_id, product_id, status, `count`, total_amount, create_time)
         VALUES (#{orderNo}, #{userId}, #{productId}, #{status}, #{count}, #{totalAmount}, #{createTime})
     </insert>
 
-    <update id="update" parameterType="Order">
+    <update id="update" parameterType="com.hengxunda.springcloud.order.entity.Order">
         UPDATE t_order SET status = #{status}
         <if test="totalAmount != null">
             , total_amount = #{totalAmount}

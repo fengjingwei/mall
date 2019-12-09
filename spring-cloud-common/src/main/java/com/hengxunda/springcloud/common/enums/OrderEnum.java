@@ -37,5 +37,4 @@ public interface OrderEnum {
             return msg;
         }
     }
-
 }

@@ -85,5 +85,4 @@ public interface MsgNoEnum {
 
         private String msg;
     }
-
 }

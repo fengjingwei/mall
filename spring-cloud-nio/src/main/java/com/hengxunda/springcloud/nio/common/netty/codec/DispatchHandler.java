@@ -34,5 +34,4 @@ public final class DispatchHandler extends SimpleChannelInboundHandler<BaseMessa
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         ctx.close();
     }
-
 }

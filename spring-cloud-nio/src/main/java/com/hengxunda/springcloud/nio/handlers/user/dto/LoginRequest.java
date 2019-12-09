@@ -39,5 +39,4 @@ public class LoginRequest implements Serializable {
     private String ak;
 
     private String nonce;
-
 }

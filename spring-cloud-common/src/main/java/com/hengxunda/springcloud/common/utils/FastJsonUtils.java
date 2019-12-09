@@ -42,5 +42,4 @@ public abstract class FastJsonUtils {
     public static <T> List<T> toList(String text, Class<T> clazz) {
         return JSON.parseArray(text, clazz);
     }
-
 }

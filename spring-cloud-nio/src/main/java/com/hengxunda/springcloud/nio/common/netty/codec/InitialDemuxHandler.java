@@ -89,5 +89,4 @@ public final class InitialDemuxHandler extends ChannelInboundHandlerAdapter {
         }
         ctx.fireUserEventTriggered(evt);
     }
-
 }

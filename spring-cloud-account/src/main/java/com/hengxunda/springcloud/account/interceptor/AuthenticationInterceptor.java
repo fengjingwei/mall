@@ -31,15 +31,15 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         // 允许跨域的请求头
         response.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "X-Requested-With,Content-Type,accept,Auth-Aliw");
         response.addHeader(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "3600");
-        ServletOutputStream out = response.getOutputStream();
+        final ServletOutputStream out = response.getOutputStream();
         if (handler instanceof HandlerMethod) {
-            HandlerMethod handlerMethod = (HandlerMethod) handler;
-            Method method = handlerMethod.getMethod();
+            final HandlerMethod handlerMethod = (HandlerMethod) handler;
+            final Method method = handlerMethod.getMethod();
             final Authorization annotation = method.getAnnotation(Authorization.class);
             if (Objects.isNull(annotation) && Objects.isNull(handlerMethod.getBeanType().getAnnotation(Authorization.class))) {
                 return true;
             }
-            String jwt = request.getHeader(GatewayConstant.AUTHORIZATION);
+            final String jwt = request.getHeader(GatewayConstant.AUTHORIZATION);
             if (StringUtils.isNotBlank(jwt)) {
                 try {
                     return JwtUtils.verifyJwt(jwt);
@@ -62,8 +62,8 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         if (Objects.isNull(ex)) {
             return;
         }
-        Throwable throwable = ex.getCause() == null ? ex : ex.getCause();
-        ServletOutputStream out = response.getOutputStream();
+        final Throwable throwable = ex.getCause() == null ? ex : ex.getCause();
+        final ServletOutputStream out = response.getOutputStream();
         out.print(FastJsonUtils.toJSONString(AjaxResponse.error(throwable.getMessage())));
         out.close();
     }

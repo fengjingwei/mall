@@ -38,7 +38,7 @@ public class PrivateChatHandler extends AbstractBaseHandler<PrivateChatRequest> 
         BaseMessage message = BaseMessage.getNotification();
         message.setMsgNo(MsgNoEnum.Chat.CHAT_P2P_BROADCAST.getCode());
         message.setBody(requestBody);
-        channel = RoomChannelContainer.ROOM_ONLINE_MAPS.get(requestBody.getRoomId()).get(requestBody.getReceivedId());
-        super.sendToUser(channel, message);
+        final Channel receiverChannel = RoomChannelContainer.ROOM_ONLINE_MAPS.get(requestBody.getRoomId()).get(requestBody.getReceivedId());
+        super.sendToUser(receiverChannel, message);
     }
 }

@@ -84,5 +84,4 @@ public class JsonBaseCodec extends MessageToMessageCodec<String, BaseMessage> {
             response.setBody(PLACEHOLDER_OBJ);
         }
     }
-
 }

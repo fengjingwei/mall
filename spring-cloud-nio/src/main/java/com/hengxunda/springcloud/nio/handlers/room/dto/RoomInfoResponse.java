@@ -28,5 +28,4 @@ public class RoomInfoResponse implements Serializable {
         startTime = DateUtils.getLocalDateTime();
         endTime = startTime;
     }
-
 }

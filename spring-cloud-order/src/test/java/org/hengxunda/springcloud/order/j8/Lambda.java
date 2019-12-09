@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 public class Lambda {
 
-    private static final ThreadLocal<DateFormatter> formatter = ThreadLocal.withInitial(() -> new DateFormatter(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss E")));
+    private static final ThreadLocal<DateFormatter> FORMATTER = ThreadLocal.withInitial(() -> new DateFormatter(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss E")));
 
     public static void main(String[] args) {
 
@@ -25,7 +25,7 @@ public class Lambda {
         Predicate<Integer> atLeast5 = (x -> x > 5);
         System.out.println(atLeast5.test(3));
 
-        System.out.println(formatter.get().getFormat().format(new Date()));
+        System.out.println(FORMATTER.get().getFormat().format(new Date()));
 
         List<Artist> artists = new ArrayList<>();
         artists.add(new Artist("Dw", "London"));

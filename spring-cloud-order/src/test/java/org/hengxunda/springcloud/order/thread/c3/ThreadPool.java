@@ -5,13 +5,14 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ThreadPool {
+public final class ThreadPool {
 
     private static final AtomicInteger POOL_NUMBER = new AtomicInteger(1);
-    private static ThreadPool threadPool;
-    private int corePoolSize;
-    private int maximumPoolSize;
-    private long keepAliveTime;
+    private static final int MAX_THREAD = (Runtime.getRuntime().availableProcessors() << 1) + 1;
+    private static volatile ThreadPool threadPool;
+    private final int corePoolSize;
+    private final int maximumPoolSize;
+    private final long keepAliveTime;
     private ExecutorService execute;
 
     private ThreadPool(int corePoolSize, int maximumPoolSize, long keepAliveTime) {
@@ -24,11 +25,7 @@ public class ThreadPool {
         if (threadPool == null) {
             synchronized (ThreadPool.class) {
                 if (threadPool == null) {
-                    // 获取处理器数量
-                    int cpuNum = Runtime.getRuntime().availableProcessors();
-                    // 根据cpu数量,计算出合理的线程并发数
-                    int threadNum = (cpuNum << 1) + 1;
-                    threadPool = new ThreadPool(threadNum, threadNum, 0L);
+                    threadPool = new ThreadPool(MAX_THREAD, MAX_THREAD, 0L);
                 }
             }
         }

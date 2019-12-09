@@ -57,6 +57,5 @@ public abstract class LiveUtils {
         private boolean playing;
 
         private Date playTime;
-
     }
 }

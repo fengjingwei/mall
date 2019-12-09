@@ -26,7 +26,7 @@ public class LoginServiceImpl implements LoginService {
     public AccountJwt login(final String account, final String password) {
         log.info("account = [{}], password = [{}]", account, password);
         Assert.state(!this.account.equals(account) || !this.password.equals(password), "用户名或密码错误");
-        AccountJwt accountJwt = AccountJwt.builder().account(account).build();
+        final AccountJwt accountJwt = AccountJwt.builder().account(account).build();
         final String jwt = JwtUtils.createJwt(FastJsonUtils.toJSONString(accountJwt), timeout);
         accountJwt.setJwt(jwt);
         return accountJwt;

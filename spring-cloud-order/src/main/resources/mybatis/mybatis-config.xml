@@ -17,9 +17,4 @@
         <!-- 设置当JDBC类型为空时,某些驱动程序 要指定值,default:OTHER，插入空值时不需要指定类型 -->
         <setting name="jdbcTypeForNull" value="NULL"/>
     </settings>
-
-    <typeAliases>
-        <typeAlias type="com.hengxunda.springcloud.order.entity.Order" alias="Order"/>
-    </typeAliases>
-
 </configuration>

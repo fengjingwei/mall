@@ -52,5 +52,4 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(false)
                 .globalResponseMessage(RequestMethod.GET, newArrayList(new ResponseMessageBuilder().code(500).message("500 message").responseModel(new ModelRef("Error")).build()));
     }
-
 }

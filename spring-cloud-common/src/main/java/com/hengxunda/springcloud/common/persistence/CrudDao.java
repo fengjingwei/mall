@@ -43,5 +43,4 @@ public interface CrudDao<T> extends BaseDao {
      * @return
      */
     int delete(T entity);
-
 }

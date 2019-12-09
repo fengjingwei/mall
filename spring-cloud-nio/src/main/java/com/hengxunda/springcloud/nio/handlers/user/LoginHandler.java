@@ -133,5 +133,4 @@ public class LoginHandler extends AbstractBaseHandler<LoginRequest> {
             return Objects.nonNull(user) ? user.getUserId() : null;
         }
     }
-
 }

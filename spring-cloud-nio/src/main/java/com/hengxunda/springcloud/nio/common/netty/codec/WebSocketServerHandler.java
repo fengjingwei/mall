@@ -101,5 +101,4 @@ public final class WebSocketServerHandler extends SimpleChannelInboundHandler<Ob
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         ctx.fireExceptionCaught(cause);
     }
-
 }

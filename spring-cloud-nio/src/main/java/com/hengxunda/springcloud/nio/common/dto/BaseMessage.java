@@ -102,5 +102,4 @@ public class BaseMessage implements Serializable {
 
         private final String msg;
     }
-
 }
