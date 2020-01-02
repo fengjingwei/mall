@@ -26,6 +26,8 @@
         <jjwt.version>0.9.1</jjwt.version>
         <findbugs.version>3.0.2</findbugs.version>
         <kryo.version>4.0.2</kryo.version>
+        <protostuff.version>1.1.5</protostuff.version>
+        <hessian.version>4.0.63</hessian.version>
         <servlet.api.version>4.0.1</servlet.api.version>
     </properties>
 
@@ -110,6 +112,24 @@
             <groupId>com.esotericsoftware</groupId>
             <artifactId>kryo-shaded</artifactId>
             <version>${kryo.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.dyuproject.protostuff</groupId>
+            <artifactId>protostuff-core</artifactId>
+            <version>${protostuff.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.dyuproject.protostuff</groupId>
+            <artifactId>protostuff-runtime</artifactId>
+            <version>${protostuff.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.caucho</groupId>
+            <artifactId>hessian</artifactId>
+            <version>${hessian.version}</version>
         </dependency>
 
         <dependency>

@@ -3,12 +3,14 @@ package com.hengxunda.springcloud.common.serializer;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import com.hengxunda.springcloud.common.annotation.SPI;
 import com.hengxunda.springcloud.common.enums.SerializeEnum;
 import com.hengxunda.springcloud.common.exception.ServiceException;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
+@SPI(value = "kryo")
 public class KryoSerializer implements ObjectSerializer {
 
     @Override

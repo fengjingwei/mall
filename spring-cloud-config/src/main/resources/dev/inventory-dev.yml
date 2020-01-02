@@ -6,7 +6,7 @@ server:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.1.139:3306/mall_inventory?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: 123456

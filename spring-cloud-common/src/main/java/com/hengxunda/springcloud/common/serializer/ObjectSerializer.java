@@ -1,7 +1,9 @@
 package com.hengxunda.springcloud.common.serializer;
 
+import com.hengxunda.springcloud.common.annotation.SPI;
 import com.hengxunda.springcloud.common.exception.ServiceException;
 
+@SPI
 public interface ObjectSerializer {
 
     /**

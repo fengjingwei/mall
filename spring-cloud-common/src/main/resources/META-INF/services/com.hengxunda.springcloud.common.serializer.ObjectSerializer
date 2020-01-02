@@ -1,0 +1,4 @@
+com.hengxunda.springcloud.common.serializer.KryoSerializer
+com.hengxunda.springcloud.common.serializer.ProtostuffSerializer
+com.hengxunda.springcloud.common.serializer.HessianSerializer
+com.hengxunda.springcloud.common.serializer.JdkSerializer
