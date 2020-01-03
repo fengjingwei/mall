@@ -1,7 +1,6 @@
 package com.hengxunda.springcloud.order.client;
 
 import com.hengxunda.springcloud.order.dto.AccountDTO;
-import com.hengxunda.springcloud.service.common.service.ServiceInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -10,9 +9,6 @@ import java.math.BigDecimal;
 
 @Component
 public class AccountRibbon {
-
-    @Autowired
-    private ServiceInstance serviceInstance;
 
     @Autowired
     private RestTemplate restTemplate;

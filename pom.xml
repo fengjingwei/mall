@@ -37,6 +37,7 @@
         <spring.cloud.hystrix.version>2.1.4.RELEASE</spring.cloud.hystrix.version>
         <spring.cloud.hystrix.dashboard.version>2.1.4.RELEASE</spring.cloud.hystrix.dashboard.version>
         <spring.cloud.alibaba.nacos.config.version>0.9.0.RELEASE</spring.cloud.alibaba.nacos.config.version>
+        <spring.cloud.alibaba.nacos.discovery.version>0.9.0.RELEASE</spring.cloud.alibaba.nacos.discovery.version>
     </properties>
 
     <modules>
@@ -165,7 +166,7 @@
                 <version>${spring.cloud.hmily.version}</version>
             </dependency>
 
-            <dependency>
+            <!--<dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
                 <version>${spring.cloud.eureka.server.version}</version>
@@ -175,7 +176,7 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
                 <version>${spring.cloud.eureka.client.version}</version>
-            </dependency>
+            </dependency>-->
 
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -211,6 +212,12 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
                 <version>${spring.cloud.alibaba.nacos.config.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                <version>${spring.cloud.alibaba.nacos.discovery.version}</version>
             </dependency>
 
             <dependency>

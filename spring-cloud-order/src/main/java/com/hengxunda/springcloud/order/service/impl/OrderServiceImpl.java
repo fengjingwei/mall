@@ -22,6 +22,7 @@ public class OrderServiceImpl extends AbstractCrudService<OrderMapper, Order> im
     @Override
     public List<OrderVO> listAll(String keyword) {
         // 强制路由主库
+        HintManager.clear();
         HintManager.getInstance().setMasterRouteOnly();
         return Collections3Utils.copy(dao.listAll(keyword), OrderVO.class);
     }

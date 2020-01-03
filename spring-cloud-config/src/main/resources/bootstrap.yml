@@ -5,6 +5,10 @@ spring:
   application:
     name: config-service
   cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.135:8848
+        namespace: a7f19938-b277-4a9f-a9e3-dd7f4d5fcbc8
     config:
       server:
         native:
@@ -14,10 +18,10 @@ spring:
   zipkin:
     base-url: http://localhost:9412
 
-eureka:
-  client:
-    service-url:
-      default-zone: http://localhost:8761/eureka/
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+#eureka:
+#  client:
+#    service-url:
+#      default-zone: http://localhost:8761/eureka/
+#  instance:
+#    prefer-ip-address: true
+#    instance-id: ${spring.cloud.client.ip-address}:${server.port}

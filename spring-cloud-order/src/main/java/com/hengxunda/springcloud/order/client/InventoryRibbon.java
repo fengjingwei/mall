@@ -1,16 +1,12 @@
 package com.hengxunda.springcloud.order.client;
 
 import com.hengxunda.springcloud.order.dto.InventoryDTO;
-import com.hengxunda.springcloud.service.common.service.ServiceInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
 public class InventoryRibbon {
-
-    @Autowired
-    private ServiceInstance serviceInstance;
 
     @Autowired
     private RestTemplate restTemplate;

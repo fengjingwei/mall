@@ -62,13 +62,13 @@ mybatis:
   type-aliases-package: com.hengxunda.springcloud.account.entity
   config-location: classpath:mybatis/mybatis-config.xml
 
-eureka:
-  client:
-    service-url:
-      default-zone: http://localhost:8761/eureka/
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+#eureka:
+#  client:
+#    service-url:
+#      default-zone: http://localhost:8761/eureka/
+#  instance:
+#    prefer-ip-address: true
+#    instance-id: ${spring.cloud.client.ip-address}:${server.port}
 
 p:
   account: admin
