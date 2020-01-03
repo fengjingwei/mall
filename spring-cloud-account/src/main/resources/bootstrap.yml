@@ -1,11 +1,18 @@
 spring:
+  profiles:
+    active: dev
   cloud:
     nacos:
       discovery:
         server-addr: 192.168.1.135:8848
         namespace: a7f19938-b277-4a9f-a9e3-dd7f4d5fcbc8
-    config:
-      profile: dev
-      label: master
-      uri: http://localhost:8000/
-      name: account
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        prefix: account
+        file-extension: yaml
+    #config:
+    #  profile: dev
+    #  label: master
+    #  uri: http://localhost:8000/
+    #  name: account

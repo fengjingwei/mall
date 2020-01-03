@@ -9,6 +9,11 @@ spring:
       discovery:
         server-addr: 192.168.1.135:8848
         namespace: 2dd4a43c-2440-4f01-93bf-9e1b3b930de4
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        prefix: account
+        file-extension: yaml
     config:
       server:
         git:

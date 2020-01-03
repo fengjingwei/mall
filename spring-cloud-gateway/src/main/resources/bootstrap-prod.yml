@@ -1,15 +1,19 @@
 spring:
+  profiles:
+    active: prod
   cloud:
-    config:
-      profile: prod
-      label: master
-      uri: http://192.168.1.135:9000/
-      name: gateway
+    #config:
+    #  profile: prod
+    #  label: master
+    #  uri: http://192.168.1.135:9000/
+    #  name: gateway
     nacos:
       discovery:
         server-addr: 192.168.1.135:8848
         namespace: 2dd4a43c-2440-4f01-93bf-9e1b3b930de4
       config:
-        server-addr: 192.168.1.135:8848
-        group: DEFAULT_GROUP
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        prefix: gateway
+        file-extension: yaml
         data-id: gateway-dynamic-route-dev.json

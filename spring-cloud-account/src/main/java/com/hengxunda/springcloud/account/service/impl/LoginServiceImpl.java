@@ -7,10 +7,12 @@ import com.hengxunda.springcloud.common.security.jwt.JwtUtils;
 import com.hengxunda.springcloud.common.utils.FastJsonUtils;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
 @Log4j2
 @Service
+@RefreshScope
 public class LoginServiceImpl implements LoginService {
 
     @Value("${p.account}")
