@@ -3,6 +3,8 @@ package com.hengxunda.springcloud.common.a;
 import com.hengxunda.springcloud.common.exception.ServiceException;
 import com.hengxunda.springcloud.common.utils.StringUtils;
 
+import java.util.Objects;
+
 public abstract class Assert {
 
     public static void state(boolean expression, String msg) {
@@ -12,7 +14,7 @@ public abstract class Assert {
     }
 
     public static void isNull(Object object, String msg) {
-        if (object == null) {
+        if (Objects.isNull(object)) {
             throw new ServiceException(msg);
         }
     }

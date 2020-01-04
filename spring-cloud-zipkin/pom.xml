@@ -18,13 +18,20 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <zipkin.server.version>2.12.3</zipkin.server.version>
+        <zipkin.autoconfigure.ui.version>2.12.3</zipkin.autoconfigure.ui.version>
     </properties>
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -44,7 +51,7 @@
         <dependency>
             <groupId>io.zipkin.java</groupId>
             <artifactId>zipkin-server</artifactId>
-            <version>2.10.1</version>
+            <version>${zipkin.server.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.logging.log4j</groupId>
@@ -56,7 +63,7 @@
         <dependency>
             <groupId>io.zipkin.java</groupId>
             <artifactId>zipkin-autoconfigure-ui</artifactId>
-            <version>2.10.1</version>
+            <version>${zipkin.autoconfigure.ui.version}</version>
             <scope>runtime</scope>
         </dependency>
 
