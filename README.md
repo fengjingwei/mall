@@ -13,7 +13,7 @@
 9. 集成增强版Swagger-bootstrap-ui可视化界面可以快速体验.
 
 ## 架构图 ##
-- ![](https://github.com/fengjingwei/Docs/raw/master/architecture.jpg)
+- ![](https://raw.githubusercontent.com/fengjingwei/mall/master/doc/architecture.jpg)
 `注:架构图中部分技术点还未对接，后续会陆续完成.`
 
 ## Prerequisite ##
@@ -27,11 +27,11 @@
 > 
 > cd mall
 > 
-> mvn -DskipTests clean install -U
+> mvn clean install -DskipTests -U
 
 - execute sql
 >  [https://github.com/fengjingwei/mall/blob/master/sql/mall_create_tables.sql](https://github.com/fengjingwei/mall/blob/master/sql/mall_create_tables.sql)
 
 ## Support ##
 - 如有任何问题欢迎微我
-- ![](https://github.com/fengjingwei/Docs/raw/master/wechat.jpg)
+- ![](https://raw.githubusercontent.com/fengjingwei/mall/master/doc/wechat.jpg)
