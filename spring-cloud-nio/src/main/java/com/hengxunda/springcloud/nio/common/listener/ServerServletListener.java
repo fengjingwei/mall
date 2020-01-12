@@ -36,7 +36,7 @@ public class ServerServletListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         try {
             ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("mall-nio-pool-%d").build();
-            ExecutorService pool = new ThreadPoolExecutor(MAX_THREAD, MAX_THREAD, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+            ExecutorService pool = new ThreadPoolExecutor(MAX_THREAD, MAX_THREAD, 900000L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
 
             pool.execute(() -> {
                 EventLoopGroup bossGroup = new NioEventLoopGroup();

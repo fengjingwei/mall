@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.net.HttpURLConnection;
@@ -27,7 +28,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) {
+    public void setApplicationContext(@NonNull ApplicationContext applicationContext) {
         try {
             URL url = new URL("http://hm.baidu.com/hm.gif?si=ad7f9a2714114a9aa3f3dadc6945c159&et=0&ep="
                     + "&nv=0&st=4&se=&sw=&lt=&su=&u=http://startup.jeesite.com/version/V1.0.0&v=wap-"

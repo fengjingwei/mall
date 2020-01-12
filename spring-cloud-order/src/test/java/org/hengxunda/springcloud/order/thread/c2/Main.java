@@ -1,7 +1,5 @@
 package org.hengxunda.springcloud.order.thread.c2;
 
-import org.hengxunda.springcloud.order.thread.c3.ThreadPool;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +14,11 @@ public class Main {
         Consumer c1 = new Consumer(queue);
         Consumer c2 = new Consumer(queue);
         Consumer c3 = new Consumer(queue);
-        ThreadPool service = ThreadPool.getThreadPool();
-        service.execute(p1);
-        service.execute(p2);
-        service.execute(p3);
-        service.execute(c1);
-        service.execute(c2);
-        service.execute(c3);
-        service.shutdown();
+        new Thread(p1).start();
+        new Thread(p2).start();
+        new Thread(p3).start();
+        new Thread(c1).start();
+        new Thread(c2).start();
+        new Thread(c3).start();
     }
 }

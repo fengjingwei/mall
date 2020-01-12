@@ -1,9 +1,11 @@
 package org.hengxunda.springcloud.order.disruptor;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 public class DataEventConsumer {
 
     public DataEventConsumer(DataEvent event) {
-
-        System.out.println("event : " + event.getValue());
+        log.info("消费者消费 : {}", event.getValue());
     }
 }
