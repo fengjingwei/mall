@@ -13,7 +13,7 @@ public class MyPreciseShardingAlgorithm implements PreciseShardingAlgorithm<Stri
     public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<String> preciseShardingValue) {
         for (String tableName : availableTargetNames) {
             this.tableName = tableName;
-            if (tableName.endsWith(Long.valueOf(preciseShardingValue.getValue()) % availableTargetNames.size() + "")) {
+            if (tableName.endsWith(Long.parseLong(preciseShardingValue.getValue()) % availableTargetNames.size() + "")) {
                 return tableName;
             }
         }

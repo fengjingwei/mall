@@ -30,13 +30,13 @@ public class DynamicRouteServiceImplByNacos {
         dynamicRouteByNacosListener(nacosGatewayProperties.getServerAddr(), nacosGatewayProperties.getDataId(), nacosGatewayProperties.getGroup(), nacosGatewayProperties.getTimeout());
     }
 
-
     /**
      * 监听Nacos Server下发的动态路由配置
      *
      * @param serverAddr
      * @param dataId
      * @param group
+     * @param timeout
      */
     private void dynamicRouteByNacosListener(final String serverAddr, final String dataId, final String group, final long timeout) {
         try {
