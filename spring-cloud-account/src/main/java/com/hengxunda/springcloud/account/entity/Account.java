@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(callSuper = true)
-public class Account extends DataEntity<Account> {
+public class Account extends DataEntity {
 
     private static final long serialVersionUID = -862497289608498627L;
 

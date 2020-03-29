@@ -18,14 +18,14 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.NettyRuntime;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.util.concurrent.*;
 
 @Log4j2
-@SpringBootConfiguration
+@Configuration
 public class ServerServletListener implements ServletContextListener {
 
     private static final int MAX_THREAD = NettyRuntime.availableProcessors() << 1;

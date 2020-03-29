@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(callSuper = true)
-public class Inventory extends DataEntity<Inventory> {
+public class Inventory extends DataEntity {
 
     private static final long serialVersionUID = -7684737526853183642L;
 

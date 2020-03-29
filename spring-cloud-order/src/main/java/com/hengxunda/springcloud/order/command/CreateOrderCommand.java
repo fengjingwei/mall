@@ -32,8 +32,8 @@ public class CreateOrderCommand implements Command<Order> {
             order.preInsert();
             orderMapper.insert(order);
 
-            redisHelper.putObject("order_" + order.getOrderNo(), order, 0b1111L, TimeUnit.MINUTES);
+            redisHelper.putObject("order_" + order.getOrderNo(), order, 15L, TimeUnit.MINUTES);
         }
-        return null;
+        return order;
     }
 }

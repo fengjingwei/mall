@@ -2,18 +2,18 @@ package com.hengxunda.springcloud.gateway.configuration;
 
 import com.hengxunda.springcloud.gateway.filter.AuthenticationGatewayStrategyRouteFilter;
 import com.hengxunda.springcloud.gateway.filter.GatewayStrategyRouteFilter;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.netflix.ribbon.RibbonClientConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.reactive.HiddenHttpMethodFilter;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
-@SpringBootConfiguration
+@Configuration
 @AutoConfigureBefore(RibbonClientConfiguration.class)
 @ConditionalOnProperty(value = "spring.application.strategy.control.enabled", matchIfMissing = true)
 public class GatewayStrategyAutoConfiguration {

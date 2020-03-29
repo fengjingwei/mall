@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class DataEntity<T> extends BaseEntity<T> {
+public abstract class DataEntity extends BaseEntity {
 
     private static final long serialVersionUID = -525935473949459811L;
 

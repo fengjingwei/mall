@@ -56,7 +56,8 @@ public class AuthenticationGatewayStrategyRouteFilter extends AbstractGatewayStr
 
         urls.add("/order/listAll");
         // urls.add("/order/create");
-        // urls.add("/order/orderPay");
+        // urls.add("/order/cancel");
+        // urls.add("/order/payment");
         redisHelper.putString(GatewayConstant.GATEWAY_AUTH_SKIP_URLS, Joiner.on(",").skipNulls().join(urls));
     }
 

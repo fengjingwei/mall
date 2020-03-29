@@ -13,7 +13,7 @@
                 OR
                 status IN (#{keyword})
                 )
-                AND create_time BETWEEN DATE_SUB(NOW(), interval 1 month) AND NOW()
+                AND create_time BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW()
             </where>
         </if>
         ORDER BY create_time DESC

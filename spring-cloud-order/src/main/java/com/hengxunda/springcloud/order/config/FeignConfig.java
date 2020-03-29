@@ -2,13 +2,13 @@ package com.hengxunda.springcloud.order.config;
 
 import feign.*;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 import java.util.concurrent.TimeUnit;
 
-@SpringBootConfiguration
+@Configuration
 public class FeignConfig {
 
     /**

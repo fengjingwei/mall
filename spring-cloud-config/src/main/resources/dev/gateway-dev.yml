@@ -12,98 +12,98 @@ spring:
           enabled: true
           lower-case-service-id: true
       routes:
-      - id: account-service-id
-        uri: lb://account-service
-        predicates:
-        - Path=/account/**
-        filters:
-        - StripPrefix=1
-        - name: Retry
-          args:
-            retries: 5
-            series:
-            - SERVER_ERROR
-            statuses:
-            - OK
-            methods:
-            - GET
-            #- POST
-            #- PUT
-            #- DELETE
-            exceptions:
-            - java.io.IOException
-        - name: RequestRateLimiter
-          args:
-            redis-rate-limiter.replenishRate: 5
-            redis-rate-limiter.burstCapacity: 20
-            key-resolver: "#{@userKeyResolver}"
-        - name: Hystrix
-          args:
-            name: account-fallback
-            fallbackUri: forward:${server.servlet.context-path}/defaultfallback
-      - id: inventory-service-id
-        uri: lb://inventory-service
-        predicates:
-        - Path=/inventory/**
-        filters:
-        - StripPrefix=1
-        - name: Retry
-          args:
-            retries: 5
-            series:
-            - SERVER_ERROR
-            statuses:
-            - OK
-            methods:
-            - GET
-            #- POST
-            #- PUT
-            #- DELETE
-            exceptions:
-            - java.io.IOException
-        - name: RequestRateLimiter
-          args:
-            redis-rate-limiter.replenishRate: 5
-            redis-rate-limiter.burstCapacity: 20
-            key-resolver: "#{@apiKeyResolver}"
-        - name: Hystrix
-          args:
-            name: inventory-fallback
-            fallbackUri: forward:${server.servlet.context-path}/defaultfallback
-      - id: order-service-id
-        uri: lb://order-service
-        predicates:
-        - Path=/order/**
-        filters:
-        - StripPrefix=1
-        - name: Retry
-          args:
-            retries: 3
-            series:
-            - SERVER_ERROR
-            statuses:
-            - OK
-            methods:
-            - GET
-            #- POST
-            #- PUT
-            #- DELETE
-            exceptions:
-            - java.io.IOException
-        - name: RequestRateLimiter
-          args:
-            redis-rate-limiter.replenishRate: 5
-            redis-rate-limiter.burstCapacity: 20
-            key-resolver: "#{@ipKeyResolver}"
-        - name: Hystrix
-          args:
-            name: order-fallback
-            fallbackUri: forward:${server.servlet.context-path}/defaultfallback
-      - id: nio-service-id
-        #uri: lb:ws://nio-service
-        uri: ws://127.0.0.1:9081
-        predicates:
-        - Path=/ws/**
+        - id: account-service-id
+          uri: lb://account-service
+          predicates:
+            - Path=/account/**
+          filters:
+            - StripPrefix=1
+            - name: Retry
+              args:
+                retries: 5
+                series:
+                  - SERVER_ERROR
+                statuses:
+                  - OK
+                methods:
+                  - GET
+                #- POST
+                #- PUT
+                #- DELETE
+                exceptions:
+                  - java.io.IOException
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5
+                redis-rate-limiter.burstCapacity: 20
+                key-resolver: "#{@userKeyResolver}"
+            - name: Hystrix
+              args:
+                name: account-fallback
+                fallbackUri: forward:${server.servlet.context-path}/defaultfallback
+        - id: inventory-service-id
+          uri: lb://inventory-service
+          predicates:
+            - Path=/inventory/**
+          filters:
+            - StripPrefix=1
+            - name: Retry
+              args:
+                retries: 5
+                series:
+                  - SERVER_ERROR
+                statuses:
+                  - OK
+                methods:
+                  - GET
+                #- POST
+                #- PUT
+                #- DELETE
+                exceptions:
+                  - java.io.IOException
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5
+                redis-rate-limiter.burstCapacity: 20
+                key-resolver: "#{@apiKeyResolver}"
+            - name: Hystrix
+              args:
+                name: inventory-fallback
+                fallbackUri: forward:${server.servlet.context-path}/defaultfallback
+        - id: order-service-id
+          uri: lb://order-service
+          predicates:
+            - Path=/order/**
+          filters:
+            - StripPrefix=1
+            - name: Retry
+              args:
+                retries: 3
+                series:
+                  - SERVER_ERROR
+                statuses:
+                  - OK
+                methods:
+                  - GET
+                #- POST
+                #- PUT
+                #- DELETE
+                exceptions:
+                  - java.io.IOException
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5
+                redis-rate-limiter.burstCapacity: 20
+                key-resolver: "#{@ipKeyResolver}"
+            - name: Hystrix
+              args:
+                name: order-fallback
+                fallbackUri: forward:${server.servlet.context-path}/defaultfallback
+        - id: nio-service-id
+          #uri: lb:ws://nio-service
+          uri: ws://127.0.0.1:9081
+          predicates:
+            - Path=/ws/**
   application:
     name: gateway-service
   zipkin:

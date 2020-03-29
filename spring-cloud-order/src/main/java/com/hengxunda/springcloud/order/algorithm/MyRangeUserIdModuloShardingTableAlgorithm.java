@@ -8,7 +8,7 @@ import org.apache.shardingsphere.api.sharding.standard.RangeShardingValue;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class MyRangeShardingAlgorithm implements RangeShardingAlgorithm<String> {
+public class MyRangeUserIdModuloShardingTableAlgorithm implements RangeShardingAlgorithm<String> {
 
     @Override
     public Collection<String> doSharding(Collection<String> availableTargetNames, RangeShardingValue<String> rangeShardingValue) {

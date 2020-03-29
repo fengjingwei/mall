@@ -7,6 +7,7 @@ import com.hengxunda.springcloud.account.service.AccountService;
 import com.hengxunda.springcloud.account.service.LoginService;
 import com.hengxunda.springcloud.common.a.Assert;
 import com.hengxunda.springcloud.common.persistence.AjaxResponse;
+import com.hengxunda.springcloud.common.security.jwt.AccountJwt;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,14 +44,14 @@ public class AccountController {
     @ApiOperation(value = "注册")
     @ApiImplicitParam(name = "userDTO", value = "请求对象", required = true, paramType = "body", dataType = "UserDTO")
     @PostMapping("register")
-    public AjaxResponse register(@RequestBody UserDTO userDTO) {
+    public AjaxResponse<UserDTO> register(@RequestBody UserDTO userDTO) {
         return AjaxResponse.success(userDTO);
     }
 
     @ApiOperation(value = "登录")
     @ApiImplicitParam(name = "userDTO", value = "请求对象", required = true, paramType = "body", dataType = "UserDTO")
     @PostMapping("login")
-    public AjaxResponse login(@RequestBody UserDTO userDTO) {
+    public AjaxResponse<AccountJwt> login(@RequestBody UserDTO userDTO) {
         return AjaxResponse.success(loginService.login(userDTO.getAccount(), userDTO.getPassword()));
     }
 }

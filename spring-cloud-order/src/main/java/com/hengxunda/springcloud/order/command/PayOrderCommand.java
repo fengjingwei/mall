@@ -10,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrderPayCommand implements Command<String> {
+public class PayOrderCommand implements Command<String> {
 
     private final OrderMapper orderMapper;
 
     private final OrderProducer orderProducer;
 
     @Autowired
-    public OrderPayCommand(OrderMapper orderMapper, OrderProducer orderProducer) {
+    public PayOrderCommand(OrderMapper orderMapper, OrderProducer orderProducer) {
         this.orderMapper = orderMapper;
         this.orderProducer = orderProducer;
     }
@@ -30,7 +30,7 @@ public class OrderPayCommand implements Command<String> {
         Assert.state(status == OrderEnum.Status.CANCEL, String.format("订单[%s]已取消，无法支付", orderNo));
         Assert.state(status == OrderEnum.Status.PAY_SUCCESS, String.format("订单[%s]已支付，禁止重复支付", orderNo));
         Assert.state(status == OrderEnum.Status.PAY_FAIL, String.format("订单[%s]失败状态，禁止支付", orderNo));
-        orderProducer.orderPay(order);
+        orderProducer.payment(order);
         return String.format("订单[%s]正在支付中...", orderNo);
     }
 }

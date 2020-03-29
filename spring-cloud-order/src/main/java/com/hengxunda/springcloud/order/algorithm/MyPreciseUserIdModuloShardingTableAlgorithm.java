@@ -5,7 +5,7 @@ import org.apache.shardingsphere.api.sharding.standard.PreciseShardingValue;
 
 import java.util.Collection;
 
-public class MyPreciseShardingAlgorithm implements PreciseShardingAlgorithm<String> {
+public class MyPreciseUserIdModuloShardingTableAlgorithm implements PreciseShardingAlgorithm<String> {
 
     private String tableName;
 

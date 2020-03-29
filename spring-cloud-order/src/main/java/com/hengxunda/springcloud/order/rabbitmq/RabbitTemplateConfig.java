@@ -7,12 +7,12 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate.ConfirmCallback;
 import org.springframework.amqp.rabbit.core.RabbitTemplate.ReturnCallback;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 
 @Log4j2
-@SpringBootConfiguration
+@Configuration
 public class RabbitTemplateConfig implements ConfirmCallback, ReturnCallback {
 
     @Autowired

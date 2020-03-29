@@ -47,8 +47,8 @@ spring:
             #  algorithm-expression: t_order_${user_id % 3}
             standard:
               sharding-column: user_id
-              precise-algorithm-class-name: com.hengxunda.springcloud.order.algorithm.MyPreciseShardingAlgorithm
-              range-algorithm-class-name: com.hengxunda.springcloud.order.algorithm.MyRangeShardingAlgorithm
+              precise-algorithm-class-name: com.hengxunda.springcloud.order.algorithm.MyPreciseUserIdModuloShardingTableAlgorithm
+              range-algorithm-class-name: com.hengxunda.springcloud.order.algorithm.MyRangeUserIdModuloShardingTableAlgorithm
       #binding-tables: t_order
 
   #datasource:

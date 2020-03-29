@@ -17,7 +17,7 @@ import java.io.IOException;
 
 @Log4j2
 @Component
-@RabbitListener(queues = OrderConfig.ORDER_PAY_QUEUE, containerFactory = "rabbitListenerContainerFactory")
+@RabbitListener(queues = OrderConfig.PAY_ORDER_QUEUE, containerFactory = "rabbitListenerContainerFactory")
 public class OrderConsumer {
 
     @Autowired

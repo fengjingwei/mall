@@ -4,14 +4,14 @@ import com.hengxunda.springcloud.common.constant.GatewayConstant;
 import com.hengxunda.springcloud.common.utils.StringUtils;
 import com.hengxunda.springcloud.service.common.redis.RedisHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import reactor.core.publisher.Mono;
 
-@SpringBootConfiguration
+@Configuration
 @ComponentScan(basePackages = {"com.hengxunda.springcloud.service.common.redis"})
 public class MyKeyResolver {
 

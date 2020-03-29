@@ -5,11 +5,11 @@ import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFacto
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.amqp.SimpleRabbitListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@SpringBootConfiguration
+@Configuration
 public class AmqpConfig {
 
     private static final int DEFAULT_CONCURRENT = 1, DEFAULT_MAX_CONCURRENT = 5, DEFAULT_PREFETCH_COUNT = 10;

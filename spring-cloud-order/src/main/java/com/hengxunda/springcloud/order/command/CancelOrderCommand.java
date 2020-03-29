@@ -28,6 +28,6 @@ public class CancelOrderCommand implements Command<String> {
         Assert.state(status == OrderEnum.Status.PAY_FAIL, String.format("订单[%s]失败状态，禁止取消", orderNo));
         order.setStatus(OrderEnum.Status.CANCEL.code());
         orderMapper.update(order);
-        return null;
+        return orderNo;
     }
 }

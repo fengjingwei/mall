@@ -9,13 +9,13 @@ import com.hengxunda.springcloud.nio.handlers.user.LoginHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 import java.util.Objects;
 
 @Log4j2
-@SpringBootConfiguration
+@Configuration
 public class SocketCloseHandler implements Handlebars {
 
     public static final int CLOSE_MSG_NO = -100;

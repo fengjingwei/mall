@@ -1,8 +1,8 @@
 package com.hengxunda.springcloud.inventory.configuration;
 
 import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +21,7 @@ import java.time.LocalDate;
 import static com.google.common.collect.Lists.newArrayList;
 
 @EnableSwagger2
-@SpringBootConfiguration
+@Configuration
 @EnableSwaggerBootstrapUI
 public class SwaggerConfig {
 

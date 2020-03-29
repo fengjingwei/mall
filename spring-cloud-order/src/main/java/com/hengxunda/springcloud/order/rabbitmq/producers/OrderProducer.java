@@ -12,7 +12,7 @@ public class OrderProducer {
     @Autowired
     private AmqpTemplate amqpTemplate;
 
-    public void orderPay(Order order) {
-        amqpTemplate.convertAndSend(OrderConfig.ORDER_PAY_EXCHANGE, OrderConfig.ORDER_PAY_ROUTING_KEY, order);
+    public void payment(Order order) {
+        amqpTemplate.convertAndSend(OrderConfig.PAY_ORDER_EXCHANGE, OrderConfig.PAY_ORDER_ROUTING_KEY, order);
     }
 }

@@ -5,35 +5,35 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Map;
 
-@SpringBootConfiguration
+@Configuration
 public class OrderConfig {
 
-    public static final String ORDER_PAY_QUEUE = "order.pay.queue";
-    public static final String ORDER_PAY_EXCHANGE = "order.pay.exchange";
-    public static final String ORDER_PAY_ROUTING_KEY = "order.pay.routing.key";
+    public static final String PAY_ORDER_QUEUE = "pay.order.queue";
+    public static final String PAY_ORDER_EXCHANGE = "pay.order.exchange";
+    public static final String PAY_ORDER_ROUTING_KEY = "pay.order.routing.key";
 
-    public static final String ORDER_PAY_DELAY_QUEUE = "order.pay.delay.queue";
-    public static final String ORDER_PAY_DEAD_LETTER_EXCHANGE = "order.pay.delay.letter.exchange";
-    public static final String ORDER_PAY_DELAY_ROUTING_KEY = "order.pay.delay.routing.key";
+    public static final String PAY_ORDER_DELAY_QUEUE = "pay.order.delay.queue";
+    public static final String PAY_ORDER_DEAD_LETTER_EXCHANGE = "pay.order.delay.letter.exchange";
+    public static final String PAY_ORDER_DELAY_ROUTING_KEY = "pay.order.delay.routing.key";
 
     @Bean
-    public Queue orderPayQueue() {
-        return new Queue(ORDER_PAY_QUEUE, true);
+    public Queue payOrderQueue() {
+        return new Queue(PAY_ORDER_QUEUE, true);
     }
 
     @Bean
-    public DirectExchange orderPayDirectExchange() {
-        return new DirectExchange(ORDER_PAY_EXCHANGE, true, false);
+    public DirectExchange payOrderDirectExchange() {
+        return new DirectExchange(PAY_ORDER_EXCHANGE, true, false);
     }
 
     @Bean
-    public Binding orderPayBinding(Queue orderPayQueue, DirectExchange orderPayDirectExchange) {
-        return BindingBuilder.bind(orderPayQueue).to(orderPayDirectExchange).with(ORDER_PAY_ROUTING_KEY);
+    public Binding payOrderBinding(Queue payOrderQueue, DirectExchange payOrderDirectExchange) {
+        return BindingBuilder.bind(payOrderQueue).to(payOrderDirectExchange).with(PAY_ORDER_ROUTING_KEY);
     }
 
     /**
@@ -42,20 +42,20 @@ public class OrderConfig {
      * @return
      */
     @Bean
-    public Queue orderPayDelayQueue() {
+    public Queue payOrderDelayQueue() {
         Map<String, Object> params = Maps.newHashMap();
-        params.put("x-dead-letter-exchange", ORDER_PAY_QUEUE);
-        params.put("x-dead-letter-routing-key", ORDER_PAY_ROUTING_KEY);
-        return new Queue(ORDER_PAY_DELAY_QUEUE, true, false, false, params);
+        params.put("x-dead-letter-exchange", PAY_ORDER_QUEUE);
+        params.put("x-dead-letter-routing-key", PAY_ORDER_ROUTING_KEY);
+        return new Queue(PAY_ORDER_DELAY_QUEUE, true, false, false, params);
     }
 
     @Bean
-    public DirectExchange orderPayDeadLetterExchange() {
-        return new DirectExchange(ORDER_PAY_DEAD_LETTER_EXCHANGE, true, false);
+    public DirectExchange payOrderDeadLetterExchange() {
+        return new DirectExchange(PAY_ORDER_DEAD_LETTER_EXCHANGE, true, false);
     }
 
     @Bean
-    public Binding orderPayDelayBinding(Queue orderPayDelayQueue, DirectExchange orderPayDeadLetterExchange) {
-        return BindingBuilder.bind(orderPayDelayQueue).to(orderPayDeadLetterExchange).with(ORDER_PAY_DELAY_ROUTING_KEY);
+    public Binding payOrderDelayBinding(Queue payOrderDelayQueue, DirectExchange payOrderDeadLetterExchange) {
+        return BindingBuilder.bind(payOrderDelayQueue).to(payOrderDeadLetterExchange).with(PAY_ORDER_DELAY_ROUTING_KEY);
     }
 }

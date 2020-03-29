@@ -1,12 +1,12 @@
 package com.hengxunda.springcloud.account.configuration;
 
 import com.hengxunda.springcloud.account.interceptor.AuthenticationInterceptor;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@SpringBootConfiguration
+@Configuration
 public class AdminConfiguration {
 
     @Bean

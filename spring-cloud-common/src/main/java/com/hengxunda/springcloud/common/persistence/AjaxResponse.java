@@ -1,6 +1,7 @@
 package com.hengxunda.springcloud.common.persistence;
 
 import com.hengxunda.springcloud.common.enums.StatusCodeEnum;
+import com.hengxunda.springcloud.common.utils.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -19,10 +20,10 @@ public class AjaxResponse<T> implements Serializable {
     private T data;
 
     public static AjaxResponse success() {
-        return success("");
+        return success(StringUtils.EMPTY);
     }
 
-    public static AjaxResponse success(String msg) {
+    public static <T> AjaxResponse<T> success(String msg) {
         return success(msg, null);
     }
 
@@ -30,19 +31,19 @@ public class AjaxResponse<T> implements Serializable {
         return success(null, data);
     }
 
-    public static AjaxResponse success(String msg, Object data) {
+    public static <T> AjaxResponse<T> success(String msg, T data) {
         return get(StatusCodeEnum.SUCCESS.code(), msg, data);
     }
 
-    public static AjaxResponse error(String msg) {
+    public static <T> AjaxResponse<T> error(String msg) {
         return error(StatusCodeEnum.ERROR.code(), msg);
     }
 
-    public static AjaxResponse error(int code, String msg) {
+    public static <T> AjaxResponse<T> error(int code, String msg) {
         return get(code, msg, null);
     }
 
-    public static AjaxResponse get(int code, String msg, Object data) {
-        return new AjaxResponse(code, msg, data);
+    private static <T> AjaxResponse<T> get(int code, String msg, T data) {
+        return new AjaxResponse<>(code, msg, data);
     }
 }
