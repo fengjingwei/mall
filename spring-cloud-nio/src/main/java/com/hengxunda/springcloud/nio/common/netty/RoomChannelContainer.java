@@ -9,9 +9,7 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import lombok.extern.log4j.Log4j2;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Log4j2
 public class RoomChannelContainer {
@@ -19,7 +17,7 @@ public class RoomChannelContainer {
     /**
      * <roomId, <userId, channel>>
      */
-    public static final Map<String, Map<Long, Channel>> ROOM_ONLINE_MAPS = Maps.newConcurrentMap();
+    private static final Map<String, Map<Long, Channel>> ROOM_ONLINE_GROUPS = Maps.newConcurrentMap();
 
     /**
      * <roomId, channelGroup>
@@ -29,6 +27,25 @@ public class RoomChannelContainer {
     private static final ChannelGroup USER_GROUP = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
     private static final ChannelGroup VISITOR_GROUP = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+
+    public static void addOnlineGroups(Channel channel) {
+        String roomId = LoginHandler.UserUtils.getRoomId(channel);
+        Long userId = LoginHandler.UserUtils.getUserId(channel);
+        Map<Long, Channel> onlineGroups = Optional.ofNullable(ROOM_ONLINE_GROUPS.get(roomId)).orElseGet(HashMap::new);
+        onlineGroups.put(userId, channel);
+        ROOM_ONLINE_GROUPS.put(roomId, onlineGroups);
+    }
+
+    public static Channel getChannelInRoomAndUser(String roomId, Long userId) {
+        return ROOM_ONLINE_GROUPS.get(roomId).get(userId);
+    }
+
+    private static void removeOnlineGroups(Channel channel) {
+        String roomId = LoginHandler.UserUtils.getRoomId(channel);
+        Map<Long, Channel> onlineGroups = ROOM_ONLINE_GROUPS.get(roomId);
+        Long userId = LoginHandler.UserUtils.getUserId(channel);
+        onlineGroups.remove(userId);
+    }
 
     public static void addChannel(Channel channel) {
         String roomId = LoginHandler.UserUtils.getRoomId(channel);
@@ -43,11 +60,11 @@ public class RoomChannelContainer {
         }
     }
 
-    private static ChannelGroup getGroup(String key) {
-        ChannelGroup group = ROOM_GROUPS.get(key);
+    private static ChannelGroup getGroup(String roomId) {
+        ChannelGroup group = ROOM_GROUPS.get(roomId);
         if (Objects.isNull(group)) {
             group = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-            ROOM_GROUPS.put(key, group);
+            ROOM_GROUPS.put(roomId, group);
         }
         return group;
     }
@@ -58,6 +75,8 @@ public class RoomChannelContainer {
             ChannelGroup group = ROOM_GROUPS.get(roomId);
             if (Objects.nonNull(group)) {
                 group.remove(channel);
+
+                removeOnlineGroups(channel);
             }
         }
 
@@ -99,13 +118,13 @@ public class RoomChannelContainer {
     }
 
     private static boolean isOtherChannelOnline(Channel channel, List<Channel> channels) {
-        boolean result = false;
+        boolean online = false;
         try {
             Long currentUserId = LoginHandler.UserUtils.getUserId(channel);
             if (Objects.nonNull(currentUserId)) {
                 for (Channel nioChannel : channels) {
                     if (nioChannel != channel && currentUserId.equals(LoginHandler.UserUtils.getUserId(nioChannel))) {
-                        result = true;
+                        online = true;
                         break;
                     }
                 }
@@ -113,7 +132,7 @@ public class RoomChannelContainer {
         } catch (Exception e) {
             log.error("判断当前用户是否有多端在线失败", e);
         }
-        return result;
+        return online;
     }
 
     private static List<Channel> newList(ChannelGroup group) {

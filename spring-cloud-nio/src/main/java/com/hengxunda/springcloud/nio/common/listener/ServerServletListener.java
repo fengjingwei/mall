@@ -47,12 +47,13 @@ public class ServerServletListener implements ServletContextListener {
                             .handler(new LoggingHandler(LogLevel.INFO))
                             .option(ChannelOption.SO_REUSEADDR, true)
                             .childHandler(new ChannelInitializer<SocketChannel>() {
+
                                 @Override
                                 protected void initChannel(SocketChannel ch) {
-                                    ch.pipeline().addLast(new LineBasedFrameDecoder(128));
-                                    ch.pipeline().addLast(new StringDecoder());
-                                    ch.pipeline().addLast(new StringEncoder());
-                                    ch.pipeline().addLast(new PolicyHandler());
+                                    ch.pipeline().addLast("lineBasedFrameDecoder", new LineBasedFrameDecoder(128));
+                                    ch.pipeline().addLast("stringDecoder", new StringDecoder());
+                                    ch.pipeline().addLast("stringEncoder", new StringEncoder());
+                                    ch.pipeline().addLast("policyHandler", new PolicyHandler());
                                 }
                             });
                     serverChannel = b.bind(inetPort).sync().channel();

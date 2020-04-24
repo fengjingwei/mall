@@ -26,11 +26,11 @@ public class RabbitTemplateConfig implements ConfirmCallback, ReturnCallback {
     }
 
     /**
-     * 消息发送确认后回调
+     * 异步监听消息是否到达Exchange
      *
      * @param correlationData 消息唯一标识
-     * @param ack             是否确认
-     * @param cause           失败原因
+     * @param ack             是否确认，true表示ack，false表示nack
+     * @param cause           nack失败原因
      */
     @Override
     public void confirm(CorrelationData correlationData, boolean ack, String cause) {
@@ -40,12 +40,15 @@ public class RabbitTemplateConfig implements ConfirmCallback, ReturnCallback {
     }
 
     /**
-     * 消息发送失败后回调
+     * 异步监听消息是否到达Queue
+     * 触发回调的前提：
+     * 1.消息已经到达Exchange
+     * 2.消息无法到达Queue，比如Exchange找不到和RoutingKey绑定的Queue
      *
      * @param message    消息主体
      * @param replyCode  失败状态码
      * @param replyText  失败原因
-     * @param exchange   交换器
+     * @param exchange   交换机
      * @param routingKey 路由键
      */
     @Override

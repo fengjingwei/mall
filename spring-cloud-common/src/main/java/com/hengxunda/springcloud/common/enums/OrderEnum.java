@@ -26,7 +26,7 @@ public interface OrderEnum {
         private final String msg;
 
         public static Status acquireByCode(final int code) {
-            return Arrays.stream(values()).filter(v -> v.code == code).findFirst().orElse(null);
+            return Arrays.stream(values()).filter(order -> order.code == code).findFirst().orElse(null);
         }
 
         public int code() {
