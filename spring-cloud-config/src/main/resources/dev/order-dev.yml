@@ -17,14 +17,14 @@ spring:
       names: master,slave
       master:
         type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://192.168.1.139:3306/mall_order?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.0.184:3306/mall_order?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
         password: 123456
       slave:
         type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://192.168.1.227:3306/mall_order?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.0.184:3306/mall_order?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
         password: 123456
     #masterslave:
@@ -52,8 +52,8 @@ spring:
       #binding-tables: t_order
 
   #datasource:
-  # driver-class-name: com.mysql.cj.jdbc.Driver
-  # url: jdbc:mysql://192.168.1.139:3306/mall_order?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+  # driver-class-name: com.mysql.jdbc.Driver
+  # url: jdbc:mysql://192.168.0.184:3306/mall_order?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
   # username: root
   # password: 123456
   # dbcp2:
@@ -73,9 +73,9 @@ spring:
     base-url: http://localhost:9412
 
   rabbitmq:
-    addresses: 192.168.1.237:5672,192.168.1.239:5672,192.168.1.240:5672
+    addresses: 192.168.0.88:5673
     username: admin
-    password: KjVuBVWoa7u56G1X
+    password: admin
     virtual-host: /
     publisher-confirms: true
     publisher-returns: true
@@ -87,9 +87,9 @@ spring:
 
   redis:
     database: 0
-    host: 192.168.1.245
+    host: 192.168.0.184
     port: 6379
-    password: o^mt9#nIvv7u%`
+    password: 123456
     jedis:
       pool:
         max-active: 8

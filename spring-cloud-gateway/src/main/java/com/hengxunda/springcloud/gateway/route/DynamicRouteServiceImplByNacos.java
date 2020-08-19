@@ -26,7 +26,7 @@ public class DynamicRouteServiceImplByNacos {
 
     @PostConstruct
     public void initialize() {
-        // dynamicRouteByNacosListener("192.168.1.135:8848", "gateway-dynamic-route-dev.json", "DEFAULT_GROUP", 5000L);
+        // dynamicRouteByNacosListener("192.168.0.88:8848", "gateway-dynamic-route-dev.json", "DEFAULT_GROUP", 5000L);
         dynamicRouteByNacosListener(nacosGatewayProperties.getServerAddr(), nacosGatewayProperties.getDataId(), nacosGatewayProperties.getGroup(), nacosGatewayProperties.getTimeout());
     }
 

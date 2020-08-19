@@ -1,7 +1,7 @@
 package com.hengxunda.springcloud.nio.common.netty.codec;
 
 import com.hengxunda.springcloud.nio.common.dto.BaseMessage;
-import com.hengxunda.springcloud.nio.common.handler.Handlebars;
+import com.hengxunda.springcloud.nio.common.handler.Handleable;
 import com.hengxunda.springcloud.nio.common.handler.MapperHandler;
 import com.hengxunda.springcloud.nio.common.handler.SocketCloseHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -11,7 +11,7 @@ public final class DispatchHandler extends SimpleChannelInboundHandler<BaseMessa
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
-        Handlebars handler = MapperHandler.getHandler(SocketCloseHandler.CLOSE_MSG_NO);
+        Handleable handler = MapperHandler.getHandler(SocketCloseHandler.CLOSE_MSG_NO);
         if (handler != null) {
             handler.process(ctx, null);
         }
@@ -19,7 +19,7 @@ public final class DispatchHandler extends SimpleChannelInboundHandler<BaseMessa
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, BaseMessage msg) {
-        Handlebars handler = MapperHandler.getHandler(msg.getMsgNo());
+        Handleable handler = MapperHandler.getHandler(msg.getMsgNo());
         if (handler != null) {
             handler.process(ctx, msg);
         }

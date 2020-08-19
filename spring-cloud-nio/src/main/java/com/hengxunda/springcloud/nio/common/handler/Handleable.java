@@ -3,7 +3,7 @@ package com.hengxunda.springcloud.nio.common.handler;
 import com.hengxunda.springcloud.nio.common.dto.BaseMessage;
 import io.netty.channel.ChannelHandlerContext;
 
-public interface Handlebars {
+public interface Handleable {
 
     /**
      * 初始化将自己加入到HandlerMapper中

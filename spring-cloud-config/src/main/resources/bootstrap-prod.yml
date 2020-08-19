@@ -7,7 +7,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.1.135:8848
+        server-addr: 192.168.0.88:8848
         namespace: 2dd4a43c-2440-4f01-93bf-9e1b3b930de4
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
@@ -22,12 +22,12 @@ spring:
           username: Your git account
           password: Your git password
   zipkin:
-    base-url: http://192.168.1.135:9413
+    base-url: http://192.168.0.88:9413
 
 #eureka:
 #  client:
 #    service-url:
-#      default-zone: http://192.168.1.135:8761/eureka/,http://192.168.1.135:8861/eureka/,http://192.168.1.135:8961/eureka/
+#      default-zone: http://192.168.0.88:8761/eureka/,http://192.168.0.88:8861/eureka/,http://192.168.0.88:8961/eureka/
 #  instance:
 #    prefer-ip-address: true
 #    instance-id: ${spring.cloud.client.ip-address}:${server.port}

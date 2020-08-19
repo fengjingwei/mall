@@ -6,8 +6,8 @@ server:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.1.139:3306/mall_inventory?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.0.184:3306/mall_inventory?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: 123456
     dbcp2:
@@ -24,13 +24,13 @@ spring:
   application:
     name: inventory-service
   zipkin:
-    base-url: http://192.168.1.135:9413
+    base-url: http://192.168.0.88:9413
 
   redis:
     database: 0
-    host: 192.168.1.245
+    host: 192.168.0.184
     port: 6379
-    password: o^mt9#nIvv7u%`
+    password: 123456
     jedis:
       pool:
         max-active: 8
@@ -50,7 +50,7 @@ mybatis:
 #eureka:
 #  client:
 #    service-url:
-#      default-zone: http://192.168.1.135:8761/eureka/,http://192.168.1.135:8861/eureka/,http://192.168.1.135:8961/eureka/
+#      default-zone: http://192.168.0.88:8761/eureka/,http://192.168.0.88:8861/eureka/,http://192.168.0.88:8961/eureka/
 #  instance:
 #    prefer-ip-address: true
 #    instance-id: ${spring.cloud.client.ip-address}:${server.port}

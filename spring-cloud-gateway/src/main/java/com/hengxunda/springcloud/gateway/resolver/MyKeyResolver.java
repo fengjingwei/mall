@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import reactor.core.publisher.Mono;
 
+import java.util.Objects;
+
 @Configuration
 @ComponentScan(basePackages = {"com.hengxunda.springcloud.service.common.redis"})
 public class MyKeyResolver {
@@ -30,13 +32,13 @@ public class MyKeyResolver {
             redisHelper.putString(GatewayConstant.GATEWAY_RATE_LIMITER, filterKey);
         }
         final String finalFilterKey = filterKey;
-        return exchange -> Mono.just(exchange.getRequest().getQueryParams().getFirst(finalFilterKey));
+        return exchange -> Mono.just(Objects.requireNonNull(exchange.getRequest().getQueryParams().getFirst(finalFilterKey)));
     }
 
     @Primary
     @Bean("ipKeyResolver")
     public KeyResolver ipKeyResolver() {
-        return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getHostName());
+        return exchange -> Mono.just(Objects.requireNonNull(exchange.getRequest().getRemoteAddress()).getHostName());
     }
 
     @Bean("apiKeyResolver")

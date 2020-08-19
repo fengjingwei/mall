@@ -17,7 +17,7 @@ public class CreateOrderCommandBus implements CommandBus {
     @Override
     public <T> Object dispatch(Command command, T model) {
         Order order = (Order) command.execute(model);
-        domainEventPublisher.publish(new CreateOrderEvent(order));
+        domainEventPublisher.post(new CreateOrderEvent(order));
         return order;
     }
 }

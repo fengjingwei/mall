@@ -6,8 +6,8 @@ server:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.1.139:3306/mall_account?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.0.184:3306/mall_account?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: 123456
     dbcp2:
@@ -28,9 +28,9 @@ spring:
 
   redis:
     database: 0
-    host: 192.168.1.245
+    host: 192.168.0.184
     port: 6379
-    password: o^mt9#nIvv7u%`
+    password: 123456
     jedis:
       pool:
         max-active: 8

@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct;
 import java.util.Objects;
 
 @Log4j2
-public abstract class AbstractBaseHandler<R> implements Handlebars {
+public abstract class AbstractBaseHandler<R> implements Handleable {
 
     @PostConstruct
     public void postConstruct() {

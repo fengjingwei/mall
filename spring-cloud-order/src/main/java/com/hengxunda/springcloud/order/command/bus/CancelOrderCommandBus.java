@@ -16,7 +16,7 @@ public class CancelOrderCommandBus implements CommandBus {
     @Override
     public <T> Object dispatch(Command command, T model) {
         String orderNo = (String) command.execute(model);
-        domainEventPublisher.publish(new CancelOrderEvent(orderNo));
+        domainEventPublisher.post(new CancelOrderEvent(orderNo));
         return orderNo;
     }
 }

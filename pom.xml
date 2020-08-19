@@ -28,6 +28,7 @@
         <spring.cloud.version>Finchley.RELEASE</spring.cloud.version>
         <swagger.bootstrap.ui.version>1.9.5</swagger.bootstrap.ui.version>
         <spring.cloud.hmily.version>2.0.6-RELEASE</spring.cloud.hmily.version>
+        <spring.data.mongodb.version>2.1.3.RELEASE</spring.data.mongodb.version>
         <!--<spring.cloud.config.version>2.1.5.RELEASE</spring.cloud.config.version>-->
         <spring.cloud.zipkin.version>2.0.4.RELEASE</spring.cloud.zipkin.version>
         <spring.cloud.bus.amqp.version>2.0.2.RELEASE</spring.cloud.bus.amqp.version>
@@ -133,6 +134,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-actuator</artifactId>
                 <version>${spring.boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-mongodb</artifactId>
+                <version>${spring.data.mongodb.version}</version>
             </dependency>
 
             <dependency>

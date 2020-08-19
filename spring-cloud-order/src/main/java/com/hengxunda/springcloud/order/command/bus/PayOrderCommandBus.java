@@ -16,7 +16,7 @@ public class PayOrderCommandBus implements CommandBus {
     @Override
     public <T> Object dispatch(Command command, T model) {
         String orderNo = (String) command.execute(model);
-        domainEventPublisher.publish(new PayOrderEvent(orderNo));
+        domainEventPublisher.post(new PayOrderEvent(orderNo));
         return orderNo;
     }
 }

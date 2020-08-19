@@ -5,7 +5,7 @@ spring:
   application:
     name: eureka-server
   zipkin:
-    base-url: http://192.168.1.135:9412
+    base-url: http://192.168.0.88:9412
 
 eureka:
   instance:
@@ -22,5 +22,5 @@ eureka:
     # 表示是否从Eureka获取注册信息，如果是单一节点，不需要同步其他Eureka节点，则可以设置为false，但此处为集群，应该设置为true
     fetch-registry: true
     service-url:
-      default-zone: http://192.168.1.135:8761/eureka/,http://192.168.1.135:8861/eureka/,http://192.168.1.135:8961/eureka/
+      default-zone: http://192.168.0.88:8761/eureka/,http://192.168.0.88:8861/eureka/,http://192.168.0.88:8961/eureka/
     eureka-service-url-poll-interval-seconds: 60

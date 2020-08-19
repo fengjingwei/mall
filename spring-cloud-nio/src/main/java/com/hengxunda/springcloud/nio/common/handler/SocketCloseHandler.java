@@ -16,7 +16,7 @@ import java.util.Objects;
 
 @Log4j2
 @Configuration
-public class SocketCloseHandler implements Handlebars {
+public class SocketCloseHandler implements Handleable {
 
     public static final int CLOSE_MSG_NO = -100;
 
