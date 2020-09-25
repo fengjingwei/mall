@@ -74,7 +74,7 @@ public class PaymentServiceImpl implements PaymentService {
         log.info("{}", "===========执行spring cloud扣减库存==========");
         final String lockKey = "order:pay:" + order.getOrderNo();
         log.info("lock key : {}", lockKey);
-        final boolean b = RedissLockUtils.tryLock(lockKey, 5, 300);
+        final boolean b = RedissLockUtils.tryLock(lockKey, 5, 30);
         try {
             if (b) {
                 inventoryClient.decrease(inventoryDTO);

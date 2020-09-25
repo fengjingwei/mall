@@ -7,12 +7,12 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.0.88:8848
+        server-addr: 192.168.0.88:8858
         namespace: 2dd4a43c-2440-4f01-93bf-9e1b3b930de4
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         namespace: ${spring.cloud.nacos.discovery.namespace}
-        prefix: account
+        prefix: config
         file-extension: yaml
     config:
       server:

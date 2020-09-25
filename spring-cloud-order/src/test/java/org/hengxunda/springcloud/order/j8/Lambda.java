@@ -1,6 +1,7 @@
 package org.hengxunda.springcloud.order.j8;
 
 import com.google.common.collect.Lists;
+import com.hengxunda.springcloud.common.utils.FastJsonUtils;
 
 import javax.swing.text.DateFormatter;
 import java.text.SimpleDateFormat;
@@ -109,6 +110,17 @@ public class Lambda {
                 .collect(Collectors.toList());
 
         distinctStr.forEach(System.out::println);
+
+        String a = "123";
+        System.out.println("a = " + a);
+        String b = "abc";
+        String s = FastJsonUtils.toJSONString(a);
+        System.out.println("s = " + s);
+        String ss = FastJsonUtils.toJSONString(b);
+        System.out.println("ss = " + ss);
+        Long c = 888L;
+        String sss = FastJsonUtils.toJSONString(c);
+        System.out.println("sss = " + sss);
     }
 
     private static int addUp(Stream<Integer> numbers) {
