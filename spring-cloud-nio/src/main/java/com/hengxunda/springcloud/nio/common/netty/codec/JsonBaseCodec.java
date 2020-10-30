@@ -33,7 +33,7 @@ public class JsonBaseCodec extends MessageToMessageCodec<String, BaseMessage> {
             sendExceptionResponse(ctx);
             return;
         }
-        log.info("服务端收到 : " + msg);
+        log.info("服务端收到: " + msg);
         BaseMessage receivedMsg;
         try {
             String jsonMsg = StringUtils.substring(msg, 5);
@@ -42,8 +42,8 @@ public class JsonBaseCodec extends MessageToMessageCodec<String, BaseMessage> {
             receivedMsg.setMsgNo(Integer.valueOf(StringUtils.substring(msg, 1, 5)));
             out.add(receivedMsg);
         } catch (Exception e) {
-            log.error("消息解析出错, receive msg : {}", msg);
-            log.error("异常信息为:", e);
+            log.error("消息解析出错, receive msg: {}", msg);
+            log.error("异常信息为: {}", e);
             sendExceptionResponse(ctx);
         }
     }
@@ -65,10 +65,10 @@ public class JsonBaseCodec extends MessageToMessageCodec<String, BaseMessage> {
             sb.append(msg.getMsgType())
                     .append(StringUtils.leftPad(Integer.toString(msg.getMsgNo()), 4, '0'))
                     .append(FastJsonUtils.toJSONString(msg));
-            log.info("服务端发送 : {}", sb.toString());
+            log.info("服务端发送: {}", sb.toString());
             out.add(sb.toString());
         } catch (Exception e) {
-            log.error("消息序列化为json串出错,异常信息为:", e);
+            log.error("消息序列化为json串出错, 异常信息为: {}", e);
         }
     }
 

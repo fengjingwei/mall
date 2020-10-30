@@ -61,7 +61,7 @@ public class NioServer {
                 serverChannel = b.bind(port).sync().channel();
             }
             log.info("开启{}端口成功", Joiner.on(",").join(ports));
-            log.info("服务端开启,等待客户端连接...");
+            log.info("服务端启动成功, 等待客户端连接...");
             serverChannel.closeFuture().sync();
         } catch (Exception e) {
             log.error("开启{}端口失败", e);

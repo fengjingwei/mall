@@ -2,6 +2,7 @@ package com.hengxunda.springcloud.gateway.configuration;
 
 import com.hengxunda.springcloud.gateway.filter.AuthenticationGatewayStrategyRouteFilter;
 import com.hengxunda.springcloud.gateway.filter.GatewayStrategyRouteFilter;
+import com.hengxunda.springcloud.service.common.redis.RedisHelper;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -33,5 +34,11 @@ public class GatewayStrategyAutoConfiguration {
                 return super.filter(exchange, chain);
             }
         };
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public RedisHelper redisHelper() {
+        return new RedisHelper();
     }
 }

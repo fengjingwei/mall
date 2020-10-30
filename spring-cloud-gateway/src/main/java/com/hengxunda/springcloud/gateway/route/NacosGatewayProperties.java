@@ -5,12 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.alibaba.nacos.NacosConfigProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Configuration
+@Component
 @ConfigurationProperties(prefix = NacosConfigProperties.PREFIX)
 public class NacosGatewayProperties {
 

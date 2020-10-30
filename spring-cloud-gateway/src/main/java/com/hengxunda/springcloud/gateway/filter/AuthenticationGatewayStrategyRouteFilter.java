@@ -24,7 +24,6 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
@@ -38,7 +37,7 @@ public class AuthenticationGatewayStrategyRouteFilter extends AbstractGatewayStr
     /**
      * 初始化跳过网关鉴权路径配置,后期移到管理后台维护
      */
-    @PostConstruct
+    // @PostConstruct
     public void initSkipAuthenticationPath() {
         if (redisHelper.hasKey(GatewayConstant.GATEWAY_AUTH_SKIP_URLS)) {
             redisHelper.removeObject(GatewayConstant.GATEWAY_AUTH_SKIP_URLS);
@@ -112,7 +111,7 @@ public class AuthenticationGatewayStrategyRouteFilter extends AbstractGatewayStr
 
     private byte[] buildExchangeResponse(final ServerHttpResponse exchangeResponse, final String message) {
         exchangeResponse.setStatusCode(HttpStatus.OK);
-        exchangeResponse.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
+        exchangeResponse.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         return FastJsonUtils.toJSONString(AjaxResponse.error(HttpStatus.UNAUTHORIZED.value(), message)).getBytes(StandardCharsets.UTF_8);
     }
 

@@ -15,7 +15,8 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateEvent;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.codec.Charsets;
+
+import java.nio.charset.StandardCharsets;
 
 @Log4j2
 @NoArgsConstructor
@@ -51,8 +52,8 @@ public final class InitialDemuxHandler extends ChannelInboundHandlerAdapter {
             if (isNormalSocketRequest(in)) {
                 pipeline.addBefore(baseName, "lengthFieldDecoder", new LengthFieldBasedFrameDecoder(409600000, 0, 4, 0, 4));
                 pipeline.addBefore(baseName, "lengthFieldEncoder", new LengthFieldPrepender(4));
-                pipeline.addBefore(baseName, "stringDecode", new StringDecoder(Charsets.UTF_8));
-                pipeline.addBefore(baseName, "stringEncode", new StringEncoder(Charsets.UTF_8));
+                pipeline.addBefore(baseName, "stringDecode", new StringDecoder(StandardCharsets.UTF_8));
+                pipeline.addBefore(baseName, "stringEncode", new StringEncoder(StandardCharsets.UTF_8));
                 if (pipeline.get(InitialDemuxHandler.class) != null) {
                     pipeline.remove(InitialDemuxHandler.class);
                 }

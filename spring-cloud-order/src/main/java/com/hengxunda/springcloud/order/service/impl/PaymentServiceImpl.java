@@ -50,7 +50,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    @Hmily(confirmMethod = "confirmOrderStatus", cancelMethod = "cancelOrderStatus")
+    @Hmily(confirmMethod = "confirmMethod", cancelMethod = "cancelMethod")
     public void makePayment(Order order) {
         order.setStatus(OrderEnum.Status.PAYING.code());
         orderMapper.update(order);
@@ -86,13 +86,13 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
 
-    public void confirmOrderStatus(Order order) {
+    public void confirmMethod(Order order) {
         order.setStatus(OrderEnum.Status.PAY_SUCCESS.code());
         orderMapper.update(order);
         log.info("{}", "===========进行订单confirm操作完成==========");
     }
 
-    public void cancelOrderStatus(Order order) {
+    public void cancelMethod(Order order) {
         order.setStatus(OrderEnum.Status.PAY_FAIL.code());
         orderMapper.update(order);
         log.info("{}", "===========进行订单cancel操作完成==========");

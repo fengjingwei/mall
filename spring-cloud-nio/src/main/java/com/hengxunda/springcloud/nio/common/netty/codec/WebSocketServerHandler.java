@@ -68,7 +68,7 @@ public final class WebSocketServerHandler extends SimpleChannelInboundHandler<Ob
         }
 
         if (!(frame instanceof TextWebSocketFrame)) {
-            log.error("WebSocket服务端仅支持文本消息,不支持二进制消息");
+            log.error("WebSocket服务端仅支持文本消息, 不支持二进制消息");
             throw new UnsupportedOperationException(String.format("%s frame types not supported", frame.getClass().getName()));
         }
 
