@@ -132,6 +132,24 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.api.version}</version>
         </dependency>
+
+        <!--<dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-sdk</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-exporter-otlp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-semconv</artifactId>
+            <version>1.20.1-alpha</version>
+        </dependency>-->
     </dependencies>
 
 </project>

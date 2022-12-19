@@ -23,7 +23,7 @@
         <property name="repositorySupport" value="redis"/>
         <property name="hmilyRedisConfig">
             <bean class="org.dromara.hmily.common.config.HmilyRedisConfig">
-                <property name="hostName" value="192.168.0.184"/>
+                <property name="hostName" value="127.0.0.1"/>
                 <property name="port" value="6379"/>
                 <property name="password" value="123456"/>
             </bean>
