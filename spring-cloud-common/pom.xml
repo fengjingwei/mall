@@ -22,7 +22,7 @@
         <fastjson.version>1.2.73</fastjson.version>
         <guava.version>29.0-jre</guava.version>
         <httpclient.version>4.5.12</httpclient.version>
-        <pagehelper.version>5.2.0</pagehelper.version>
+        <pagehelper.version>5.3.1</pagehelper.version>
         <jjwt.version>0.9.1</jjwt.version>
         <findbugs.version>3.0.2</findbugs.version>
         <kryo.version>4.0.2</kryo.version>
