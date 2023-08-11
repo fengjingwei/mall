@@ -19,7 +19,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <commons.lang3.version>3.11</commons.lang3.version>
-        <fastjson.version>1.2.73</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <guava.version>29.0-jre</guava.version>
         <httpclient.version>4.5.12</httpclient.version>
         <pagehelper.version>5.3.1</pagehelper.version>
