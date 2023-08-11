@@ -20,7 +20,7 @@
         <java.version>1.8</java.version>
         <commons.lang3.version>3.11</commons.lang3.version>
         <fastjson.version>1.2.83</fastjson.version>
-        <guava.version>29.0-jre</guava.version>
+        <guava.version>32.0.0-jre</guava.version>
         <httpclient.version>4.5.12</httpclient.version>
         <pagehelper.version>5.3.1</pagehelper.version>
         <jjwt.version>0.9.1</jjwt.version>
