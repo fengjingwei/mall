@@ -13,10 +13,10 @@ public class MyRangeUserIdModuloShardingTableAlgorithm implements RangeShardingA
     @Override
     public Collection<String> doSharding(Collection<String> availableTargetNames, RangeShardingValue<String> rangeShardingValue) {
         final Range<String> valueRange = rangeShardingValue.getValueRange();
-        final Long lowerEndpoint = Long.valueOf(valueRange.lowerEndpoint());
-        final Long upperEndpoint = Long.valueOf(valueRange.upperEndpoint());
+        final long lowerEndpoint = Long.parseLong(valueRange.lowerEndpoint());
+        final long upperEndpoint = Long.parseLong(valueRange.upperEndpoint());
         final ArrayList<String> collection = Lists.newArrayList();
-        for (Long i = lowerEndpoint; i <= upperEndpoint; i++) {
+        for (long i = lowerEndpoint; i <= upperEndpoint; i++) {
             for (String tableName : availableTargetNames) {
                 if (tableName.endsWith(i % availableTargetNames.size() + "")) {
                     collection.add(tableName);

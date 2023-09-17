@@ -12,8 +12,8 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
 
     private static final char SEPARATOR = '_';
     private static final char[] HEX_CHARS = "0123456789ABCDEF".toCharArray();
-    private static Pattern REPLACE_NULL_PATTERN = Pattern.compile("//r|//n|//u3000");
-    private static Pattern NULL_PATTERN = Pattern.compile("^(//s)*$");
+    private static final Pattern REPLACE_NULL_PATTERN = Pattern.compile("//r|//n|//u3000");
+    private static final Pattern NULL_PATTERN = Pattern.compile("^(//s)*$");
 
     /**
      * 转换为字节数组
@@ -250,7 +250,7 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
                             // 转换String类型
                             newInput = String.valueOf(method.invoke(pInput));
                             // 转换hasNext的值
-                            return !Boolean.valueOf(newInput);
+                            return !Boolean.parseBoolean(newInput);
                         } catch (Exception exxx) {
                             // 以上场合不满足
                             return false;

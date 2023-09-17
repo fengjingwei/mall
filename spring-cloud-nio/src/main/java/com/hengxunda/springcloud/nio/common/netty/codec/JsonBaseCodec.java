@@ -42,8 +42,7 @@ public class JsonBaseCodec extends MessageToMessageCodec<String, BaseMessage> {
             receivedMsg.setMsgNo(Integer.valueOf(StringUtils.substring(msg, 1, 5)));
             out.add(receivedMsg);
         } catch (Exception e) {
-            log.error("消息解析出错, receive msg: {}", msg);
-            log.error("异常信息为: {}", e);
+            log.error("消息解析出错, receive msg: {}", msg, e);
             sendExceptionResponse(ctx);
         }
     }
@@ -68,7 +67,7 @@ public class JsonBaseCodec extends MessageToMessageCodec<String, BaseMessage> {
             log.info("服务端发送: {}", sb.toString());
             out.add(sb.toString());
         } catch (Exception e) {
-            log.error("消息序列化为json串出错, 异常信息为: {}", e);
+            log.error("消息序列化为json串出错", e);
         }
     }
 

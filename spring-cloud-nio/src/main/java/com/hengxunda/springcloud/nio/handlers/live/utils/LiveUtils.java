@@ -14,7 +14,7 @@ import java.util.Set;
 
 public abstract class LiveUtils {
 
-    private static Map<String, RoomLiveStream> roomLives = Maps.newConcurrentMap();
+    private static final Map<String, RoomLiveStream> roomLives = Maps.newConcurrentMap();
 
     public static void put(RoomLiveStream stream) {
         if (!roomLives.containsKey(stream.getRoomId())) {

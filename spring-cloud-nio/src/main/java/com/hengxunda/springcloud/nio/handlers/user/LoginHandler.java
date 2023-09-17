@@ -23,7 +23,7 @@ import java.util.Objects;
 @Component
 public class LoginHandler extends AbstractBaseHandler<LoginRequest> {
 
-    private List<HandlerListener> handlerListeners = Lists.newArrayList();
+    private final List<HandlerListener> handlerListeners = Lists.newArrayList();
 
     @Override
     public int msgNo() {

@@ -29,7 +29,7 @@ import java.util.concurrent.*;
 public class ServerServletListener implements ServletContextListener {
 
     private static final int MAX_THREAD = NettyRuntime.availableProcessors() << 1;
-    private static int inetPort = 843;
+    private final int inetPort = 843;
     private Channel serverChannel;
 
     @Override

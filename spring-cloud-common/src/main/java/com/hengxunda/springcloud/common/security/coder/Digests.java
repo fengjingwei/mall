@@ -18,7 +18,7 @@ public class Digests {
     private static final String SHA1 = "SHA-1";
     private static final String MD5 = "MD5";
 
-    private static SecureRandom random = new SecureRandom();
+    private static final SecureRandom random = new SecureRandom();
 
     /**
      * 对输入字符串进行md5散列.

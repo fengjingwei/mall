@@ -14,9 +14,9 @@ public interface MsgNoEnum {
         BAD_REQUEST(404, "未知请求"),
         ;
 
-        private Integer code;
+        private final Integer code;
 
-        private String msg;
+        private final String msg;
     }
 
     @Getter
@@ -30,9 +30,9 @@ public interface MsgNoEnum {
         USER_LEAVE_BROADCAST(1101, "广播用户离开房间消息"),
         ;
 
-        private Integer code;
+        private final Integer code;
 
-        private String msg;
+        private final String msg;
     }
 
     @Getter
@@ -41,9 +41,9 @@ public interface MsgNoEnum {
 
         ROOM_INFO(200, "房间信息消息");
 
-        private Integer code;
+        private final Integer code;
 
-        private String msg;
+        private final String msg;
     }
 
     @Getter
@@ -59,9 +59,9 @@ public interface MsgNoEnum {
         CHAT_P2P_BROADCAST(1310, "广播私聊消息"),
         ;
 
-        private Integer code;
+        private final Integer code;
 
-        private String msg;
+        private final String msg;
     }
 
     @Getter
@@ -81,8 +81,8 @@ public interface MsgNoEnum {
         LIVE_GET_STREAM(403, "获取某个直播流信息消息"),
         ;
 
-        private Integer code;
+        private final Integer code;
 
-        private String msg;
+        private final String msg;
     }
 }

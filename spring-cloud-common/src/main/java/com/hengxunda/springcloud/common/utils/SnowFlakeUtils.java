@@ -27,11 +27,11 @@ public final class SnowFlakeUtils {
 
     private static final SnowFlakeUtils ID_WORKER_UTILS = new SnowFlakeUtils();
 
-    private long workerId;
+    private final long workerId;
 
-    private long datacenterId;
+    private final long datacenterId;
 
-    private long idepoch;
+    private final long idepoch;
 
     private long sequence = '0';
 

@@ -10,11 +10,10 @@ import java.util.concurrent.TimeUnit;
 
 public class SchemaCache {
 
-    private Cache<Class<?>, Schema<?>> cache = CacheBuilder.newBuilder()
-            .maximumSize(1024).expireAfterWrite(1, TimeUnit.HOURS).build();
+    private final Cache<Class<?>, Schema<?>> cache = CacheBuilder.newBuilder().maximumSize(1024).expireAfterWrite(1, TimeUnit.HOURS).build();
 
     protected static SchemaCache getInstance() {
-        return SchemaCacheHolder.cache;
+        return SchemaCacheHolder.CACHE;
     }
 
     private Schema<?> get(final Class<?> cls, final Cache<Class<?>, Schema<?>> cache) {
@@ -30,6 +29,6 @@ public class SchemaCache {
     }
 
     private static class SchemaCacheHolder {
-        private static SchemaCache cache = new SchemaCache();
+        private static final SchemaCache CACHE = new SchemaCache();
     }
 }

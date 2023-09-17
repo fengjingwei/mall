@@ -9,7 +9,7 @@ import java.util.stream.StreamSupport;
 
 public class ExtensionLoader<T> {
 
-    private Class<T> type;
+    private final Class<T> type;
 
     private ExtensionLoader(final Class<T> type) {
         this.type = type;

@@ -47,8 +47,7 @@ public abstract class AbstractBaseHandler<R> implements Handleable {
                 channel.writeAndFlush(responseOk);
             }
         } catch (Exception e) {
-            log.error("处理消息失败, request: {}", request);
-            log.error("异常信息为: {}", e);
+            log.error("处理消息失败, request: {}", request, e);
             if (isNeedResponse()) {
                 BaseMessage responseException = BaseMessage.getResponseException(request);
                 responseException.setMessage(e.getMessage());

@@ -18,8 +18,8 @@ import java.util.Objects;
 public abstract class LiveAddressUtils {
 
     private static final Map<String, LVBChannel> ROOMID_ADDRESS = Maps.newHashMap();
-    private static BaiduCloudService baiduCloudService = SpringContextHolder.getBean(BaiduCloudService.class);
-    private static boolean isIncited = false;
+    private static final BaiduCloudService BAIDU_CLOUD_SERVICE = SpringContextHolder.getBean(BaiduCloudService.class);
+    private static volatile boolean isIncited = false;
 
     public static void put(String roomId, LVBChannel address) {
         ROOMID_ADDRESS.put(roomId, address);
@@ -34,15 +34,15 @@ public abstract class LiveAddressUtils {
 
     private static void initSession() {
         if (!isIncited) {
-            ListStreamResponse listResponseReady = baiduCloudService.listStream("play.ofweek.com", "READY");
-            ListStreamResponse listResponseOngoing = baiduCloudService.listStream("play.ofweek.com", "ONGOING");
+            ListStreamResponse listResponseReady = BAIDU_CLOUD_SERVICE.listStream("play.ofweek.com", "READY");
+            ListStreamResponse listResponseOngoing = BAIDU_CLOUD_SERVICE.listStream("play.ofweek.com", "ONGOING");
             List<LiveStream> streams = Collections3Utils.union(listResponseReady.getStreams(), listResponseOngoing.getStreams());
 
             streams.forEach(liveStream -> {
                 String pushStream = liveStream.getPublish().getPushStream();
                 if (Objects.nonNull(pushStream) && pushStream.contains(LiveAddressHandler.LIVE_NAME_PREFIX)) {
                     String roomId = StringUtils.substringAfter(pushStream, "_");
-                    GetStreamResponse streamResponse = baiduCloudService.getStream("play.ofweek.com", "liveofweek", pushStream);
+                    GetStreamResponse streamResponse = BAIDU_CLOUD_SERVICE.getStream("play.ofweek.com", "liveofweek", pushStream);
                     LiveAddressUtils.put(roomId, newLVBChannel(streamResponse));
                 }
             });

@@ -18,10 +18,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <druid.version>1.1.23</druid.version>
-        <disruptor.version>3.4.2</disruptor.version>
+        <druid.version>1.2.16</druid.version>
+        <disruptor.version>3.4.4</disruptor.version>
         <sharding.jdbc.version>4.1.1</sharding.jdbc.version>
-        <spring.cloud.hmily.version>2.0.6-RELEASE</spring.cloud.hmily.version>
+        <spring.cloud.hmily.version>2.1.2</spring.cloud.hmily.version>
     </properties>
 
     <dependencies>
